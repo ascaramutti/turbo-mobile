@@ -1,0 +1,68 @@
+package com.turbo.mobile.data.model;
+
+public class VehicleDocumentItem {
+
+    private long id;
+    private DocumentType type;
+    private DocumentStatus status;
+    private String rejectionReason;
+    private String filePath;
+    private long uploadedAt;
+    private DocumentAction allowedAction;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public DocumentType getType() {
+        return type;
+    }
+
+    public void setType(DocumentType type) {
+        this.type = type;
+    }
+
+    public DocumentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DocumentStatus status) {
+        this.status = status;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public long getUploadedAt() {
+        return uploadedAt;
+    }
+
+    public void setUploadedAt(long uploadedAt) {
+        this.uploadedAt = uploadedAt;
+    }
+
+    public DocumentAction getAllowedAction() {
+        return allowedAction;
+    }
+
+    public void setAllowedAction(DocumentAction allowedAction) {
+        this.allowedAction = allowedAction;
+    }
+}

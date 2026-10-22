@@ -1,0 +1,22 @@
+package com.turbo.mobile.data.model;
+
+public enum VehicleError implements RepoError {
+    INVALID_VIN,
+    VIN_TAKEN,
+    VIN_RESTORABLE,
+    PLATE_TAKEN,
+    TOO_OLD,
+    COMPACT_DELIVERY_ONLY,
+    INVALID_INPUT,
+    PHOTO_REQUIRED,
+    DOCUMENTS_REQUIRED,
+    LAST_PHOTO,
+    NOT_APPROVED,
+    DATE_NOT_FUTURE,
+    HAS_ACTIVE_BOOKINGS,
+    VEHICLE_DELETED,
+    FILE_ERROR,
+    NOT_FOUND,
+    NOT_ALLOWED,
+    UNEXPECTED
+}
