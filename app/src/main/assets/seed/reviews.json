@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "booking_id": 1,
+    "reviewer_id": 6,
+    "rating": 5,
+    "comment": "Clean car and Tom was right on time. Very easy pickup.",
+    "created_at": "d-30 18:00"
+  },
+  {
+    "id": 2,
+    "booking_id": 1,
+    "reviewer_id": 3,
+    "rating": 5,
+    "comment": "Ana returned the car clean and on time. Welcome back any time.",
+    "created_at": "d-29 09:00"
+  },
+  {
+    "id": 3,
+    "booking_id": 2,
+    "reviewer_id": 2,
+    "rating": 4,
+    "comment": "Good driver. The car came back a bit dirty inside.",
+    "created_at": "d-27 20:30"
+  },
+  {
+    "id": 4,
+    "booking_id": 3,
+    "reviewer_id": 8,
+    "rating": 4,
+    "comment": "Great hybrid, very low fuel cost. Pickup took a few minutes.",
+    "created_at": "d-24 17:00"
+  },
+  {
+    "id": 5,
+    "booking_id": 4,
+    "reviewer_id": 6,
+    "rating": 5,
+    "comment": "The Corolla was perfect for an 8-hour shift. Maria is very friendly.",
+    "created_at": "d-20 17:10"
+  },
+  {
+    "id": 6,
+    "booking_id": 4,
+    "reviewer_id": 2,
+    "rating": 5,
+    "comment": "Excellent renter, careful with the car.",
+    "created_at": "d-19 08:45"
+  },
+  {
+    "id": 7,
+    "booking_id": 5,
+    "reviewer_id": 7,
+    "rating": 4,
+    "comment": "Nice electric car, but it was only 70% charged at pickup.",
+    "created_at": "d-20 15:00"
+  },
+  {
+    "id": 8,
+    "booking_id": 6,
+    "reviewer_id": 11,
+    "rating": 5,
+    "comment": "The truck was great for big deliveries.",
+    "created_at": "d-18 13:00"
+  },
+  {
+    "id": 9,
+    "booking_id": 9,
+    "reviewer_id": 3,
+    "rating": 5,
+    "comment": "No problems at all. Thanks Ana!",
+    "created_at": "d-13 15:30"
+  },
+  {
+    "id": 10,
+    "booking_id": 10,
+    "reviewer_id": 7,
+    "rating": 4,
+    "comment": "Good car close to the SkyTrain.",
+    "created_at": "d-11 18:00"
+  },
+  {
+    "id": 11,
+    "booking_id": 10,
+    "reviewer_id": 4,
+    "rating": 5,
+    "comment": "On time and polite.",
+    "created_at": "d-10 09:15"
+  },
+  {
+    "id": 12,
+    "booking_id": 11,
+    "reviewer_id": 2,
+    "rating": 2,
+    "comment": "Returned the car more than one hour late and the tank was almost empty.",
+    "created_at": "d-10 22:00"
+  },
+  {
+    "id": 13,
+    "booking_id": 12,
+    "reviewer_id": 6,
+    "rating": 5,
+    "comment": "Amazing car, my riders loved it.",
+    "created_at": "d-9 23:00"
+  },
+  {
+    "id": 14,
+    "booking_id": 12,
+    "reviewer_id": 4,
+    "rating": 4,
+    "comment": "Good driver. Battery was a bit low at return.",
+    "created_at": "d-8 10:00"
+  },
+  {
+    "id": 15,
+    "booking_id": 13,
+    "reviewer_id": 8,
+    "rating": 3,
+    "comment": "The car was fine but the phone holder was broken.",
+    "created_at": "d-8 21:00"
+  },
+  {
+    "id": 16,
+    "booking_id": 13,
+    "reviewer_id": 2,
+    "rating": 5,
+    "comment": "Very responsible driver.",
+    "created_at": "d-7 09:30"
+  }
+]

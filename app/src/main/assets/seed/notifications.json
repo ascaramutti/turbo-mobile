@@ -1,0 +1,306 @@
+[
+  {
+    "id": 1,
+    "user_id": 2,
+    "title": "Document approved",
+    "message": "Both documents of your Toyota Corolla 2022 were approved. You can publish it now.",
+    "is_read": 1,
+    "created_at": "d-79 09:00"
+  },
+  {
+    "id": 2,
+    "user_id": 2,
+    "title": "Document rejected",
+    "message": "Insurance certificate of your Ford Escape 2020 was rejected: The insurance certificate expired on September 30. Please upload the current ICBC certificate.",
+    "is_read": 0,
+    "created_at": "d-4 10:30"
+  },
+  {
+    "id": 3,
+    "user_id": 2,
+    "title": "New booking request",
+    "message": "Lucas Silva requested your Kia Soul 2020 (4 h, Delivery).",
+    "is_read": 1,
+    "created_at": "d-2 11:20"
+  },
+  {
+    "id": 4,
+    "user_id": 2,
+    "title": "New booking request",
+    "message": "Ana Lopez requested your Honda Fit 2020 (4 h, Delivery).",
+    "is_read": 1,
+    "created_at": "d-1 18:40"
+  },
+  {
+    "id": 5,
+    "user_id": 2,
+    "title": "New booking request",
+    "message": "Lucas Silva requested your Toyota Corolla 2022 (8 h, Taxi).",
+    "is_read": 1,
+    "created_at": "d-1 12:00"
+  },
+  {
+    "id": 6,
+    "user_id": 2,
+    "title": "Booking cancelled",
+    "message": "Raj Patel's paid booking for your Toyota Corolla 2022 was cancelled: Account deactivated. The payment is kept.",
+    "is_read": 0,
+    "created_at": "d-1 16:00"
+  },
+  {
+    "id": 7,
+    "user_id": 2,
+    "title": "New booking request",
+    "message": "Ana Lopez requested your Toyota Corolla 2022 (4 h, Taxi).",
+    "is_read": 0,
+    "created_at": "now-3h"
+  },
+  {
+    "id": 8,
+    "user_id": 2,
+    "title": "New booking request",
+    "message": "Kenji Sato requested your Toyota Corolla 2022 (4 h, Delivery). It overlaps another request.",
+    "is_read": 0,
+    "created_at": "now-2h"
+  },
+  {
+    "id": 9,
+    "user_id": 3,
+    "title": "New booking request",
+    "message": "Kenji Sato requested your Toyota Camry Hybrid 2023 (4 h, Delivery).",
+    "is_read": 1,
+    "created_at": "d-4 18:00"
+  },
+  {
+    "id": 10,
+    "user_id": 3,
+    "title": "Booking request expired",
+    "message": "Kenji Sato's request for your Toyota Camry Hybrid 2023 expired because it was not confirmed in time.",
+    "is_read": 1,
+    "created_at": "d-2 12:45"
+  },
+  {
+    "id": 11,
+    "user_id": 3,
+    "title": "Booking cancelled",
+    "message": "Ana Lopez cancelled her request for your Toyota Camry Hybrid 2023.",
+    "is_read": 1,
+    "created_at": "d-2 09:30"
+  },
+  {
+    "id": 12,
+    "user_id": 3,
+    "title": "Booking cancelled",
+    "message": "Raj Patel's request for your Mercedes-Benz Sprinter 2021 was cancelled: Account deactivated.",
+    "is_read": 0,
+    "created_at": "d-1 16:00"
+  },
+  {
+    "id": 13,
+    "user_id": 3,
+    "title": "New booking request",
+    "message": "Kenji Sato requested your Toyota Camry Hybrid 2023 (4 h, Delivery).",
+    "is_read": 1,
+    "created_at": "now-20h"
+  },
+  {
+    "id": 14,
+    "user_id": 3,
+    "title": "New booking request",
+    "message": "Kenji Sato requested your Mercedes-Benz Sprinter 2021 (8 h, Delivery).",
+    "is_read": 0,
+    "created_at": "now-5h"
+  },
+  {
+    "id": 15,
+    "user_id": 4,
+    "title": "New booking request",
+    "message": "Ana Lopez requested your Tesla Model 3 2022 (4 h, Delivery).",
+    "is_read": 1,
+    "created_at": "d-1 08:30"
+  },
+  {
+    "id": 16,
+    "user_id": 4,
+    "title": "New booking request",
+    "message": "Lucas Silva requested your Tesla Model 3 2022 (4 h, Taxi).",
+    "is_read": 1,
+    "created_at": "d-1 09:10"
+  },
+  {
+    "id": 17,
+    "user_id": 4,
+    "title": "New booking request",
+    "message": "Ana Lopez requested your Tesla Model 3 2022 (4 h, Taxi).",
+    "is_read": 0,
+    "created_at": "now-1h"
+  },
+  {
+    "id": 18,
+    "user_id": 6,
+    "title": "Document approved",
+    "message": "Your driver's license was approved.",
+    "is_read": 1,
+    "created_at": "d-59 10:00"
+  },
+  {
+    "id": 19,
+    "user_id": 6,
+    "title": "Account verified",
+    "message": "Both documents are approved. You can book shifts now.",
+    "is_read": 1,
+    "created_at": "d-59 10:05"
+  },
+  {
+    "id": 20,
+    "user_id": 6,
+    "title": "Booking confirmed",
+    "message": "Your Toyota Corolla 2022 shift (4 h, Taxi) was confirmed. Pay before the start window opens.",
+    "is_read": 1,
+    "created_at": "now-1d-2h"
+  },
+  {
+    "id": 21,
+    "user_id": 6,
+    "title": "Booking request rejected",
+    "message": "Your request for the Nissan Leaf 2021 was rejected: Account deactivated.",
+    "is_read": 1,
+    "created_at": "d-2 11:00"
+  },
+  {
+    "id": 22,
+    "user_id": 6,
+    "title": "Booking request rejected",
+    "message": "Your request for the Tesla Model 3 2022 was rejected: Overlapping booking confirmed.",
+    "is_read": 0,
+    "created_at": "d-1 13:00"
+  },
+  {
+    "id": 23,
+    "user_id": 6,
+    "title": "Booking confirmed",
+    "message": "Your Honda Fit 2020 shift (4 h, Delivery) was confirmed. Pay before the start window opens or it will be cancelled.",
+    "is_read": 0,
+    "created_at": "d-1 20:05"
+  },
+  {
+    "id": 24,
+    "user_id": 6,
+    "title": "Shift reminder",
+    "message": "Your Toyota Corolla 2022 shift starts in 1 hour. Pickup: 8888 University Dr, Burnaby.",
+    "is_read": 0,
+    "created_at": "floor30(now+10m)-1h"
+  },
+  {
+    "id": 25,
+    "user_id": 7,
+    "title": "Booking cancelled",
+    "message": "Your Tesla Model 3 2022 booking was cancelled: No-show. The payment is not refunded.",
+    "is_read": 1,
+    "created_at": "d-6 10:05"
+  },
+  {
+    "id": 26,
+    "user_id": 7,
+    "title": "Booking confirmed",
+    "message": "Your Ford Maverick 2022 shift (4 h, Delivery) was confirmed.",
+    "is_read": 1,
+    "created_at": "d-4 18:00"
+  },
+  {
+    "id": 27,
+    "user_id": 7,
+    "title": "Booking cancelled",
+    "message": "Your Honda Fit 2020 booking was cancelled: Not paid.",
+    "is_read": 1,
+    "created_at": "d-3 07:50"
+  },
+  {
+    "id": 28,
+    "user_id": 7,
+    "title": "Booking request expired",
+    "message": "Your request for the Toyota Camry Hybrid 2023 expired. The owner did not confirm in time.",
+    "is_read": 1,
+    "created_at": "d-2 12:45"
+  },
+  {
+    "id": 29,
+    "user_id": 7,
+    "title": "Booking cancelled",
+    "message": "Your Ford Maverick 2022 booking was cancelled: Account deactivated.",
+    "is_read": 0,
+    "created_at": "d-2 11:00"
+  },
+  {
+    "id": 30,
+    "user_id": 7,
+    "title": "Shift reminder",
+    "message": "Your Mercedes-Benz Sprinter 2021 shift starts in 1 hour. Pickup: 10153 King George Blvd, Surrey.",
+    "is_read": 1,
+    "created_at": "floor30(now-1h)-1h"
+  },
+  {
+    "id": 31,
+    "user_id": 7,
+    "title": "Booking confirmed",
+    "message": "Your Toyota Camry Hybrid 2023 shift (4 h, Delivery) was confirmed.",
+    "is_read": 0,
+    "created_at": "now-18h"
+  },
+  {
+    "id": 32,
+    "user_id": 8,
+    "title": "Booking request rejected",
+    "message": "Your request for the Mazda CX-5 2020 was rejected: Vehicle unavailable.",
+    "is_read": 1,
+    "created_at": "d-3 10:15"
+  },
+  {
+    "id": 33,
+    "user_id": 8,
+    "title": "Booking request rejected",
+    "message": "Your request for the Toyota Corolla 2022 was rejected: Sorry, I need the car that day for a family trip.",
+    "is_read": 0,
+    "created_at": "d-1 14:30"
+  },
+  {
+    "id": 34,
+    "user_id": 8,
+    "title": "Booking confirmed",
+    "message": "Your Tesla Model 3 2022 shift (4 h, Taxi) was confirmed.",
+    "is_read": 1,
+    "created_at": "d-1 13:00"
+  },
+  {
+    "id": 35,
+    "user_id": 8,
+    "title": "Shift reminder",
+    "message": "Your Toyota Camry Hybrid 2023 shift starts in 1 hour. Pickup: 6551 No. 3 Rd, Richmond.",
+    "is_read": 1,
+    "created_at": "floor30(now-6h)-1h"
+  },
+  {
+    "id": 36,
+    "user_id": 10,
+    "title": "Document approved",
+    "message": "Your driver's license was approved.",
+    "is_read": 1,
+    "created_at": "d-3 15:00"
+  },
+  {
+    "id": 37,
+    "user_id": 10,
+    "title": "Document rejected",
+    "message": "Your study permit was rejected: Image is blurry - the permit number and expiry date cannot be read.",
+    "is_read": 0,
+    "created_at": "d-3 15:05"
+  },
+  {
+    "id": 38,
+    "user_id": 11,
+    "title": "Booking confirmed",
+    "message": "Your Toyota Corolla 2022 shift (4 h, Delivery) was confirmed.",
+    "is_read": 1,
+    "created_at": "d-3 12:00"
+  }
+]

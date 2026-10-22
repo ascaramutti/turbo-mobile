@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Downtown Vancouver"
+  },
+  {
+    "id": 2,
+    "name": "Burnaby"
+  },
+  {
+    "id": 3,
+    "name": "Richmond"
+  },
+  {
+    "id": 4,
+    "name": "Surrey"
+  },
+  {
+    "id": 5,
+    "name": "New Westminster"
+  },
+  {
+    "id": 6,
+    "name": "Coquitlam"
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "booking_id": 1,
+    "amount_cents": 11200,
+    "platform_fee_cents": 2240,
+    "card_last4": "4242",
+    "paid_at": "d-32 10:12"
+  },
+  {
+    "id": 2,
+    "booking_id": 2,
+    "amount_cents": 7200,
+    "platform_fee_cents": 1440,
+    "card_last4": "1881",
+    "paid_at": "d-28 08:40"
+  },
+  {
+    "id": 3,
+    "booking_id": 3,
+    "amount_cents": 11200,
+    "platform_fee_cents": 2240,
+    "card_last4": "5100",
+    "paid_at": "d-25 18:20"
+  },
+  {
+    "id": 4,
+    "booking_id": 4,
+    "amount_cents": 10000,
+    "platform_fee_cents": 2000,
+    "card_last4": "4242",
+    "paid_at": "d-22 09:00"
+  },
+  {
+    "id": 5,
+    "booking_id": 5,
+    "amount_cents": 4000,
+    "platform_fee_cents": 800,
+    "card_last4": "1881",
+    "paid_at": "d-21 12:00"
+  },
+  {
+    "id": 6,
+    "booking_id": 6,
+    "amount_cents": 5200,
+    "platform_fee_cents": 1040,
+    "card_last4": "0005",
+    "paid_at": "d-19 09:30"
+  },
+  {
+    "id": 7,
+    "booking_id": 7,
+    "amount_cents": 14400,
+    "platform_fee_cents": 2880,
+    "card_last4": "1881",
+    "paid_at": "d-17 15:00"
+  },
+  {
+    "id": 8,
+    "booking_id": 8,
+    "amount_cents": 6400,
+    "platform_fee_cents": 1280,
+    "card_last4": "5100",
+    "paid_at": "d-16 10:00"
+  },
+  {
+    "id": 9,
+    "booking_id": 9,
+    "amount_cents": 5400,
+    "platform_fee_cents": 1080,
+    "card_last4": "4242",
+    "paid_at": "d-14 18:00"
+  },
+  {
+    "id": 10,
+    "booking_id": 10,
+    "amount_cents": 4596,
+    "platform_fee_cents": 919,
+    "card_last4": "1881",
+    "paid_at": "d-12 20:00"
+  },
+  {
+    "id": 11,
+    "booking_id": 11,
+    "amount_cents": 7200,
+    "platform_fee_cents": 1440,
+    "card_last4": "0005",
+    "paid_at": "d-11 07:30"
+  },
+  {
+    "id": 12,
+    "booking_id": 12,
+    "amount_cents": 12800,
+    "platform_fee_cents": 2560,
+    "card_last4": "4242",
+    "paid_at": "d-11 13:00"
+  },
+  {
+    "id": 13,
+    "booking_id": 13,
+    "amount_cents": 5000,
+    "platform_fee_cents": 1000,
+    "card_last4": "5100",
+    "paid_at": "d-9 17:00"
+  },
+  {
+    "id": 14,
+    "booking_id": 14,
+    "amount_cents": 6400,
+    "platform_fee_cents": 1280,
+    "card_last4": "1881",
+    "paid_at": "d-7 20:15"
+  },
+  {
+    "id": 15,
+    "booking_id": 15,
+    "amount_cents": 4596,
+    "platform_fee_cents": 919,
+    "card_last4": "4242",
+    "paid_at": "d-6 09:00"
+  },
+  {
+    "id": 16,
+    "booking_id": 18,
+    "amount_cents": 5600,
+    "platform_fee_cents": 1120,
+    "card_last4": "5100",
+    "paid_at": "now-2d"
+  },
+  {
+    "id": 17,
+    "booking_id": 19,
+    "amount_cents": 7200,
+    "platform_fee_cents": 1440,
+    "card_last4": "1881",
+    "paid_at": "now-1d"
+  },
+  {
+    "id": 18,
+    "booking_id": 20,
+    "amount_cents": 5000,
+    "platform_fee_cents": 1000,
+    "card_last4": "4242",
+    "paid_at": "now-1d"
+  },
+  {
+    "id": 19,
+    "booking_id": 23,
+    "amount_cents": 5000,
+    "platform_fee_cents": 1000,
+    "card_last4": "0005",
+    "paid_at": "d-2 19:30"
+  },
+  {
+    "id": 20,
+    "booking_id": 26,
+    "amount_cents": 6400,
+    "platform_fee_cents": 1280,
+    "card_last4": "5100",
+    "paid_at": "now-3h"
+  }
+]

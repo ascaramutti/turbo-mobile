@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "booking_id": 1,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b01_pickup_1.jpg",
+    "taken_at": "d-30 07:49"
+  },
+  {
+    "id": 2,
+    "booking_id": 1,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b01_pickup_2.jpg",
+    "taken_at": "d-30 07:50"
+  },
+  {
+    "id": 3,
+    "booking_id": 1,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b01_pickup_3.jpg",
+    "taken_at": "d-30 07:51"
+  },
+  {
+    "id": 4,
+    "booking_id": 1,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b01_return_1.jpg",
+    "taken_at": "d-30 16:07"
+  },
+  {
+    "id": 5,
+    "booking_id": 1,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b01_return_2.jpg",
+    "taken_at": "d-30 16:08"
+  },
+  {
+    "id": 6,
+    "booking_id": 1,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b01_return_3.jpg",
+    "taken_at": "d-30 16:09"
+  },
+  {
+    "id": 7,
+    "booking_id": 2,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b02_pickup_1.jpg",
+    "taken_at": "d-27 09:48"
+  },
+  {
+    "id": 8,
+    "booking_id": 2,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b02_pickup_2.jpg",
+    "taken_at": "d-27 09:49"
+  },
+  {
+    "id": 9,
+    "booking_id": 2,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b02_return_1.jpg",
+    "taken_at": "d-27 18:03"
+  },
+  {
+    "id": 10,
+    "booking_id": 2,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b02_return_2.jpg",
+    "taken_at": "d-27 18:04"
+  },
+  {
+    "id": 11,
+    "booking_id": 3,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b03_pickup_1.jpg",
+    "taken_at": "d-24 06:54"
+  },
+  {
+    "id": 12,
+    "booking_id": 3,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b03_return_1.jpg",
+    "taken_at": "d-24 15:19"
+  },
+  {
+    "id": 13,
+    "booking_id": 4,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b04_pickup_1.jpg",
+    "taken_at": "d-20 07:59"
+  },
+  {
+    "id": 14,
+    "booking_id": 4,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b04_pickup_2.jpg",
+    "taken_at": "d-20 08:00"
+  },
+  {
+    "id": 15,
+    "booking_id": 4,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b04_pickup_3.jpg",
+    "taken_at": "d-20 08:01"
+  },
+  {
+    "id": 16,
+    "booking_id": 4,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b04_pickup_4.jpg",
+    "taken_at": "d-20 08:02"
+  },
+  {
+    "id": 17,
+    "booking_id": 4,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b04_return_1.jpg",
+    "taken_at": "d-20 15:54"
+  },
+  {
+    "id": 18,
+    "booking_id": 4,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b04_return_2.jpg",
+    "taken_at": "d-20 15:55"
+  },
+  {
+    "id": 19,
+    "booking_id": 4,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b04_return_3.jpg",
+    "taken_at": "d-20 15:56"
+  },
+  {
+    "id": 20,
+    "booking_id": 4,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b04_return_4.jpg",
+    "taken_at": "d-20 15:57"
+  },
+  {
+    "id": 21,
+    "booking_id": 5,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b05_pickup_1.jpg",
+    "taken_at": "d-20 09:56"
+  },
+  {
+    "id": 22,
+    "booking_id": 5,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b05_pickup_2.jpg",
+    "taken_at": "d-20 09:57"
+  },
+  {
+    "id": 23,
+    "booking_id": 5,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b05_return_1.jpg",
+    "taken_at": "d-20 14:00"
+  },
+  {
+    "id": 24,
+    "booking_id": 5,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b05_return_2.jpg",
+    "taken_at": "d-20 14:01"
+  },
+  {
+    "id": 25,
+    "booking_id": 6,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b06_pickup_1.jpg",
+    "taken_at": "d-18 08:08"
+  },
+  {
+    "id": 26,
+    "booking_id": 6,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b06_pickup_2.jpg",
+    "taken_at": "d-18 08:09"
+  },
+  {
+    "id": 27,
+    "booking_id": 6,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b06_return_1.jpg",
+    "taken_at": "d-18 12:02"
+  },
+  {
+    "id": 28,
+    "booking_id": 6,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b06_return_2.jpg",
+    "taken_at": "d-18 12:03"
+  },
+  {
+    "id": 29,
+    "booking_id": 6,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b06_return_3.jpg",
+    "taken_at": "d-18 12:04"
+  },
+  {
+    "id": 30,
+    "booking_id": 7,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b07_pickup_1.jpg",
+    "taken_at": "d-16 07:55"
+  },
+  {
+    "id": 31,
+    "booking_id": 7,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b07_pickup_2.jpg",
+    "taken_at": "d-16 07:56"
+  },
+  {
+    "id": 32,
+    "booking_id": 7,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b07_pickup_3.jpg",
+    "taken_at": "d-16 07:57"
+  },
+  {
+    "id": 33,
+    "booking_id": 7,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b07_return_1.jpg",
+    "taken_at": "d-16 15:53"
+  },
+  {
+    "id": 34,
+    "booking_id": 7,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b07_return_2.jpg",
+    "taken_at": "d-16 15:54"
+  },
+  {
+    "id": 35,
+    "booking_id": 8,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b08_pickup_1.jpg",
+    "taken_at": "d-15 07:48"
+  },
+  {
+    "id": 36,
+    "booking_id": 8,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b08_pickup_2.jpg",
+    "taken_at": "d-15 07:49"
+  },
+  {
+    "id": 37,
+    "booking_id": 8,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b08_return_1.jpg",
+    "taken_at": "d-15 11:58"
+  },
+  {
+    "id": 38,
+    "booking_id": 8,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b08_return_2.jpg",
+    "taken_at": "d-15 11:59"
+  },
+  {
+    "id": 39,
+    "booking_id": 9,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b09_pickup_1.jpg",
+    "taken_at": "d-13 09:03"
+  },
+  {
+    "id": 40,
+    "booking_id": 9,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b09_pickup_2.jpg",
+    "taken_at": "d-13 09:04"
+  },
+  {
+    "id": 41,
+    "booking_id": 9,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b09_return_1.jpg",
+    "taken_at": "d-13 12:59"
+  },
+  {
+    "id": 42,
+    "booking_id": 9,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b09_return_2.jpg",
+    "taken_at": "d-13 13:00"
+  },
+  {
+    "id": 43,
+    "booking_id": 10,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b10_pickup_1.jpg",
+    "taken_at": "d-11 12:49"
+  },
+  {
+    "id": 44,
+    "booking_id": 10,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b10_pickup_2.jpg",
+    "taken_at": "d-11 12:50"
+  },
+  {
+    "id": 45,
+    "booking_id": 10,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b10_pickup_3.jpg",
+    "taken_at": "d-11 12:51"
+  },
+  {
+    "id": 46,
+    "booking_id": 10,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b10_return_1.jpg",
+    "taken_at": "d-11 16:55"
+  },
+  {
+    "id": 47,
+    "booking_id": 10,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b10_return_2.jpg",
+    "taken_at": "d-11 16:56"
+  },
+  {
+    "id": 48,
+    "booking_id": 10,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b10_return_3.jpg",
+    "taken_at": "d-11 16:57"
+  },
+  {
+    "id": 49,
+    "booking_id": 11,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b11_pickup_1.jpg",
+    "taken_at": "d-10 12:15"
+  },
+  {
+    "id": 50,
+    "booking_id": 11,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b11_pickup_2.jpg",
+    "taken_at": "d-10 12:16"
+  },
+  {
+    "id": 51,
+    "booking_id": 11,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b11_pickup_3.jpg",
+    "taken_at": "d-10 12:17"
+  },
+  {
+    "id": 52,
+    "booking_id": 11,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b11_pickup_4.jpg",
+    "taken_at": "d-10 12:18"
+  },
+  {
+    "id": 53,
+    "booking_id": 11,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b11_pickup_5.jpg",
+    "taken_at": "d-10 12:19"
+  },
+  {
+    "id": 54,
+    "booking_id": 11,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b11_return_1.jpg",
+    "taken_at": "d-10 21:10"
+  },
+  {
+    "id": 55,
+    "booking_id": 11,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b11_return_2.jpg",
+    "taken_at": "d-10 21:11"
+  },
+  {
+    "id": 56,
+    "booking_id": 11,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b11_return_3.jpg",
+    "taken_at": "d-10 21:12"
+  },
+  {
+    "id": 57,
+    "booking_id": 11,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b11_return_4.jpg",
+    "taken_at": "d-10 21:13"
+  },
+  {
+    "id": 58,
+    "booking_id": 11,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b11_return_5.jpg",
+    "taken_at": "d-10 21:14"
+  },
+  {
+    "id": 59,
+    "booking_id": 12,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b12_pickup_1.jpg",
+    "taken_at": "d-9 13:46"
+  },
+  {
+    "id": 60,
+    "booking_id": 12,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b12_pickup_2.jpg",
+    "taken_at": "d-9 13:47"
+  },
+  {
+    "id": 61,
+    "booking_id": 12,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b12_pickup_3.jpg",
+    "taken_at": "d-9 13:48"
+  },
+  {
+    "id": 62,
+    "booking_id": 12,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b12_pickup_4.jpg",
+    "taken_at": "d-9 13:49"
+  },
+  {
+    "id": 63,
+    "booking_id": 12,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b12_return_1.jpg",
+    "taken_at": "d-9 21:47"
+  },
+  {
+    "id": 64,
+    "booking_id": 12,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b12_return_2.jpg",
+    "taken_at": "d-9 21:48"
+  },
+  {
+    "id": 65,
+    "booking_id": 12,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b12_return_3.jpg",
+    "taken_at": "d-9 21:49"
+  },
+  {
+    "id": 66,
+    "booking_id": 13,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b13_pickup_1.jpg",
+    "taken_at": "d-8 15:53"
+  },
+  {
+    "id": 67,
+    "booking_id": 13,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b13_pickup_2.jpg",
+    "taken_at": "d-8 15:54"
+  },
+  {
+    "id": 68,
+    "booking_id": 13,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b13_return_1.jpg",
+    "taken_at": "d-8 19:57"
+  },
+  {
+    "id": 69,
+    "booking_id": 13,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b13_return_2.jpg",
+    "taken_at": "d-8 19:58"
+  },
+  {
+    "id": 70,
+    "booking_id": 15,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b15_pickup_1.jpg",
+    "taken_at": "d-5 08:52"
+  },
+  {
+    "id": 71,
+    "booking_id": 15,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b15_pickup_2.jpg",
+    "taken_at": "d-5 08:53"
+  },
+  {
+    "id": 72,
+    "booking_id": 15,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b15_pickup_3.jpg",
+    "taken_at": "d-5 08:54"
+  },
+  {
+    "id": 73,
+    "booking_id": 15,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b15_return_1.jpg",
+    "taken_at": "d-5 13:02"
+  },
+  {
+    "id": 74,
+    "booking_id": 15,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b15_return_2.jpg",
+    "taken_at": "d-5 13:03"
+  },
+  {
+    "id": 75,
+    "booking_id": 15,
+    "photo_type": "RETURN",
+    "file_path": "seed/photos/bookings/b15_return_3.jpg",
+    "taken_at": "d-5 13:04"
+  },
+  {
+    "id": 76,
+    "booking_id": 18,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b18_pickup_1.jpg",
+    "taken_at": "floor30(now-6h)+6m-3m"
+  },
+  {
+    "id": 77,
+    "booking_id": 18,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b18_pickup_2.jpg",
+    "taken_at": "floor30(now-6h)+6m-2m"
+  },
+  {
+    "id": 78,
+    "booking_id": 18,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b18_pickup_3.jpg",
+    "taken_at": "floor30(now-6h)+6m-1m"
+  },
+  {
+    "id": 79,
+    "booking_id": 19,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b19_pickup_1.jpg",
+    "taken_at": "floor30(now-1h)+7m-2m"
+  },
+  {
+    "id": 80,
+    "booking_id": 19,
+    "photo_type": "PICKUP",
+    "file_path": "seed/photos/bookings/b19_pickup_2.jpg",
+    "taken_at": "floor30(now-1h)+7m-1m"
+  }
+]

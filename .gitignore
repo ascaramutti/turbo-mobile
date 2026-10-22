@@ -1,0 +1,21 @@
+# Material local del equipo (no se sube al remoto)
+docs/
+seed-data/
+contract/
+
+# Android / Gradle
+.gradle/
+build/
+/local.properties
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+
+# IDE
+.idea/
+*.iml
+
+# macOS
+.DS_Store
