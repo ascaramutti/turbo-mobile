@@ -17,11 +17,13 @@ import com.turbo.mobile.data.repository.fake.FakePaymentRepository;
 import com.turbo.mobile.data.repository.fake.FakeReviewRepository;
 import com.turbo.mobile.data.repository.fake.FakeUserRepository;
 import com.turbo.mobile.data.repository.fake.FakeVehicleRepository;
+import com.turbo.mobile.util.ImageStorage;
 import com.turbo.mobile.util.SessionManager;
 
 public class AppContainer {
 
     public final SessionManager sessionManager;
+    public final ImageStorage imageStorage;
     public final UserRepository userRepository;
     public final NotificationRepository notificationRepository;
     public final DocumentRepository documentRepository;
@@ -32,6 +34,7 @@ public class AppContainer {
 
     public AppContainer(Context context) {
         sessionManager = new SessionManager(context);
+        imageStorage = new ImageStorage(context);
         if (!BuildConfig.USE_FAKE) {
             throw new IllegalStateException("Room repositories are not implemented yet");
         }
