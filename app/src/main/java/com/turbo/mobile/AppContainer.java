@@ -5,10 +5,12 @@ import android.content.Context;
 import com.turbo.mobile.data.repository.DocumentRepository;
 import com.turbo.mobile.data.repository.NotificationRepository;
 import com.turbo.mobile.data.repository.UserRepository;
+import com.turbo.mobile.data.repository.VehicleRepository;
 import com.turbo.mobile.data.repository.fake.FakeDataStore;
 import com.turbo.mobile.data.repository.fake.FakeDocumentRepository;
 import com.turbo.mobile.data.repository.fake.FakeNotificationRepository;
 import com.turbo.mobile.data.repository.fake.FakeUserRepository;
+import com.turbo.mobile.data.repository.fake.FakeVehicleRepository;
 import com.turbo.mobile.util.SessionManager;
 
 public class AppContainer {
@@ -17,6 +19,7 @@ public class AppContainer {
     public final UserRepository userRepository;
     public final NotificationRepository notificationRepository;
     public final DocumentRepository documentRepository;
+    public final VehicleRepository vehicleRepository;
 
     public AppContainer(Context context) {
         sessionManager = new SessionManager(context);
@@ -27,5 +30,6 @@ public class AppContainer {
         userRepository = new FakeUserRepository(store);
         notificationRepository = new FakeNotificationRepository(store);
         documentRepository = new FakeDocumentRepository(store);
+        vehicleRepository = new FakeVehicleRepository(store);
     }
 }

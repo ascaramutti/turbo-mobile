@@ -189,7 +189,7 @@ public class FakeDocumentRepository implements DocumentRepository {
             item.setType(DocumentType.valueOf(getString(row, "document_type")));
             item.setSubjectName(kind == DocumentKind.DRIVER
                     ? fullName(store.find(USERS, getLong(row, "driver_id")))
-                    : vehicleTitle(store.find(VEHICLES, getLong(row, "vehicle_id"))));
+                    : FakeVehicles.title(store.find(VEHICLES, getLong(row, "vehicle_id"))));
             item.setUploadedAt(getLong(row, "uploaded_at"));
             item.setFilePath(getString(row, "file_path"));
             result.add(item);
@@ -233,7 +233,7 @@ public class FakeDocumentRepository implements DocumentRepository {
             long vehicleId = getLong(row, "vehicle_id");
             JSONObject vehicle = store.find(VEHICLES, vehicleId);
             context.setOtherDocumentStatus(statusOf(findVehicleDocument(vehicleId, otherVehicleType(type))));
-            context.setVehicleTitle(vehicleTitle(vehicle));
+            context.setVehicleTitle(FakeVehicles.title(vehicle));
             context.setOwnerName(fullName(store.find(USERS, getLong(vehicle, "owner_id"))));
             context.setVin(getString(vehicle, "vin"));
             context.setPlate(getString(vehicle, "license_plate"));
@@ -385,11 +385,6 @@ public class FakeDocumentRepository implements DocumentRepository {
 
     private static String fullName(JSONObject user) {
         return user == null ? null : getString(user, "first_name") + " " + getString(user, "last_name");
-    }
-
-    private static String vehicleTitle(JSONObject vehicle) {
-        return vehicle == null ? null
-                : getString(vehicle, "make") + " " + getString(vehicle, "model") + " " + getLong(vehicle, "year");
     }
 
     private static RepoError forced(DocumentError first, DocumentError... rest) {
