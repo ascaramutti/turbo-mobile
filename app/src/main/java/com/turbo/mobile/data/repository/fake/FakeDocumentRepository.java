@@ -28,7 +28,6 @@ import java.util.List;
 
 import static com.turbo.mobile.data.repository.fake.FakeDataStore.DRIVER_DOCUMENTS;
 import static com.turbo.mobile.data.repository.fake.FakeDataStore.DRIVER_PROFILES;
-import static com.turbo.mobile.data.repository.fake.FakeDataStore.NOTIFICATIONS;
 import static com.turbo.mobile.data.repository.fake.FakeDataStore.USERS;
 import static com.turbo.mobile.data.repository.fake.FakeDataStore.VEHICLES;
 import static com.turbo.mobile.data.repository.fake.FakeDataStore.VEHICLE_DOCUMENTS;
@@ -263,7 +262,7 @@ public class FakeDocumentRepository implements DocumentRepository {
             if (other == DocumentStatus.APPROVED) {
                 set(user, "_verified", true);
                 set(user, "_driver_state", DriverState.VERIFIED.name());
-                notify(driverId, "Account verified", "Both documents are approved. You can book shifts now.");
+                FakeNotifications.add(store, driverId, "Account verified", "Both documents are approved. You can book shifts now.");
                 outcome.setCompleted(true);
             } else {
                 set(user, "_driver_state", other == DocumentStatus.REJECTED
@@ -329,16 +328,6 @@ public class FakeDocumentRepository implements DocumentRepository {
         set(row, "reviewed_by", adminId);
         set(row, "reviewed_at", store.now());
         set(row, "_allowed_action", action.name());
-    }
-
-    private void notify(long userId, String title, String message) {
-        JSONObject row = new JSONObject();
-        set(row, "user_id", userId);
-        set(row, "title", title);
-        set(row, "message", message);
-        set(row, "is_read", 0);
-        set(row, "created_at", store.now());
-        store.insert(NOTIFICATIONS, row);
     }
 
     private JSONObject findProfile(long driverId) {
