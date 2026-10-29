@@ -14,5 +14,24 @@
 
     <!-- activity_register -->
     <string name="txtAvatarInitials">BH</string>
+    <string name="descBack">Back</string>
+    <string name="txtCreateAccount">Create account</string>
+    <string name="txtJoinDriver">Join Turbo as a driver.</string>
+    <string name="txtRoleDriver">Driver</string>
+    <string name="txtRoleOwner">Car Owner</string>
+    <string name="txtFirstName">First name</string>
+    <string name="hintFirstName">First name</string>
+    <string name="txtLastName">Last name</string>
+    <string name="hintLastName">Last name</string>
+    <string name="txtPhone">Phone</string>
+    <string name="hintPhone">+1 604 555 0100</string>
+    <string name="txtDob">Date of birth</string>
+    <string name="hintDob">yyyy-mm-dd</string>
+    <string name="descTogglePassword">Show or hide password</string>
+    <string name="txtConfirmPassword">Confirm password</string>
+    <string name="hintConfirmPassword">Repeat your password</string>
+    <string name="btnCreateAccount">Create account</string>
+    <string name="txtHaveAccount">Already have an account? Log in</string>
+
 
 </resources>
