@@ -1,0 +1,40 @@
+<resources>
+    <string name="turbo_logo" translatable="false">turbo</string>
+    <string name="coming_soon">Coming soon</string>
+
+    <string name="nav_vehicles">Vehicles</string>
+    <string name="nav_bookings">Bookings</string>
+    <string name="nav_earnings">Earnings</string>
+    <string name="nav_alerts">Alerts</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- W-14 My vehicles -->
+    <string name="my_vehicles">My vehicles</string>
+    <string name="add_vehicle">Add vehicle</string>
+    <string name="vehicles_empty_title">Add your first vehicle</string>
+    <string name="vehicles_empty_body">Approved and active vehicles can appear in driver search.</string>
+    <string name="vehicle_approved_active">Approved · Active</string>
+    <string name="vehicle_hidden_by_owner">Hidden by owner</string>
+    <plurals name="vehicle_documents_pending">
+        <item quantity="one">%d document pending</item>
+        <item quantity="other">%d documents pending</item>
+    </plurals>
+    <string name="vehicle_document_rejected">%s rejected</string>
+    <string name="document_insurance">Insurance</string>
+    <string name="document_registration">Registration</string>
+    <string name="chip_approved">Approved</string>
+    <string name="chip_active">Active</string>
+    <string name="chip_inactive">Inactive</string>
+    <string name="chip_pending_review">Pending review</string>
+    <string name="chip_action_needed">Action needed</string>
+    <string name="chip_not_visible">Not visible</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_activate">Activate</string>
+    <string name="action_deactivate">Deactivate</string>
+    <string name="action_documents">Documents</string>
+    <string name="action_delete">Delete</string>
+    <string name="delete_vehicle_title">Delete this vehicle?</string>
+    <string name="delete_vehicle_body">%s will be removed. Existing booking history will be preserved.</string>
+    <string name="delete_vehicle">Delete vehicle</string>
+    <string name="cancel">Cancel</string>
+</resources>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Car owner shell: top bar + tab content + bottom bar. Measured from the W-14 wireframe. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.owner.OwnerActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:paddingHorizontal="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:fontFamily="@font/manrope_extrabold"
+            android:includeFontPadding="false"
+            android:text="@string/turbo_logo"
+            android:textColor="@color/turbo_text_primary"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/avatar"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/bg_avatar"
+            android:fontFamily="@font/manrope_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/turbo_text_primary"
+            android:textSize="12sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/owner_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@color/turbo_surface"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="7dp">
+
+        <TextView
+            android:id="@+id/nav_vehicles"
+            style="@style/TurboNavItem"
+            android:drawableTop="@drawable/ic_car_front"
+            android:text="@string/nav_vehicles" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/nav_bookings"
+            style="@style/TurboNavItem"
+            android:drawableTop="@drawable/ic_calendar_days"
+            android:text="@string/nav_bookings" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/nav_earnings"
+            style="@style/TurboNavItem"
+            android:drawableTop="@drawable/ic_wallet"
+            android:text="@string/nav_earnings" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/nav_alerts"
+            style="@style/TurboNavItem"
+            android:drawableTop="@drawable/ic_bell"
+            android:text="@string/nav_alerts" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/nav_profile"
+            style="@style/TurboNavItem"
+            android:drawableTop="@drawable/ic_user"
+            android:text="@string/nav_profile" />
+    </LinearLayout>
+</LinearLayout>

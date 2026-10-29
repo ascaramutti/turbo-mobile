@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared component styles from the Turbo wireframes. Colors live in colors.xml. -->
+<resources>
+    <style name="TurboChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:background">@drawable/bg_turbo_chip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">9dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TurboNavItem">
+        <item name="android:layout_width">62dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/bg_turbo_nav_item</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:drawableTint">@color/turbo_nav_item</item>
+        <item name="android:textColor">@color/turbo_nav_item</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+</resources>
