@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">TURBO</string>
+
+    <!-- activity_login -->
+    <string name="txtTURBO">TURBO</string>
+    <string name="txtLogTURBO">Log in to Turbo</string>
+    <string name="txtSubTitle">Enter your email and password</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtPassword">Password</string>
+    <string name="tfEmailHint">ana@gmail.com</string>
+    <string name="tfPasswordHint">********</string>
+    <string name="btnLogin">Log in</string>
+    <string name="txtNoAccount">Don\'t have an account? Sign up</string>
+
+    <!-- activity_register -->
+    <string name="txtAvatarInitials">BH</string>
+
 </resources>
