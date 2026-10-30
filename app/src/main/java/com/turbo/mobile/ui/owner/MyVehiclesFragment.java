@@ -1,27 +1,17 @@
 package com.turbo.mobile.ui.owner;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.Selection;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.turbo.mobile.AppContainer;
@@ -33,12 +23,10 @@ import com.turbo.mobile.data.model.Result;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.function.Supplier;
 
-/** W-14 My vehicles. */
+/** W-14 My vehicles: one card per vehicle of the logged-in car owner. */
 public class MyVehiclesFragment extends Fragment {
 
-    private final Handler mainThread = new Handler(Looper.getMainLooper());
     private AppContainer container;
     private long ownerId;
     private LinearLayout vehicleList;
@@ -54,147 +42,172 @@ public class MyVehiclesFragment extends Fragment {
         ownerId = container.sessionManager.getUserId();
         vehicleList = view.findViewById(R.id.vehicle_list);
         emptyState = view.findViewById(R.id.empty_state);
-        view.findViewById(R.id.add_vehicle).setOnClickListener(v -> comingSoon());
+        // Without a vehicle id the form opens as "Add vehicle".
+        view.findViewById(R.id.add_vehicle).setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), VehicleFormActivity.class)));
     }
 
+    // onResume runs every time this screen becomes visible, so the list is always up to date.
     @Override
     public void onResume() {
         super.onResume();
-        changeAndReload(null);
+        loadVehicles();
     }
 
-    // Runs the optional change on the data thread, then reloads the list.
-    private void changeAndReload(@Nullable Supplier<Result<?>> change) {
+    // Repository calls run on a background thread (container.executor) so the screen never freezes.
+    // Only the main thread may change the screen, so each result is sent back with OwnerUi.runOnMainThread().
+
+    private void loadVehicles() {
         container.executor.execute(() -> {
-            Result<?> result = change == null ? null : change.get();
             List<OwnerVehicleItem> vehicles = container.vehicleRepository.getOwnerVehicles(ownerId);
-            mainThread.post(() -> {
-                if (getView() == null) {
-                    return;
-                }
-                if (result instanceof Result.Error) {
-                    Toast.makeText(requireContext(), ((Result.Error<?>) result).message, Toast.LENGTH_LONG).show();
-                }
-                render(vehicles);
-            });
+            OwnerUi.runOnMainThread(this, () -> showVehicles(vehicles));
         });
     }
 
-    private void render(List<OwnerVehicleItem> vehicles) {
+    private void activate(OwnerVehicleItem item, long availableUntil) {
+        container.executor.execute(() -> {
+            Result<Void> result = container.vehicleRepository.publish(ownerId, item.getId(), availableUntil);
+            OwnerUi.runOnMainThread(this, () -> showErrorAndReload(result));
+        });
+    }
+
+    private void deactivate(OwnerVehicleItem item) {
+        container.executor.execute(() -> {
+            Result<Void> result = container.vehicleRepository.unpublish(ownerId, item.getId());
+            OwnerUi.runOnMainThread(this, () -> showErrorAndReload(result));
+        });
+    }
+
+    private void delete(OwnerVehicleItem item) {
+        container.executor.execute(() -> {
+            Result<Integer> result = container.vehicleRepository.deleteVehicle(ownerId, item.getId());
+            OwnerUi.runOnMainThread(this, () -> showErrorAndReload(result));
+        });
+    }
+
+    private void showErrorAndReload(Result<?> result) {
+        if (result instanceof Result.Error) {
+            OwnerUi.showError(requireContext(), result);
+        }
+        loadVehicles();
+    }
+
+    private void showVehicles(List<OwnerVehicleItem> vehicles) {
         vehicleList.removeAllViews();
         for (OwnerVehicleItem item : vehicles) {
             View card = getLayoutInflater().inflate(R.layout.item_owner_vehicle, vehicleList, false);
-            bind(card, item);
+            fillCard(card, item);
             vehicleList.addView(card);
         }
         emptyState.setVisibility(vehicles.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
-    private void bind(View card, OwnerVehicleItem item) {
-        ((TextView) card.findViewById(R.id.vehicle_title)).setText(item.getTitle());
+    // What a card shows depends on the vehicle's badge (its status in the wireframe).
+    private void fillCard(View card, OwnerVehicleItem item) {
+        TextView title = card.findViewById(R.id.vehicle_title);
         TextView subtitle = card.findViewById(R.id.vehicle_subtitle);
-        TextView primary = card.findViewById(R.id.chip_primary);
-        TextView secondary = card.findViewById(R.id.chip_secondary);
-        SpannableStringBuilder actions = new SpannableStringBuilder();
-        addAction(actions, R.string.action_edit, this::comingSoon);
+        TextView primaryChip = card.findViewById(R.id.chip_primary);
+        TextView secondaryChip = card.findViewById(R.id.chip_secondary);
+        TextView toggle = card.findViewById(R.id.action_toggle);
+        View toggleSeparator = card.findViewById(R.id.action_toggle_separator);
+
+        title.setText(item.getTitle());
 
         switch (item.getBadge()) {
             case PUBLISHED:
                 subtitle.setText(R.string.vehicle_approved_active);
-                chip(primary, R.string.chip_approved, R.color.turbo_success_bg, R.color.turbo_success);
-                chip(secondary, R.string.chip_active, R.color.turbo_success_bg, R.color.turbo_success);
-                addAction(actions, R.string.action_deactivate,
-                        () -> changeAndReload(() -> container.vehicleRepository.unpublish(ownerId, item.getId())));
+                OwnerUi.paintChip(primaryChip, getString(R.string.chip_approved),
+                        R.color.turbo_success_bg, R.color.turbo_success);
+                OwnerUi.paintChip(secondaryChip, getString(R.string.chip_active),
+                        R.color.turbo_success_bg, R.color.turbo_success);
+                toggle.setText(R.string.action_deactivate);
+                toggle.setOnClickListener(v -> deactivate(item));
                 break;
             case NOT_PUBLISHED:
                 subtitle.setText(R.string.vehicle_hidden_by_owner);
-                chip(primary, R.string.chip_approved, R.color.turbo_success_bg, R.color.turbo_success);
-                chip(secondary, R.string.chip_inactive, R.color.turbo_success_bg, R.color.turbo_success);
-                addAction(actions, R.string.action_activate, () -> pickAvailableUntil(item));
+                OwnerUi.paintChip(primaryChip, getString(R.string.chip_approved),
+                        R.color.turbo_success_bg, R.color.turbo_success);
+                OwnerUi.paintChip(secondaryChip, getString(R.string.chip_inactive),
+                        R.color.turbo_success_bg, R.color.turbo_success);
+                toggle.setText(R.string.action_activate);
+                toggle.setOnClickListener(v -> pickAvailableUntil(item));
                 break;
             case PENDING_REVIEW:
+                // "1 document pending" or "2 documents pending" (<plurals> in strings_owner.xml).
                 int pending = item.getPendingDocuments();
                 subtitle.setText(getResources().getQuantityString(R.plurals.vehicle_documents_pending, pending, pending));
-                chip(primary, R.string.chip_pending_review, R.color.turbo_warning_bg, R.color.turbo_warning);
-                secondary.setVisibility(View.GONE);
+                OwnerUi.paintChip(primaryChip, getString(R.string.chip_pending_review),
+                        R.color.turbo_warning_bg, R.color.turbo_warning);
+                secondaryChip.setVisibility(View.GONE);
+                toggle.setVisibility(View.GONE);
+                toggleSeparator.setVisibility(View.GONE);
                 break;
             case ACTION_NEEDED:
-                int document = item.getRejectedDocument() == DocumentType.REGISTRATION
-                        ? R.string.document_registration : R.string.document_insurance;
-                subtitle.setText(getString(R.string.vehicle_document_rejected, getString(document)));
-                chip(primary, R.string.chip_action_needed, R.color.turbo_error_bg, R.color.turbo_error);
-                chip(secondary, R.string.chip_not_visible, R.color.turbo_neutral_bg, R.color.turbo_text_secondary);
+                // "Insurance rejected" or "Registration rejected".
+                int documentName = R.string.document_insurance;
+                if (item.getRejectedDocument() == DocumentType.REGISTRATION) {
+                    documentName = R.string.document_registration;
+                }
+                subtitle.setText(getString(R.string.vehicle_document_rejected, getString(documentName)));
+                OwnerUi.paintChip(primaryChip, getString(R.string.chip_action_needed),
+                        R.color.turbo_error_bg, R.color.turbo_error);
+                OwnerUi.paintChip(secondaryChip, getString(R.string.chip_not_visible),
+                        R.color.turbo_neutral_bg, R.color.turbo_text_secondary);
+                toggle.setVisibility(View.GONE);
+                toggleSeparator.setVisibility(View.GONE);
                 break;
         }
 
-        addAction(actions, R.string.action_documents, this::comingSoon);
-        addAction(actions, R.string.action_delete, () -> confirmDelete(item));
-        TextView actionsView = card.findViewById(R.id.vehicle_actions);
-        actionsView.setText(actions);
-        actionsView.setMovementMethod(LinkMovementMethod.getInstance());
+        card.findViewById(R.id.action_edit).setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), VehicleFormActivity.class);
+            intent.putExtra(VehicleFormActivity.EXTRA_VEHICLE_ID, item.getId());
+            startActivity(intent);
+        });
+        card.findViewById(R.id.action_documents).setOnClickListener(v -> {
+            // "Ford Escape 2019 · GH7 89J · Burnaby", shown at the top of W-16.
+            String summary = item.getTitle() + " · " + item.getPlate() + " · " + item.getZoneName();
+            Intent intent = new Intent(requireContext(), VehicleDocumentsActivity.class);
+            intent.putExtra(VehicleDocumentsActivity.EXTRA_VEHICLE_ID, item.getId());
+            intent.putExtra(VehicleDocumentsActivity.EXTRA_VEHICLE_SUMMARY, summary);
+            startActivity(intent);
+        });
+        card.findViewById(R.id.action_delete).setOnClickListener(v -> confirmDelete(item));
     }
 
-    private void chip(TextView chip, int label, int background, int textColor) {
-        chip.setText(label);
-        chip.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), background));
-        chip.setTextColor(ContextCompat.getColor(requireContext(), textColor));
-    }
-
-    // "Edit · Deactivate · Documents · Delete": one TextView, each word clickable.
-    private void addAction(SpannableStringBuilder actions, int label, Runnable onClick) {
-        if (actions.length() > 0) {
-            actions.append(" · ");
-        }
-        int start = actions.length();
-        actions.append(getString(label));
-        actions.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                // LinkMovementMethod leaves the tapped word selected (highlighted); clear it.
-                Selection.removeSelection((Spannable) ((TextView) widget).getText());
-                onClick.run();
-            }
-
-            @Override
-            public void updateDrawState(@NonNull TextPaint paint) {
-                // Keep the TextView color, no underline.
-            }
-        }, start, actions.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    }
-
-    // publish() needs an "available until" date and W-14 has no field for it, so ask with the native picker.
+    // Activating needs an "available until" date and W-14 has no field for it, so we ask with Android's date picker.
     private void pickAvailableUntil(OwnerVehicleItem item) {
-        Calendar today = Calendar.getInstance();
-        DatePickerDialog picker = new DatePickerDialog(requireContext(), (view, year, month, day) -> {
+        DatePickerDialog picker = new DatePickerDialog(requireContext()); // opens on today
+        picker.getDatePicker().setMinDate(System.currentTimeMillis()); // past days can't be picked
+        picker.setOnDateSetListener((view, year, month, day) -> {
             Calendar until = Calendar.getInstance();
-            until.set(year, month, day, 23, 59, 0);
-            changeAndReload(() -> container.vehicleRepository.publish(ownerId, item.getId(), until.getTimeInMillis()));
-        }, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
-        picker.getDatePicker().setMinDate(today.getTimeInMillis());
+            until.set(year, month, day, 23, 59, 0); // until the end of the chosen day
+            activate(item, until.getTimeInMillis());
+        });
         picker.show();
     }
 
     private void confirmDelete(OwnerVehicleItem item) {
         AppCompatDialog dialog = new AppCompatDialog(requireContext());
         dialog.setContentView(R.layout.dialog_confirm);
-        ((TextView) dialog.findViewById(R.id.dialog_title)).setText(R.string.delete_vehicle_title);
-        String name = item.getTitle().replaceFirst(" \\d{4}$", ""); // "Toyota Corolla 2022" -> "Toyota Corolla", as in W-14
-        ((TextView) dialog.findViewById(R.id.dialog_message)).setText(getString(R.string.delete_vehicle_body, name));
+        TextView title = dialog.findViewById(R.id.dialog_title);
+        TextView message = dialog.findViewById(R.id.dialog_message);
         TextView confirm = dialog.findViewById(R.id.dialog_confirm);
+        View cancel = dialog.findViewById(R.id.dialog_cancel);
+
+        title.setText(R.string.delete_vehicle_title);
+        message.setText(getString(R.string.delete_vehicle_body, OwnerUi.withoutYear(item.getTitle())));
         confirm.setText(R.string.delete_vehicle);
         confirm.setOnClickListener(v -> {
             dialog.dismiss();
-            changeAndReload(() -> container.vehicleRepository.deleteVehicle(ownerId, item.getId()));
+            delete(item);
         });
-        dialog.findViewById(R.id.dialog_cancel).setOnClickListener(v -> dialog.dismiss());
+        cancel.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
+
+        // Wireframe look: our rounded card instead of the default background, full width, darker backdrop.
         Window window = dialog.getWindow();
         window.setBackgroundDrawableResource(android.R.color.transparent);
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        window.setDimAmount(0.52f); // ≈ the wireframe's 60% ink scrim
-    }
-
-    private void comingSoon() {
-        Toast.makeText(requireContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+        window.setDimAmount(0.6f); // 60% dark, as in the wireframe
     }
 }

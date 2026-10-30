@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Top bar of the owner screens: back arrow (hidden unless the screen shows it), logo and avatar.
+     Used with <include layout="@layout/view_top_bar" />. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="24dp">
+
+    <!-- 40dp so it's easy to tap; -8dp so the arrow itself lines up with the 24dp page margin. -->
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="-8dp"
+        android:contentDescription="@string/back"
+        android:scaleType="center"
+        android:src="@drawable/ic_arrow_left"
+        android:visibility="gone"
+        app:tint="@color/turbo_text_primary" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/manrope_extrabold"
+        android:text="@string/turbo_logo"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/avatar"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_avatar"
+        android:fontFamily="@font/manrope_bold"
+        android:gravity="center"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="12sp" />
+</LinearLayout>

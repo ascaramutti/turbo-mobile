@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-17 Vehicle location: a drawn map with the pin, a hint, the address and "Confirm location". -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.owner.VehicleLocationActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_bold"
+                android:text="@string/vehicle_location"
+                android:textColor="@color/turbo_text_primary"
+                android:textSize="28sp" />
+
+            <!-- The map, drawn like in the wireframe: a grey box with the pin in the middle. -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_input"
+                android:backgroundTint="@color/turbo_neutral_bg">
+
+                <!-- The pin: three circles, one on top of the other. -->
+                <FrameLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_avatar">
+
+                    <View
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_avatar"
+                        android:backgroundTint="@color/turbo_primary" />
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_avatar"
+                        android:backgroundTint="@color/turbo_surface" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_turbo_chip"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/pickup_point"
+                    android:textColor="@color/turbo_text_primary"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <TextView
+                style="@style/TurboBanner"
+                android:backgroundTint="@color/turbo_neutral_bg"
+                android:drawableStart="@drawable/ic_info"
+                android:drawableTint="@color/turbo_text_secondary"
+                android:text="@string/location_hint"
+                android:textColor="@color/turbo_text_secondary"
+                android:visibility="visible" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/label_address" />
+
+            <EditText
+                android:id="@+id/input_address"
+                style="@style/TurboInput"
+                android:hint="@string/required"
+                android:inputType="textPostalAddress" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirm_location"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp"
+        android:text="@string/confirm_location" />
+</LinearLayout>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-12 Rate & review (Car Owner): 1 to 5 stars, an optional comment, "Submit" and "Later". -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.owner.ReviewDriverActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_bold"
+                android:text="@string/rate_title"
+                android:textColor="@color/turbo_text_primary"
+                android:textSize="28sp" />
+
+            <!-- "How was Ana L. as a driver?" -->
+            <TextView
+                android:id="@+id/rate_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/manrope_regular"
+                android:textColor="@color/turbo_text_secondary"
+                android:textSize="16sp" />
+
+            <!-- Android's own star widget. stepSize="1" = only whole stars. -->
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/turbo_stroke"
+                android:progressTint="@color/turbo_primary"
+                android:stepSize="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="@string/rate_hint"
+                android:textColor="@color/turbo_text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/label_comment" />
+
+            <EditText
+                android:id="@+id/input_comment"
+                style="@style/TurboInput"
+                android:hint="@string/comment_hint"
+                android:inputType="textCapSentences"
+                android:textColorHint="@color/turbo_text_secondary" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <!-- Disabled (grey) until a star is chosen. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:enabled="false"
+        android:text="@string/submit" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/later"
+        style="@style/TurboSecondaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/later" />
+</LinearLayout>

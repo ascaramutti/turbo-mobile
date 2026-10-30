@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Main button color: grey while disabled (e.g. "Submit" before choosing a star), orange otherwise. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/turbo_neutral_bg" android:state_enabled="false" />
+    <item android:color="@color/turbo_primary" />
+</selector>

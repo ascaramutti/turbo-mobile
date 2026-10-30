@@ -1,6 +1,7 @@
 <resources>
-    <string name="turbo_logo" translatable="false">turbo</string>
+    <string name="turbo_logo" translatable="false">TURBO</string>
     <string name="coming_soon">Coming soon</string>
+    <string name="back">Back</string>
 
     <string name="nav_vehicles">Vehicles</string>
     <string name="nav_bookings">Bookings</string>
@@ -33,8 +34,127 @@
     <string name="action_deactivate">Deactivate</string>
     <string name="action_documents">Documents</string>
     <string name="action_delete">Delete</string>
+    <string name="action_separator" translatable="false">·</string>
     <string name="delete_vehicle_title">Delete this vehicle?</string>
     <string name="delete_vehicle_body">%s will be removed. Existing booking history will be preserved.</string>
     <string name="delete_vehicle">Delete vehicle</string>
     <string name="cancel">Cancel</string>
+
+    <!-- W-15 Vehicle form -->
+    <string name="edit_vehicle_title">Edit %s</string>
+    <string name="save_vehicle">Save vehicle</string>
+    <string name="save_changes">Save changes</string>
+    <string name="add_photo">+ Add photo</string>
+    <string name="add_photo_short">+ Add</string>
+    <string name="photo_minimum">Minimum 1</string>
+    <string name="vehicle_photo">Vehicle photo</string>
+    <string name="remove_photo">Remove photo</string>
+    <string name="form_error">Complete the required fields and add at least one photo.</string>
+    <string name="form_edit_warning">Newly uploaded documents will return to Pending review.</string>
+    <string name="label_make">Make</string>
+    <string name="label_model">Model</string>
+    <string name="label_year">Year</string>
+    <string name="label_plate">Plate</string>
+    <string name="label_vin">VIN</string>
+    <string name="label_category">Category</string>
+    <string name="label_fuel_type">Fuel type</string>
+    <string name="label_service">Service</string>
+    <string name="label_hourly_rate">Hourly rate (CAD)</string>
+    <string name="label_zone">Zone</string>
+    <string name="label_description">Description (optional)</string>
+    <string name="label_insurance">Insurance certificate</string>
+    <string name="label_registration">Vehicle registration</string>
+    <string name="required">Required</string>
+    <string name="optional">Optional</string>
+    <string name="select">Select</string>
+    <string name="choose_photo">Choose photo</string>
+    <string name="photo_selected">Photo selected</string>
+    <string name="label_location">Location</string>
+
+    <!-- Dropdown options. "Select" first, then the same order as the enum (VehicleCategory, FuelType...). -->
+    <string-array name="vehicle_categories">
+        <item>@string/select</item>
+        <item>Sedan</item>
+        <item>SUV</item>
+        <item>Van</item>
+        <item>Truck</item>
+        <item>Compact</item>
+    </string-array>
+    <string-array name="fuel_types">
+        <item>@string/select</item>
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Electric</item>
+        <item>Hybrid</item>
+    </string-array>
+    <string-array name="service_types">
+        <item>@string/select</item>
+        <item>Taxi &amp; Delivery</item>
+        <item>Delivery only</item>
+    </string-array>
+
+    <!-- W-16 Vehicle documents -->
+    <string name="vehicle_documents">Vehicle documents</string>
+    <string name="documents_rejected_banner">Action needed · Not visible to drivers yet - one document was rejected.</string>
+    <string name="documents_pending_banner">%s uploaded - pending review.</string>
+    <string name="documents_both_pending_banner">Both documents uploaded - pending review.</string>
+    <string name="documents_approved_banner">Both documents are approved.</string>
+    <string name="document_reason">Reason: %s</string>
+    <string name="document_uploaded">Uploaded %s</string>
+    <string name="document_current">Current document</string>
+    <string name="document_waiting">Waiting for admin review</string>
+    <string name="reupload">Re-upload</string>
+    <string name="reupload_insurance">Re-upload insurance</string>
+    <string name="reupload_registration">Re-upload registration</string>
+    <string name="chip_rejected">Rejected</string>
+
+    <!-- W-17 Vehicle location -->
+    <string name="vehicle_location">Vehicle location</string>
+    <string name="pickup_point">Pickup point</string>
+    <string name="location_hint">Type the pickup address. Drivers see the exact spot only after you confirm their booking.</string>
+    <string name="label_address">Address</string>
+    <string name="confirm_location">Confirm location</string>
+
+    <!-- W-18 Bookings -->
+    <string name="tab_requests">Requests</string>
+    <string name="tab_upcoming">Upcoming</string>
+    <string name="tab_history">History</string>
+    <string name="bookings_empty">No bookings here yet.</string>
+    <string name="action_reject">Reject</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="reject_reason">The owner is not available for this shift</string>
+    <string name="booking_confirmed">Booking confirmed</string>
+    <string name="booking_rejected">Booking rejected</string>
+    <string name="service_taxi">Taxi</string>
+    <string name="service_delivery">Delivery</string>
+    <string name="chip_confirmed">Confirmed</string>
+    <string name="chip_in_progress">In progress</string>
+    <string name="chip_paid">Paid</string>
+    <string name="chip_payment_pending">Payment pending</string>
+    <string name="chip_completed">Completed</string>
+    <string name="chip_not_paid">Not paid</string>
+    <string name="chip_cancelled">Cancelled</string>
+    <string name="price_with_share">%1$s · owner share %2$s</string>
+    <string name="review_driver">Review driver</string>
+    <string name="driver_reviewed">Driver reviewed</string>
+    <string name="history_preserved">History preserved</string>
+
+    <!-- W-19 Earnings -->
+    <string name="all_vehicles">All vehicles</string>
+    <string name="total_earned">Total earned</string>
+    <string name="completed_shifts">Completed shifts</string>
+    <string name="this_month">This month</string>
+    <string name="earnings_share" formatted="false">You receive 80% of each payment.</string>
+    <string name="earnings_empty">No payments yet.</string>
+    <string name="payout">+ %s</string>
+
+    <!-- W-12 Rate & review (car owner rates the driver) -->
+    <string name="rate_title">Rate your experience</string>
+    <string name="rate_question">How was %s as a driver?</string>
+    <string name="rate_hint">Tap a star to rate your experience.</string>
+    <string name="label_comment">Comment (optional)</string>
+    <string name="comment_hint">Share your experience</string>
+    <string name="submit">Submit</string>
+    <string name="later">Later</string>
+    <string name="review_sent">Thanks for your review!</string>
 </resources>

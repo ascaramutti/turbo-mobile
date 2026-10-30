@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Card used by W-16 (documents), W-18 (bookings) and W-19 (earnings):
+     title, subtitle, one or two chips and a grey line at the bottom.
+     W-18 Requests hides the grey line and shows the "Reject · Confirm" links instead. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TurboCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/card_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_bold"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/card_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/manrope_regular"
+        android:textColor="@color/turbo_text_secondary"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/chip_primary"
+            style="@style/TurboChip" />
+
+        <!-- Hidden until the code paints it (OwnerUi.paintChip shows it). -->
+        <TextView
+            android:id="@+id/chip_secondary"
+            style="@style/TurboChip"
+            android:layout_marginStart="8dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/card_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/manrope_regular"
+        android:textColor="@color/turbo_text_secondary"
+        android:textSize="12sp" />
+
+    <!-- W-18 Requests only. -->
+    <LinearLayout
+        android:id="@+id/card_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/action_reject"
+            style="@style/TurboCardAction"
+            android:text="@string/action_reject" />
+
+        <TextView
+            style="@style/TurboCardAction"
+            android:paddingHorizontal="4dp"
+            android:text="@string/action_separator" />
+
+        <TextView
+            android:id="@+id/action_confirm"
+            style="@style/TurboCardAction"
+            android:text="@string/action_confirm" />
+    </LinearLayout>
+</LinearLayout>

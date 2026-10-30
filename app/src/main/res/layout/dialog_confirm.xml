@@ -18,7 +18,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_bold"
-            android:includeFontPadding="false"
             android:textColor="@color/turbo_text_primary"
             android:textSize="20sp" />
 
@@ -28,8 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/manrope_regular"
-            android:includeFontPadding="false"
-            android:lineSpacingExtra="1dp"
             android:textColor="@color/turbo_text_secondary"
             android:textSize="14sp" />
 
@@ -41,39 +38,21 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialog_cancel"
+                android:textSize="14sp"
+                style="@style/TurboSecondaryButton"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/manrope_semibold"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:letterSpacing="0"
-                android:padding="0dp"
-                android:text="@string/cancel"
-                android:textAllCaps="false"
-                android:textColor="@color/turbo_primary"
-                android:textSize="14sp"
-                app:backgroundTint="@color/turbo_surface"
-                app:cornerRadius="12dp"
-                app:strokeColor="@color/turbo_stroke"
-                app:strokeWidth="1dp" />
+                android:text="@string/cancel" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialog_confirm"
+                android:textSize="14sp"
+                style="@style/TurboPrimaryButton"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/manrope_semibold"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:letterSpacing="0"
-                android:padding="0dp"
-                android:textAllCaps="false"
-                android:textColor="@color/turbo_on_primary"
-                android:textSize="16sp"
-                app:backgroundTint="@color/turbo_primary"
-                app:cornerRadius="12dp" />
+                android:layout_marginStart="12dp"
+                android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

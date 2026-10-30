@@ -44,6 +44,21 @@
         <activity
             android:name=".ui.owner.OwnerActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.owner.VehicleFormActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.owner.VehicleDocumentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.owner.VehicleLocationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.owner.ReviewDriverActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
