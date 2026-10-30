@@ -33,5 +33,18 @@
     <string name="btnCreateAccount">Create account</string>
     <string name="txtHaveAccount">Already have an account? Log in</string>
 
+    <!-- activity_notifications -->
+    <string name="notificationBrand">turbo</string>
+    <string name="notificationsTitle">Notifications</string>
+    <string name="notificationsSubtitle">Vehicle and booking updates</string>
+    <string name="notificationsEmptyTitle">You’re all caught up</string>
+    <string name="notificationsEmptyMessage">New booking and document updates will appear here.</string>
+    <string name="descNotificationsEmpty">No notifications</string>
+    <string name="navVehicles">Vehicles</string>
+    <string name="navBookings">Bookings</string>
+    <string name="navEarnings">Earnings</string>
+    <string name="navAlerts">Alerts</string>
+    <string name="navProfile">Profile</string>
+
 
 </resources>
