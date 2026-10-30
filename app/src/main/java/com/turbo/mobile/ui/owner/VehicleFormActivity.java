@@ -1,7 +1,6 @@
 package com.turbo.mobile.ui.owner;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +28,7 @@ import com.turbo.mobile.data.model.VehicleEditData;
 import com.turbo.mobile.data.model.VehicleForm;
 import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.data.model.Zone;
+import com.turbo.mobile.ui.TurboUi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,8 +112,8 @@ public class VehicleFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OwnerUi.setUpScreen(this, R.layout.activity_vehicle_form);
-        OwnerUi.showBackButton(this);
+        TurboUi.setUpScreen(this, R.layout.activity_vehicle_form);
+        TurboUi.showBackButton(this);
 
         container = ((TurboApp) getApplication()).getContainer();
         ownerId = container.sessionManager.getUserId();
@@ -202,7 +202,7 @@ public class VehicleFormActivity extends AppCompatActivity {
                 if (result instanceof Result.Success) {
                     fillForm(((Result.Success<VehicleEditData>) result).data);
                 } else {
-                    OwnerUi.showError(this, result);
+                    TurboUi.showError(this, result);
                     finish();
                 }
             });
@@ -242,7 +242,7 @@ public class VehicleFormActivity extends AppCompatActivity {
             View tile = getLayoutInflater().inflate(R.layout.item_photo_tile, photoList, false);
             tile.setClipToOutline(true); // cuts the photo to the tile's rounded corners
             ImageView image = tile.findViewById(R.id.photo_image);
-            loadPhoto(image, photo.getFilePath());
+            TurboUi.loadPhoto(this, image, photo.getFilePath());
             tile.findViewById(R.id.photo_remove).setOnClickListener(v -> removePhoto(photo));
             photoList.addView(tile);
         }
@@ -253,16 +253,6 @@ public class VehicleFormActivity extends AppCompatActivity {
             addPhotoButton.setText(R.string.add_photo_short);
             photoMinimum.setVisibility(View.GONE);
         }
-    }
-
-    // Reading an image file is slow, so it also happens on the background thread.
-    private void loadPhoto(ImageView image, String path) {
-        container.executor.execute(() -> {
-            Bitmap bitmap = container.imageStorage.load(path, 300);
-            if (bitmap != null) {
-                runOnUiThread(() -> image.setImageBitmap(bitmap));
-            }
-        });
     }
 
     private void addPhoto(Uri uri) {
@@ -282,7 +272,7 @@ public class VehicleFormActivity extends AppCompatActivity {
                         photos.add(photo);
                         showPhotos();
                     } else {
-                        OwnerUi.showError(this, result);
+                        TurboUi.showError(this, result);
                     }
                 });
             });
@@ -301,7 +291,7 @@ public class VehicleFormActivity extends AppCompatActivity {
                         photos.remove(photo);
                         showPhotos();
                     } else {
-                        OwnerUi.showError(this, result);
+                        TurboUi.showError(this, result);
                     }
                 });
             });
@@ -333,7 +323,7 @@ public class VehicleFormActivity extends AppCompatActivity {
                 if (result instanceof Result.Success) {
                     finish(); // back to My vehicles, which reloads its list in onResume
                 } else {
-                    OwnerUi.showError(this, result);
+                    TurboUi.showError(this, result);
                     saveButton.setEnabled(true);
                 }
             });

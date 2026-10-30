@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-09 Booking detail (driver): the vehicle, one colored message, the booking's cards
+     and the buttons of the next step. What is shown depends on the booking's status. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.DriverBookingDetailActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- "Booking #20" -->
+            <TextView
+                android:id="@+id/booking_title"
+                style="@style/TurboTitle" />
+
+            <!-- "Toyota Corolla 2022" -->
+            <TextView
+                android:id="@+id/vehicle_summary"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_turbo_card"
+                android:backgroundTint="@color/turbo_primary_container"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/turbo_primary"
+                android:drawableTop="@drawable/ic_image"
+                android:fontFamily="@font/manrope_semibold"
+                android:gravity="center"
+                android:paddingVertical="28dp"
+                android:textColor="@color/turbo_text_secondary"
+                android:textSize="14sp" />
+
+            <!-- Only one of the four banners is shown, with the text of the booking's status. -->
+            <TextView
+                android:id="@+id/banner_info"
+                style="@style/TurboBanner.Info" />
+
+            <TextView
+                android:id="@+id/banner_warning"
+                style="@style/TurboBanner.Warning" />
+
+            <TextView
+                android:id="@+id/banner_success"
+                style="@style/TurboBanner.Success" />
+
+            <TextView
+                android:id="@+id/banner_error"
+                style="@style/TurboBanner.Error" />
+
+            <!-- Filled in code with item_info_card.xml. -->
+            <LinearLayout
+                android:id="@+id/card_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <!-- "Pay CAD 50.00", "Start trip", "End trip", "Rate your experience" or "Find another vehicle". -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/main_action"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancel_booking"
+        style="@style/TurboSecondaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/cancel_booking"
+        android:visibility="gone" />
+
+    <!-- Space under the buttons, also when both are hidden. -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+</LinearLayout>

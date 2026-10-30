@@ -7,6 +7,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.turbo.mobile.R;
+import com.turbo.mobile.ui.TurboUi;
 
 /**
  * W-17 Vehicle location: the pickup address of the vehicle. It's opened from the vehicle form (W-15)
@@ -22,8 +23,8 @@ public class VehicleLocationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OwnerUi.setUpScreen(this, R.layout.activity_vehicle_location);
-        OwnerUi.showBackButton(this);
+        TurboUi.setUpScreen(this, R.layout.activity_vehicle_location);
+        TurboUi.showBackButton(this);
 
         addressInput = findViewById(R.id.input_address);
         addressInput.setText(getIntent().getStringExtra(EXTRA_ADDRESS));

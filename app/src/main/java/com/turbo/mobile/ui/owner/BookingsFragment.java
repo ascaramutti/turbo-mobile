@@ -21,6 +21,8 @@ import com.turbo.mobile.data.model.OwnerAction;
 import com.turbo.mobile.data.model.OwnerTab;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.ServiceType;
+import com.turbo.mobile.ui.ReviewActivity;
+import com.turbo.mobile.ui.TurboUi;
 
 import java.util.List;
 import java.util.Locale;
@@ -82,7 +84,7 @@ public class BookingsFragment extends Fragment {
             } else {
                 bookings = container.bookingRepository.getOwnerBookings(ownerId, OwnerTab.HISTORY);
             }
-            OwnerUi.runOnMainThread(this, () -> showBookings(bookings, tabId));
+            TurboUi.runOnMainThread(this, () -> showBookings(bookings, tabId));
         });
     }
 
@@ -120,8 +122,8 @@ public class BookingsFragment extends Fragment {
         if (booking.getServiceType() == ServiceType.TAXI) {
             service = getString(R.string.service_taxi);
         }
-        OwnerUi.paintChip(serviceChip, service, R.color.turbo_primary_container, R.color.turbo_primary);
-        OwnerUi.paintChip(priceChip, OwnerUi.money(booking.getTotalPriceCents()),
+        TurboUi.paintChip(serviceChip, service, R.color.turbo_primary_container, R.color.turbo_primary);
+        TurboUi.paintChip(priceChip, TurboUi.money(booking.getTotalPriceCents()),
                 R.color.turbo_primary_container, R.color.turbo_primary);
 
         card.findViewById(R.id.card_footer).setVisibility(View.GONE);
@@ -145,15 +147,15 @@ public class BookingsFragment extends Fragment {
         if (booking.getStatus() == BookingStatus.IN_PROGRESS) {
             status = getString(R.string.chip_in_progress);
         }
-        OwnerUi.paintChip(statusChip, status, R.color.turbo_success_bg, R.color.turbo_success);
+        TurboUi.paintChip(statusChip, status, R.color.turbo_success_bg, R.color.turbo_success);
 
-        String price = OwnerUi.money(booking.getTotalPriceCents());
+        String price = TurboUi.money(booking.getTotalPriceCents());
         if (booking.isPaid()) {
-            OwnerUi.paintChip(paymentChip, getString(R.string.chip_paid), R.color.turbo_success_bg, R.color.turbo_success);
+            TurboUi.paintChip(paymentChip, getString(R.string.chip_paid), R.color.turbo_success_bg, R.color.turbo_success);
             int ownerShare = booking.getTotalPriceCents() * 80 / 100; // the owner receives 80%
-            footer.setText(getString(R.string.price_with_share, price, OwnerUi.money(ownerShare)));
+            footer.setText(getString(R.string.price_with_share, price, TurboUi.money(ownerShare)));
         } else {
-            OwnerUi.paintChip(paymentChip, getString(R.string.chip_payment_pending),
+            TurboUi.paintChip(paymentChip, getString(R.string.chip_payment_pending),
                     R.color.turbo_warning_bg, R.color.turbo_warning);
             footer.setText(price);
         }
@@ -168,18 +170,18 @@ public class BookingsFragment extends Fragment {
         TextView footer = card.findViewById(R.id.card_footer);
 
         title.setText(booking.getDriverName());
-        String when = OwnerUi.withoutYear(booking.getVehicleTitle()) + " · " + OwnerUi.date(booking.getStart())
+        String when = TurboUi.withoutYear(booking.getVehicleTitle()) + " · " + TurboUi.date(booking.getStart())
                 + " · " + booking.getHours() + " h";
         subtitle.setText(when);
 
         if (booking.getStatus() == BookingStatus.COMPLETED) {
-            OwnerUi.paintChip(statusChip, getString(R.string.chip_completed),
+            TurboUi.paintChip(statusChip, getString(R.string.chip_completed),
                     R.color.turbo_success_bg, R.color.turbo_success);
             String payment = getString(R.string.chip_not_paid);
             if (booking.isPaid()) {
                 payment = getString(R.string.chip_paid);
             }
-            OwnerUi.paintChip(paymentChip, payment, R.color.turbo_success_bg, R.color.turbo_success);
+            TurboUi.paintChip(paymentChip, payment, R.color.turbo_success_bg, R.color.turbo_success);
             // The repository adds REVIEW to the owner's actions until the owner reviews the driver.
             if (booking.getOwnerActions().contains(OwnerAction.REVIEW)) {
                 footer.setText(R.string.review_driver);
@@ -192,21 +194,21 @@ public class BookingsFragment extends Fragment {
             if (booking.getStatus() == BookingStatus.CANCELLED) {
                 status = getString(R.string.chip_cancelled);
             }
-            OwnerUi.paintChip(statusChip, status, R.color.turbo_neutral_bg, R.color.turbo_text_secondary);
+            TurboUi.paintChip(statusChip, status, R.color.turbo_neutral_bg, R.color.turbo_text_secondary);
             footer.setText(R.string.history_preserved);
         }
     }
 
     // "Toyota Corolla · Oct 14 · 08:00–12:00"
     private String shift(BookingListItem booking) {
-        return OwnerUi.withoutYear(booking.getVehicleTitle()) + " · " + OwnerUi.date(booking.getStart())
-                + " · " + OwnerUi.time(booking.getStart()) + "–" + OwnerUi.time(booking.getEnd());
+        return TurboUi.withoutYear(booking.getVehicleTitle()) + " · " + TurboUi.date(booking.getStart())
+                + " · " + TurboUi.time(booking.getStart()) + "–" + TurboUi.time(booking.getEnd());
     }
 
     private void confirm(BookingListItem booking) {
         container.executor.execute(() -> {
             Result<ConfirmResult> result = container.bookingRepository.confirm(ownerId, booking.getId());
-            OwnerUi.runOnMainThread(this, () -> showResultAndReload(result, R.string.booking_confirmed));
+            TurboUi.runOnMainThread(this, () -> showResultAndReload(result, R.string.booking_confirmed));
         });
     }
 
@@ -214,7 +216,7 @@ public class BookingsFragment extends Fragment {
         String reason = getString(R.string.reject_reason); // read here: getString needs the screen
         container.executor.execute(() -> {
             Result<Void> result = container.bookingRepository.reject(ownerId, booking.getId(), reason);
-            OwnerUi.runOnMainThread(this, () -> showResultAndReload(result, R.string.booking_rejected));
+            TurboUi.runOnMainThread(this, () -> showResultAndReload(result, R.string.booking_rejected));
         });
     }
 
@@ -222,15 +224,15 @@ public class BookingsFragment extends Fragment {
         if (result instanceof Result.Success) {
             Toast.makeText(requireContext(), successMessage, Toast.LENGTH_SHORT).show();
         } else {
-            OwnerUi.showError(requireContext(), result);
+            TurboUi.showError(requireContext(), result);
         }
         loadBookings();
     }
 
     private void openReview(BookingListItem booking) {
-        Intent intent = new Intent(requireContext(), ReviewDriverActivity.class);
-        intent.putExtra(ReviewDriverActivity.EXTRA_BOOKING_ID, booking.getId());
-        intent.putExtra(ReviewDriverActivity.EXTRA_DRIVER_NAME, booking.getDriverName());
+        Intent intent = new Intent(requireContext(), ReviewActivity.class);
+        intent.putExtra(ReviewActivity.EXTRA_BOOKING_ID, booking.getId());
+        intent.putExtra(ReviewActivity.EXTRA_QUESTION, getString(R.string.rate_question_driver, booking.getDriverName()));
         startActivity(intent);
     }
 }

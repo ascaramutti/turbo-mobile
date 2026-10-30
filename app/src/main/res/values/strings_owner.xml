@@ -148,9 +148,9 @@
     <string name="earnings_empty">No payments yet.</string>
     <string name="payout">+ %s</string>
 
-    <!-- W-12 Rate & review (car owner rates the driver) -->
+    <!-- W-12 Rate & review (owner and driver) -->
     <string name="rate_title">Rate your experience</string>
-    <string name="rate_question">How was %s as a driver?</string>
+    <string name="rate_question_driver">How was %s as a driver?</string>
     <string name="rate_hint">Tap a star to rate your experience.</string>
     <string name="label_comment">Comment (optional)</string>
     <string name="comment_hint">Share your experience</string>

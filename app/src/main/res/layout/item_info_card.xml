@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Card used by W-16 (documents), W-18 (bookings) and W-19 (earnings):
-     title, subtitle, one or two chips and a grey line at the bottom.
+<!-- Card used by most lists (documents, bookings, earnings, search results...):
+     title, subtitle, an optional photo on the right, one or two chips and a grey line at the bottom.
      W-18 Requests hides the grey line and shows the "Reject · Confirm" links instead. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/TurboCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@+id/card_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/manrope_bold"
-        android:textColor="@color/turbo_text_primary"
-        android:textSize="14sp" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/card_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/manrope_regular"
-        android:textColor="@color/turbo_text_secondary"
-        android:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/card_title"
+                style="@style/TurboCardTitle" />
+
+            <TextView
+                android:id="@+id/card_subtitle"
+                style="@style/TurboCardText" />
+        </LinearLayout>
+
+        <!-- Photo on the right (vehicle, document...). Hidden unless the code shows it.
+             The icon stays visible until a photo is loaded on top of it. -->
+        <FrameLayout
+            android:id="@+id/card_thumbnail"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_turbo_chip"
+            android:backgroundTint="@color/turbo_primary_container"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="center"
+                android:src="@drawable/ic_image"
+                app:tint="@color/turbo_primary" />
+
+            <ImageView
+                android:id="@+id/card_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop" />
+        </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,11 +63,12 @@
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
+        <!-- Both chips are hidden until the code paints them (TurboUi.paintChip shows them). -->
         <TextView
             android:id="@+id/chip_primary"
-            style="@style/TurboChip" />
+            style="@style/TurboChip"
+            android:visibility="gone" />
 
-        <!-- Hidden until the code paints it (OwnerUi.paintChip shows it). -->
         <TextView
             android:id="@+id/chip_secondary"
             style="@style/TurboChip"
@@ -45,12 +78,8 @@
 
     <TextView
         android:id="@+id/card_footer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/manrope_regular"
-        android:textColor="@color/turbo_text_secondary"
-        android:textSize="12sp" />
+        style="@style/TurboCardText"
+        android:layout_marginTop="8dp" />
 
     <!-- W-18 Requests only. -->
     <LinearLayout

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Top bar of the owner screens: back arrow (hidden unless the screen shows it), logo and avatar.
+<!-- Top bar of the owner and driver screens: back arrow (hidden unless the screen shows it), logo and avatar.
      Used with <include layout="@layout/view_top_bar" />. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

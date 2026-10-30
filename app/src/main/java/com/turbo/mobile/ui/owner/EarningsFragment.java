@@ -17,6 +17,7 @@ import com.turbo.mobile.data.model.EarningItem;
 import com.turbo.mobile.data.model.OwnerEarnings;
 import com.turbo.mobile.data.model.OwnerVehicleItem;
 import com.turbo.mobile.data.model.Result;
+import com.turbo.mobile.ui.TurboUi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,21 +66,21 @@ public class EarningsFragment extends Fragment {
         container.executor.execute(() -> {
             List<OwnerVehicleItem> ownerVehicles = container.vehicleRepository.getOwnerVehicles(ownerId);
             Result<OwnerEarnings> result = container.paymentRepository.getOwnerEarnings(ownerId, filter);
-            OwnerUi.runOnMainThread(this, () -> {
+            TurboUi.runOnMainThread(this, () -> {
                 vehicles = ownerVehicles;
                 if (result instanceof Result.Success) {
                     showEarnings(((Result.Success<OwnerEarnings>) result).data);
                 } else {
-                    OwnerUi.showError(requireContext(), result);
+                    TurboUi.showError(requireContext(), result);
                 }
             });
         });
     }
 
     private void showEarnings(OwnerEarnings earnings) {
-        totalEarned.setText(OwnerUi.moneyWithoutCents(earnings.getTotalCents()));
+        totalEarned.setText(TurboUi.moneyWithoutCents(earnings.getTotalCents()));
         completedShifts.setText(String.valueOf(earnings.getCompletedRentals()));
-        thisMonth.setText(OwnerUi.moneyWithoutCents(earnings.getMonthCents()));
+        thisMonth.setText(TurboUi.moneyWithoutCents(earnings.getMonthCents()));
 
         earningList.removeAllViews();
         for (EarningItem earning : earnings.getHistory()) {
@@ -90,12 +91,12 @@ public class EarningsFragment extends Fragment {
             TextView footer = card.findViewById(R.id.card_footer);
 
             // "Toyota Corolla · Ana L.", "Oct 2 · 4 h", "Paid", "+ CAD 40.00"
-            String vehicleAndDriver = OwnerUi.withoutYear(earning.getVehicleTitle()) + " · " + earning.getDriverName();
-            String when = OwnerUi.date(earning.getPaidAt()) + " · " + earning.getHours() + " h";
+            String vehicleAndDriver = TurboUi.withoutYear(earning.getVehicleTitle()) + " · " + earning.getDriverName();
+            String when = TurboUi.date(earning.getPaidAt()) + " · " + earning.getHours() + " h";
             title.setText(vehicleAndDriver);
             subtitle.setText(when);
-            OwnerUi.paintChip(chip, getString(R.string.chip_paid), R.color.turbo_success_bg, R.color.turbo_success);
-            footer.setText(getString(R.string.payout, OwnerUi.money(earning.getPayoutCents())));
+            TurboUi.paintChip(chip, getString(R.string.chip_paid), R.color.turbo_success_bg, R.color.turbo_success);
+            footer.setText(getString(R.string.payout, TurboUi.money(earning.getPayoutCents())));
             earningList.addView(card);
         }
         emptyText.setVisibility(earnings.getHistory().isEmpty() ? View.VISIBLE : View.GONE);

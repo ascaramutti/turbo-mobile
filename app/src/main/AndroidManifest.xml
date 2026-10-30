@@ -56,9 +56,28 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.owner.ReviewDriverActivity"
+            android:name=".ui.ReviewActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.driver.DriverActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.driver.VehicleDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.driver.DriverBookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.driver.PaymentActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.driver.TripPhotosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.driver.MyDocumentsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

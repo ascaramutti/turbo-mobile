@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-10 Payment. The card form, or a big icon with a message: processing, complete or failed. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.PaymentActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- "Payment", "Payment complete" or "Payment failed" -->
+            <TextView
+                android:id="@+id/payment_title"
+                style="@style/TurboTitle"
+                android:text="@string/payment" />
+
+            <!-- "Booking #21 · Honda Fit" -->
+            <TextView
+                android:id="@+id/payment_subtitle"
+                style="@style/TurboSubtitle" />
+
+            <LinearLayout
+                android:id="@+id/form_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/banner_info"
+                    style="@style/TurboBanner.Info"
+                    android:text="@string/simulated_payment"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/banner_error"
+                    style="@style/TurboBanner.Error"
+                    android:text="@string/check_card" />
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/label_card_number" />
+
+                <!-- digits = the only keys accepted (numbers and spaces). -->
+                <EditText
+                    android:id="@+id/input_card"
+                    style="@style/TurboInput"
+                    android:digits="0123456789 "
+                    android:inputType="number"
+                    android:maxLength="19"
+                    android:text="@string/test_card_number" />
+
+                <TextView
+                    android:id="@+id/card_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:text="@string/card_invalid"
+                    android:textColor="@color/turbo_error"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/label_expiry" />
+
+                <EditText
+                    android:id="@+id/input_expiry"
+                    style="@style/TurboInput"
+                    android:digits="0123456789/"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:text="@string/test_card_expiry" />
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/label_cvv" />
+
+                <EditText
+                    android:id="@+id/input_cvv"
+                    style="@style/TurboInput"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:text="@string/test_card_cvv" />
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        style="@style/TurboCardTitle"
+                        android:text="@string/schedule" />
+
+                    <!-- "Wed, Oct 14 · 08:00–12:00" -->
+                    <TextView
+                        android:id="@+id/schedule_time"
+                        style="@style/TurboCardText" />
+
+                    <!-- "Amount CAD 50.00" -->
+                    <TextView
+                        android:id="@+id/schedule_amount"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/manrope_semibold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Processing, complete or failed: a circle with a spinner or an icon, a title and a message. -->
+            <LinearLayout
+                android:id="@+id/status_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="64dp"
+                    android:background="@drawable/bg_avatar">
+
+                    <!-- Android's spinning circle. -->
+                    <ProgressBar
+                        android:id="@+id/status_progress"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/turbo_primary" />
+
+                    <ImageView
+                        android:id="@+id/status_icon"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:importantForAccessibility="no"
+                        android:visibility="gone"
+                        app:tint="@color/turbo_primary" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/manrope_bold"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/turbo_text_primary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/status_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/turbo_text_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <!-- "Pay CAD 50.00", "Processing…", "View booking" or "Retry payment". -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/main_action"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp" />
+
+    <!-- "Cancel" or "Back to booking". -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/second_action"
+        style="@style/TurboSecondaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Space under the buttons, also when the second one is hidden. -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+</LinearLayout>

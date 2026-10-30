@@ -18,6 +18,7 @@ import com.turbo.mobile.data.model.DocumentStatus;
 import com.turbo.mobile.data.model.DocumentType;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.VehicleDocumentItem;
+import com.turbo.mobile.ui.TurboUi;
 
 import java.util.List;
 
@@ -51,8 +52,8 @@ public class VehicleDocumentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OwnerUi.setUpScreen(this, R.layout.activity_vehicle_documents);
-        OwnerUi.showBackButton(this);
+        TurboUi.setUpScreen(this, R.layout.activity_vehicle_documents);
+        TurboUi.showBackButton(this);
 
         container = ((TurboApp) getApplication()).getContainer();
         ownerId = container.sessionManager.getUserId();
@@ -90,7 +91,7 @@ public class VehicleDocumentsActivity extends AppCompatActivity {
             TextView subtitle = card.findViewById(R.id.card_subtitle);
             TextView chip = card.findViewById(R.id.chip_primary);
             TextView footer = card.findViewById(R.id.card_footer);
-            String uploaded = getString(R.string.document_uploaded, OwnerUi.date(document.getUploadedAt()));
+            String uploaded = getString(R.string.document_uploaded, TurboUi.date(document.getUploadedAt()));
 
             if (document.getType() == DocumentType.INSURANCE) {
                 title.setText(R.string.label_insurance);
@@ -101,7 +102,7 @@ public class VehicleDocumentsActivity extends AppCompatActivity {
             switch (document.getStatus()) {
                 case REJECTED:
                     subtitle.setText(getString(R.string.document_reason, document.getRejectionReason()));
-                    OwnerUi.paintChip(chip, getString(R.string.chip_rejected),
+                    TurboUi.paintChip(chip, getString(R.string.chip_rejected),
                             R.color.turbo_error_bg, R.color.turbo_error);
                     footer.setText(R.string.reupload);
                     if (rejectedType == null) {
@@ -110,7 +111,7 @@ public class VehicleDocumentsActivity extends AppCompatActivity {
                     break;
                 case PENDING:
                     subtitle.setText(uploaded);
-                    OwnerUi.paintChip(chip, getString(R.string.chip_pending_review),
+                    TurboUi.paintChip(chip, getString(R.string.chip_pending_review),
                             R.color.turbo_warning_bg, R.color.turbo_warning);
                     footer.setText(R.string.document_waiting);
                     pendingCount = pendingCount + 1;
@@ -118,7 +119,7 @@ public class VehicleDocumentsActivity extends AppCompatActivity {
                     break;
                 case APPROVED:
                     subtitle.setText(R.string.document_current);
-                    OwnerUi.paintChip(chip, getString(R.string.chip_approved),
+                    TurboUi.paintChip(chip, getString(R.string.chip_approved),
                             R.color.turbo_success_bg, R.color.turbo_success);
                     footer.setText(uploaded);
                     break;
@@ -171,7 +172,7 @@ public class VehicleDocumentsActivity extends AppCompatActivity {
             Result<Void> result = container.documentRepository.uploadVehicleDocument(ownerId, vehicleId, type, uri);
             runOnUiThread(() -> {
                 if (result instanceof Result.Error) {
-                    OwnerUi.showError(this, result);
+                    TurboUi.showError(this, result);
                 }
                 reuploadButton.setEnabled(true);
                 loadDocuments();

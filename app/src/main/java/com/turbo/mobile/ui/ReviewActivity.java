@@ -1,4 +1,4 @@
-package com.turbo.mobile.ui.owner;
+package com.turbo.mobile.ui;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -14,15 +14,15 @@ import com.turbo.mobile.R;
 import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.data.model.Result;
 
-/** W-12 Rate & review, Car Owner version: the owner rates the driver of a finished booking. */
-public class ReviewDriverActivity extends AppCompatActivity {
+/** W-12 Rate & review: after a finished booking, the owner rates the driver and the driver rates the owner. */
+public class ReviewActivity extends AppCompatActivity {
 
-    // Names of the Intent extras sent by BookingsFragment.
+    // Names of the Intent extras. The question is ready to show, e.g. "How was Ana L. as a driver?".
     public static final String EXTRA_BOOKING_ID = "booking_id";
-    public static final String EXTRA_DRIVER_NAME = "driver_name";
+    public static final String EXTRA_QUESTION = "question";
 
     private AppContainer container;
-    private long ownerId;
+    private long userId; // the person writing the review
     private long bookingId;
     private RatingBar ratingBar;
     private EditText commentInput;
@@ -31,15 +31,15 @@ public class ReviewDriverActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OwnerUi.setUpScreen(this, R.layout.activity_review_driver);
-        OwnerUi.showBackButton(this);
+        TurboUi.setUpScreen(this, R.layout.activity_review);
+        TurboUi.showBackButton(this);
 
         container = ((TurboApp) getApplication()).getContainer();
-        ownerId = container.sessionManager.getUserId();
+        userId = container.sessionManager.getUserId();
         bookingId = getIntent().getLongExtra(EXTRA_BOOKING_ID, 0);
 
         TextView question = findViewById(R.id.rate_question);
-        question.setText(getString(R.string.rate_question, getIntent().getStringExtra(EXTRA_DRIVER_NAME)));
+        question.setText(getIntent().getStringExtra(EXTRA_QUESTION));
         ratingBar = findViewById(R.id.rating);
         commentInput = findViewById(R.id.input_comment);
         submitButton = findViewById(R.id.submit);
@@ -55,13 +55,13 @@ public class ReviewDriverActivity extends AppCompatActivity {
         String comment = commentInput.getText().toString().trim();
         submitButton.setEnabled(false); // no double taps while sending
         container.executor.execute(() -> {
-            Result<Long> result = container.reviewRepository.submitReview(ownerId, bookingId, rating, comment);
+            Result<Long> result = container.reviewRepository.submitReview(userId, bookingId, rating, comment);
             runOnUiThread(() -> {
                 if (result instanceof Result.Success) {
                     Toast.makeText(this, R.string.review_sent, Toast.LENGTH_SHORT).show();
-                    finish(); // back to Bookings, which reloads in onResume
+                    finish(); // back to the previous screen, which reloads in onResume
                 } else {
-                    OwnerUi.showError(this, result);
+                    TurboUi.showError(this, result);
                     submitButton.setEnabled(true);
                 }
             });

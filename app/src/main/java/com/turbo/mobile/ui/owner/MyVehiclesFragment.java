@@ -4,14 +4,11 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.Fragment;
 
 import com.turbo.mobile.AppContainer;
@@ -20,6 +17,7 @@ import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.data.model.DocumentType;
 import com.turbo.mobile.data.model.OwnerVehicleItem;
 import com.turbo.mobile.data.model.Result;
+import com.turbo.mobile.ui.TurboUi;
 
 import java.util.Calendar;
 import java.util.List;
@@ -55,39 +53,39 @@ public class MyVehiclesFragment extends Fragment {
     }
 
     // Repository calls run on a background thread (container.executor) so the screen never freezes.
-    // Only the main thread may change the screen, so each result is sent back with OwnerUi.runOnMainThread().
+    // Only the main thread may change the screen, so each result is sent back with TurboUi.runOnMainThread().
 
     private void loadVehicles() {
         container.executor.execute(() -> {
             List<OwnerVehicleItem> vehicles = container.vehicleRepository.getOwnerVehicles(ownerId);
-            OwnerUi.runOnMainThread(this, () -> showVehicles(vehicles));
+            TurboUi.runOnMainThread(this, () -> showVehicles(vehicles));
         });
     }
 
     private void activate(OwnerVehicleItem item, long availableUntil) {
         container.executor.execute(() -> {
             Result<Void> result = container.vehicleRepository.publish(ownerId, item.getId(), availableUntil);
-            OwnerUi.runOnMainThread(this, () -> showErrorAndReload(result));
+            TurboUi.runOnMainThread(this, () -> showErrorAndReload(result));
         });
     }
 
     private void deactivate(OwnerVehicleItem item) {
         container.executor.execute(() -> {
             Result<Void> result = container.vehicleRepository.unpublish(ownerId, item.getId());
-            OwnerUi.runOnMainThread(this, () -> showErrorAndReload(result));
+            TurboUi.runOnMainThread(this, () -> showErrorAndReload(result));
         });
     }
 
     private void delete(OwnerVehicleItem item) {
         container.executor.execute(() -> {
             Result<Integer> result = container.vehicleRepository.deleteVehicle(ownerId, item.getId());
-            OwnerUi.runOnMainThread(this, () -> showErrorAndReload(result));
+            TurboUi.runOnMainThread(this, () -> showErrorAndReload(result));
         });
     }
 
     private void showErrorAndReload(Result<?> result) {
         if (result instanceof Result.Error) {
-            OwnerUi.showError(requireContext(), result);
+            TurboUi.showError(requireContext(), result);
         }
         loadVehicles();
     }
@@ -116,18 +114,18 @@ public class MyVehiclesFragment extends Fragment {
         switch (item.getBadge()) {
             case PUBLISHED:
                 subtitle.setText(R.string.vehicle_approved_active);
-                OwnerUi.paintChip(primaryChip, getString(R.string.chip_approved),
+                TurboUi.paintChip(primaryChip, getString(R.string.chip_approved),
                         R.color.turbo_success_bg, R.color.turbo_success);
-                OwnerUi.paintChip(secondaryChip, getString(R.string.chip_active),
+                TurboUi.paintChip(secondaryChip, getString(R.string.chip_active),
                         R.color.turbo_success_bg, R.color.turbo_success);
                 toggle.setText(R.string.action_deactivate);
                 toggle.setOnClickListener(v -> deactivate(item));
                 break;
             case NOT_PUBLISHED:
                 subtitle.setText(R.string.vehicle_hidden_by_owner);
-                OwnerUi.paintChip(primaryChip, getString(R.string.chip_approved),
+                TurboUi.paintChip(primaryChip, getString(R.string.chip_approved),
                         R.color.turbo_success_bg, R.color.turbo_success);
-                OwnerUi.paintChip(secondaryChip, getString(R.string.chip_inactive),
+                TurboUi.paintChip(secondaryChip, getString(R.string.chip_inactive),
                         R.color.turbo_success_bg, R.color.turbo_success);
                 toggle.setText(R.string.action_activate);
                 toggle.setOnClickListener(v -> pickAvailableUntil(item));
@@ -136,7 +134,7 @@ public class MyVehiclesFragment extends Fragment {
                 // "1 document pending" or "2 documents pending" (<plurals> in strings_owner.xml).
                 int pending = item.getPendingDocuments();
                 subtitle.setText(getResources().getQuantityString(R.plurals.vehicle_documents_pending, pending, pending));
-                OwnerUi.paintChip(primaryChip, getString(R.string.chip_pending_review),
+                TurboUi.paintChip(primaryChip, getString(R.string.chip_pending_review),
                         R.color.turbo_warning_bg, R.color.turbo_warning);
                 secondaryChip.setVisibility(View.GONE);
                 toggle.setVisibility(View.GONE);
@@ -149,9 +147,9 @@ public class MyVehiclesFragment extends Fragment {
                     documentName = R.string.document_registration;
                 }
                 subtitle.setText(getString(R.string.vehicle_document_rejected, getString(documentName)));
-                OwnerUi.paintChip(primaryChip, getString(R.string.chip_action_needed),
+                TurboUi.paintChip(primaryChip, getString(R.string.chip_action_needed),
                         R.color.turbo_error_bg, R.color.turbo_error);
-                OwnerUi.paintChip(secondaryChip, getString(R.string.chip_not_visible),
+                TurboUi.paintChip(secondaryChip, getString(R.string.chip_not_visible),
                         R.color.turbo_neutral_bg, R.color.turbo_text_secondary);
                 toggle.setVisibility(View.GONE);
                 toggleSeparator.setVisibility(View.GONE);
@@ -187,27 +185,8 @@ public class MyVehiclesFragment extends Fragment {
     }
 
     private void confirmDelete(OwnerVehicleItem item) {
-        AppCompatDialog dialog = new AppCompatDialog(requireContext());
-        dialog.setContentView(R.layout.dialog_confirm);
-        TextView title = dialog.findViewById(R.id.dialog_title);
-        TextView message = dialog.findViewById(R.id.dialog_message);
-        TextView confirm = dialog.findViewById(R.id.dialog_confirm);
-        View cancel = dialog.findViewById(R.id.dialog_cancel);
-
-        title.setText(R.string.delete_vehicle_title);
-        message.setText(getString(R.string.delete_vehicle_body, OwnerUi.withoutYear(item.getTitle())));
-        confirm.setText(R.string.delete_vehicle);
-        confirm.setOnClickListener(v -> {
-            dialog.dismiss();
-            delete(item);
-        });
-        cancel.setOnClickListener(v -> dialog.dismiss());
-        dialog.show();
-
-        // Wireframe look: our rounded card instead of the default background, full width, darker backdrop.
-        Window window = dialog.getWindow();
-        window.setBackgroundDrawableResource(android.R.color.transparent);
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        window.setDimAmount(0.6f); // 60% dark, as in the wireframe
+        TurboUi.showConfirmDialog(requireContext(), getString(R.string.delete_vehicle_title),
+                getString(R.string.delete_vehicle_body, TurboUi.withoutYear(item.getTitle())),
+                getString(R.string.cancel), getString(R.string.delete_vehicle), () -> delete(item));
     }
 }

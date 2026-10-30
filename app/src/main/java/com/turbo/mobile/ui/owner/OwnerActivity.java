@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.turbo.mobile.R;
+import com.turbo.mobile.ui.TurboUi;
 
 /** Car owner home: top bar, the current tab (a fragment) and the bottom bar. */
 public class OwnerActivity extends AppCompatActivity {
@@ -14,7 +15,7 @@ public class OwnerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OwnerUi.setUpScreen(this, R.layout.activity_owner);
+        TurboUi.setUpScreen(this, R.layout.activity_owner);
 
         // Bottom bar: each tab shows its own fragment. Alerts and Profile don't exist yet.
         findViewById(R.id.nav_vehicles).setOnClickListener(v -> showTab(R.id.nav_vehicles, new MyVehiclesFragment()));

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-05 Search vehicles: four filter chips, the number of results and one card per vehicle.
+     Without results it shows "No vehicles match" and "Clear filters". -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            style="@style/TurboTitle"
+            android:text="@string/find_vehicle" />
+
+        <TextView
+            style="@style/TurboSubtitle"
+            android:text="@string/find_vehicle_subtitle" />
+
+        <!-- Tapping a chip opens its list of options. It turns orange while its filter is on. -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/filter_zone"
+                    style="@style/TurboFilterChip"
+                    android:text="@string/filter_zone" />
+
+                <TextView
+                    android:id="@+id/filter_category"
+                    style="@style/TurboFilterChip"
+                    android:text="@string/filter_category" />
+
+                <TextView
+                    android:id="@+id/filter_service"
+                    style="@style/TurboFilterChip"
+                    android:text="@string/filter_service" />
+
+                <TextView
+                    android:id="@+id/filter_price"
+                    style="@style/TurboFilterChip"
+                    android:text="@string/filter_max_price" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- "Burnaby · 3 results" -->
+        <TextView
+            android:id="@+id/results_banner"
+            style="@style/TurboBanner.Info" />
+
+        <!-- Filled in code with item_info_card.xml, one per vehicle. -->
+        <LinearLayout
+            android:id="@+id/vehicle_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/empty_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/bg_avatar">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_search_x"
+                    app:tint="@color/turbo_primary" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/manrope_bold"
+                android:text="@string/no_results_title"
+                android:textColor="@color/turbo_text_primary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/manrope_regular"
+                android:gravity="center_horizontal"
+                android:text="@string/no_results_body"
+                android:textColor="@color/turbo_text_secondary"
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clear_filters"
+                style="@style/TurboPrimaryButton"
+                android:layout_marginTop="64dp"
+                android:text="@string/clear_filters" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

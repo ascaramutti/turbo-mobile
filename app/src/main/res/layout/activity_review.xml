@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- W-12 Rate & review (Car Owner): 1 to 5 stars, an optional comment, "Submit" and "Later". -->
+<!-- W-12 Rate & review (owner and driver): 1 to 5 stars, an optional comment, "Submit" and "Later". -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/turbo_background"
     android:orientation="vertical"
-    tools:context=".ui.owner.ReviewDriverActivity">
+    tools:context=".ui.ReviewActivity">
 
     <include layout="@layout/view_top_bar" />
 
@@ -32,7 +32,7 @@
                 android:textColor="@color/turbo_text_primary"
                 android:textSize="28sp" />
 
-            <!-- "How was Ana L. as a driver?" -->
+            <!-- "How was Ana L. as a driver?" or "How was Maria L. as a car owner?" -->
             <TextView
                 android:id="@+id/rate_question"
                 android:layout_width="wrap_content"

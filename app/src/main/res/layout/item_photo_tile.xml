@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One vehicle photo in the W-15 form: the image icon shows until the photo is loaded on top of it. -->
+<!-- One photo of the W-15 vehicle form or of W-11 trip photos: the image icon shows until the photo is loaded on top of it. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="96dp"

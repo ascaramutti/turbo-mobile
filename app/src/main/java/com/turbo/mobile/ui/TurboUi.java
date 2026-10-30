@@ -1,15 +1,20 @@
-package com.turbo.mobile.ui.owner;
+package com.turbo.mobile.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,15 +26,17 @@ import com.turbo.mobile.R;
 import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.UserProfile;
+import com.turbo.mobile.data.model.VehicleCategory;
+import com.turbo.mobile.data.model.VehicleServiceType;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/** Code shared by all the owner screens, so each screen doesn't have to repeat it. */
-public class OwnerUi {
+/** Code shared by the owner and driver screens, so each screen doesn't have to repeat it. */
+public class TurboUi {
 
-    // Every owner screen calls this first. It shows the layout and fills the avatar of the top bar.
+    // Every screen calls this first. It shows the layout and fills the avatar of the top bar.
     // The layout's root view must have android:id="@+id/main" and include view_top_bar.xml.
     public static void setUpScreen(AppCompatActivity activity, int layout) {
         // The app draws behind the status and navigation bars (edge to edge). The wireframes are
@@ -100,6 +107,65 @@ public class OwnerUi {
         chip.setVisibility(View.VISIBLE);
     }
 
+    // The wireframes' confirmation dialog (dialog_confirm.xml): a title, a message and two buttons.
+    // onConfirm runs when the orange button is tapped; the white button just closes the dialog.
+    public static void showConfirmDialog(Context context, String title, String message,
+                                         String cancelText, String confirmText, Runnable onConfirm) {
+        AppCompatDialog dialog = new AppCompatDialog(context);
+        dialog.setContentView(R.layout.dialog_confirm);
+        TextView titleView = dialog.findViewById(R.id.dialog_title);
+        TextView messageView = dialog.findViewById(R.id.dialog_message);
+        TextView cancel = dialog.findViewById(R.id.dialog_cancel);
+        TextView confirm = dialog.findViewById(R.id.dialog_confirm);
+
+        titleView.setText(title);
+        messageView.setText(message);
+        cancel.setText(cancelText);
+        confirm.setText(confirmText);
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        confirm.setOnClickListener(v -> {
+            dialog.dismiss();
+            onConfirm.run();
+        });
+        dialog.show();
+
+        // Wireframe look: our rounded card instead of the default background, full width, darker backdrop.
+        Window window = dialog.getWindow();
+        window.setBackgroundDrawableResource(android.R.color.transparent);
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setDimAmount(0.6f); // 60% dark, as in the wireframe
+    }
+
+    // Reading an image file is slow, so it happens on the background thread (container.executor)
+    // and the photo is shown on the main thread. The path can be a seed photo or a photo the user picked.
+    public static void loadPhoto(Activity activity, ImageView image, String path) {
+        AppContainer container = ((TurboApp) activity.getApplication()).getContainer();
+        container.executor.execute(() -> {
+            Bitmap bitmap = container.imageStorage.load(path, 300);
+            if (bitmap != null) {
+                activity.runOnUiThread(() -> image.setImageBitmap(bitmap));
+            }
+        });
+    }
+
+    // Shows the photo box on the right of an item_info_card and loads the photo into it.
+    public static void showCardPhoto(Activity activity, View card, String path) {
+        View thumbnail = card.findViewById(R.id.card_thumbnail);
+        thumbnail.setClipToOutline(true); // cuts the photo to the box's rounded corners
+        thumbnail.setVisibility(View.VISIBLE);
+        loadPhoto(activity, card.findViewById(R.id.card_image), path);
+    }
+
+    // "Sedan", "SUV"... The list in strings_owner.xml starts with "Select", so the enum's position is +1.
+    public static String categoryName(Context context, VehicleCategory category) {
+        return context.getResources().getStringArray(R.array.vehicle_categories)[category.ordinal() + 1];
+    }
+
+    // "Taxi & Delivery" or "Delivery only".
+    public static String serviceName(Context context, VehicleServiceType service) {
+        return context.getResources().getStringArray(R.array.service_types)[service.ordinal() + 1];
+    }
+
     // Money is stored in cents: 4000 -> "CAD 40.00", 124000 -> "CAD 1,240.00".
     public static String money(int cents) {
         return String.format(Locale.US, "CAD %,.2f", cents / 100.0);
@@ -115,9 +181,24 @@ public class OwnerUi {
         return new SimpleDateFormat("MMM d", Locale.US).format(new Date(millis));
     }
 
+    // -> "Wed, Oct 14"
+    public static String dayAndDate(long millis) {
+        return new SimpleDateFormat("EEE, MMM d", Locale.US).format(new Date(millis));
+    }
+
+    // With the year, for expiry dates: -> "Aug 31, 2027"
+    public static String fullDate(long millis) {
+        return new SimpleDateFormat("MMM d, yyyy", Locale.US).format(new Date(millis));
+    }
+
     // -> "08:00"
     public static String time(long millis) {
         return new SimpleDateFormat("HH:mm", Locale.US).format(new Date(millis));
+    }
+
+    // -> "08:00–12:00"
+    public static String timeRange(long start, long end) {
+        return time(start) + "–" + time(end);
     }
 
     // The wireframes often name the vehicle without its year: "Toyota Corolla 2022" -> "Toyota Corolla".
