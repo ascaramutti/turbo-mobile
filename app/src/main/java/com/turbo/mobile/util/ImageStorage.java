@@ -23,6 +23,8 @@ public class ImageStorage {
         PROFILES, DOCUMENTS, VEHICLES, BOOKINGS
     }
 
+    public static final String SEED_PHOTOS_PREFIX = "seed/photos/";
+
     private static final String CAMERA_DIR = "camera";
     private static final String IMAGES_DIR = "images";
     private static final String ASSET_PREFIX = "seed/";
@@ -66,6 +68,24 @@ public class ImageStorage {
         }
         if (authority.equals(source.getAuthority())) {
             context.getContentResolver().delete(source, null, null);
+        }
+        return target.getAbsolutePath();
+    }
+
+    public String saveAsset(String assetPath) throws IOException {
+        String relative = assetPath.substring(SEED_PHOTOS_PREFIX.length());
+        File target = new File(new File(context.getFilesDir(), IMAGES_DIR), relative);
+        File dir = target.getParentFile();
+        if (dir != null && !dir.exists() && !dir.mkdirs()) {
+            throw new IOException("Cannot create " + dir);
+        }
+        try (InputStream in = context.getAssets().open(assetPath);
+             OutputStream out = new FileOutputStream(target)) {
+            byte[] buffer = new byte[8192];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
         }
         return target.getAbsolutePath();
     }
