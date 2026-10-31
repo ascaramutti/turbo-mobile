@@ -32,6 +32,7 @@ android {
     //Turn on the buildConfigField to translate to JAVA code
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

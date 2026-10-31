@@ -78,6 +78,32 @@
         <activity
             android:name=".ui.driver.MyDocumentsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.notifications.Notifications"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.admin.UsersActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.admin.UserAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.PendingDocumentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.ReviewDocumentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AllBookingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.InspectionPhotosActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
