@@ -17,11 +17,11 @@ public class DriverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         TurboUi.setUpScreen(this, R.layout.activity_driver);
 
-        // Bottom bar: each tab shows its own fragment. Alerts and Profile don't exist yet.
+        // Bottom bar: each tab shows its own fragment. Alerts doesn't exist yet; Profile only logs out for now.
         findViewById(R.id.nav_search).setOnClickListener(v -> showTab(R.id.nav_search, new SearchFragment()));
         findViewById(R.id.nav_bookings).setOnClickListener(v -> showTab(R.id.nav_bookings, new DriverBookingsFragment()));
         findViewById(R.id.nav_alerts).setOnClickListener(v -> comingSoon());
-        findViewById(R.id.nav_profile).setOnClickListener(v -> comingSoon());
+        findViewById(R.id.nav_profile).setOnClickListener(v -> confirmLogOut());
 
         // Always start on "Search" (also after rotating the phone).
         showTab(R.id.nav_search, new SearchFragment());
@@ -38,5 +38,10 @@ public class DriverActivity extends AppCompatActivity {
 
     private void comingSoon() {
         Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
+    }
+
+    private void confirmLogOut() {
+        TurboUi.showConfirmDialog(this, getString(R.string.log_out_title), getString(R.string.log_out_message),
+                getString(R.string.cancel), getString(R.string.txtLogout), () -> TurboUi.logOut(this));
     }
 }

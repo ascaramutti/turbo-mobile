@@ -1,12 +1,17 @@
 package com.turbo.mobile.ui.admin;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.turbo.mobile.R;
+import com.turbo.mobile.data.model.BookingListItem;
 import com.turbo.mobile.databinding.ItemBookingBinding;
+import com.turbo.mobile.ui.TurboUi;
+import com.turbo.mobile.ui.driver.BookingChips;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +19,13 @@ import java.util.List;
 public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.BookingViewHolder> {
 
     public interface OnBookingClickListener {
-        void onBookingClick(BookingRow booking);
+        void onBookingClick(BookingListItem booking);
     }
 
-    private final List<BookingRow> bookings;
+    private final List<BookingListItem> bookings;
     private final OnBookingClickListener listener;
 
-    public BookingsAdapter(List<BookingRow> bookings, OnBookingClickListener listener) {
+    public BookingsAdapter(List<BookingListItem> bookings, OnBookingClickListener listener) {
         this.bookings = bookings != null ? bookings : new ArrayList<>();
         this.listener = listener;
     }
@@ -35,12 +40,18 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
 
     @Override
     public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
-        BookingRow booking = bookings.get(position);
-        holder.binding.txtTitle.setText(booking.title);
-        holder.binding.txtRoute.setText(booking.route);
-        holder.binding.txtAmount.setText(booking.amount);
-        StatusChip.apply(holder.binding.chipStatus, booking.status);
-        StatusChip.apply(holder.binding.chipPayment, booking.payment);
+        BookingListItem booking = bookings.get(position);
+        Context context = holder.binding.getRoot().getContext();
+        // "#1042 · Toyota Corolla"
+        holder.binding.txtTitle.setText(context.getString(R.string.bookingTitleFormat,
+                booking.getId(), TurboUi.withoutYear(booking.getVehicleTitle())));
+        // "Ana L. → Maria L. · Oct 14"
+        holder.binding.txtRoute.setText(context.getString(R.string.bookingRouteFormat,
+                booking.getDriverName(), booking.getOwnerName(), TurboUi.date(booking.getStart())));
+        holder.binding.txtAmount.setText(TurboUi.moneyWithoutCents(booking.getTotalPriceCents()));
+        // Same chips as the driver screens: status and payment.
+        BookingChips.paintStatus(holder.binding.chipStatus, booking);
+        BookingChips.paintPayment(holder.binding.chipPayment, booking);
         holder.binding.getRoot().setOnClickListener(v -> {
             if (listener != null) {
                 listener.onBookingClick(booking);
@@ -59,23 +70,6 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
         BookingViewHolder(ItemBookingBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-        }
-    }
-
-    /** Simple display model for a booking row. Replaced by the real model when we connect the data. */
-    public static class BookingRow {
-        public final String title;
-        public final String route;
-        public final String amount;
-        public final String status;
-        public final String payment;
-
-        public BookingRow(String title, String route, String amount, String status, String payment) {
-            this.title = title;
-            this.route = route;
-            this.amount = amount;
-            this.status = status;
-            this.payment = payment;
         }
     }
 }

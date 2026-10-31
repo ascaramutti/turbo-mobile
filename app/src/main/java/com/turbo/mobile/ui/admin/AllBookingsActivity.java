@@ -6,9 +6,12 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.turbo.mobile.AppContainer;
+import com.turbo.mobile.TurboApp;
+import com.turbo.mobile.data.model.BookingListItem;
 import com.turbo.mobile.databinding.ActivityAllBookingsBinding;
+import com.turbo.mobile.ui.TurboUi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AllBookingsActivity extends AppCompatActivity {
@@ -20,25 +23,23 @@ public class AllBookingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAllBookingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        TurboUi.fitSystemBars(this);
+        TurboUi.setUpAdminBar(this);
 
-        BookingsAdapter adapter = new BookingsAdapter(sampleBookings(),
-                booking -> startActivity(new Intent(this, BookingDetailActivity.class)));
         binding.recyclerBookings.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerBookings.setAdapter(adapter);
+
+        // TODO(filters): shows every booking; the month and status filters and the stats above aren't connected yet.
+        AppContainer container = ((TurboApp) getApplication()).getContainer();
+        container.executor.execute(() -> {
+            List<BookingListItem> bookings = container.bookingRepository.getAllBookings(null);
+            runOnUiThread(() -> binding.recyclerBookings.setAdapter(
+                    new BookingsAdapter(bookings, booking -> openBooking(booking))));
+        });
     }
 
-    /** Placeholder list matching the "All bookings" screen of the PDF. Replaced by real data later. */
-    private List<BookingsAdapter.BookingRow> sampleBookings() {
-        List<BookingsAdapter.BookingRow> bookings = new ArrayList<>();
-        bookings.add(new BookingsAdapter.BookingRow(
-                "#1042 · Toyota Corolla", "Ana L. → Maria L. · Oct 14", "CAD 50",
-                "Confirmed", "Payment pending"));
-        bookings.add(new BookingsAdapter.BookingRow(
-                "#1039 · Honda Fit", "Kenji S. → Maria L. · Oct 10", "CAD 72",
-                "Completed", "Paid"));
-        bookings.add(new BookingsAdapter.BookingRow(
-                "#1037 · Mazda CX-5", "Raj P. → Tom W. · Oct 9", "CAD 56",
-                "Cancelled", "Not paid"));
-        return bookings;
+    private void openBooking(BookingListItem booking) {
+        Intent intent = new Intent(this, BookingDetailActivity.class);
+        intent.putExtra(BookingDetailActivity.EXTRA_BOOKING_ID, booking.getId());
+        startActivity(intent);
     }
 }

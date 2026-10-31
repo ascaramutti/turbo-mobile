@@ -8,6 +8,8 @@
     <string name="nav_earnings">Earnings</string>
     <string name="nav_alerts">Alerts</string>
     <string name="nav_profile">Profile</string>
+    <string name="log_out_title">Log out?</string>
+    <string name="log_out_message">You’ll go back to the login screen.</string>
 
     <!-- W-14 My vehicles -->
     <string name="my_vehicles">My vehicles</string>

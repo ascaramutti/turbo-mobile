@@ -17,12 +17,12 @@ public class OwnerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         TurboUi.setUpScreen(this, R.layout.activity_owner);
 
-        // Bottom bar: each tab shows its own fragment. Alerts and Profile don't exist yet.
+        // Bottom bar: each tab shows its own fragment. Alerts doesn't exist yet; Profile only logs out for now.
         findViewById(R.id.nav_vehicles).setOnClickListener(v -> showTab(R.id.nav_vehicles, new MyVehiclesFragment()));
         findViewById(R.id.nav_bookings).setOnClickListener(v -> showTab(R.id.nav_bookings, new BookingsFragment()));
         findViewById(R.id.nav_earnings).setOnClickListener(v -> showTab(R.id.nav_earnings, new EarningsFragment()));
         findViewById(R.id.nav_alerts).setOnClickListener(v -> comingSoon());
-        findViewById(R.id.nav_profile).setOnClickListener(v -> comingSoon());
+        findViewById(R.id.nav_profile).setOnClickListener(v -> confirmLogOut());
 
         // Always start on "Vehicles" (also after rotating the phone).
         showTab(R.id.nav_vehicles, new MyVehiclesFragment());
@@ -41,5 +41,10 @@ public class OwnerActivity extends AppCompatActivity {
 
     private void comingSoon() {
         Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
+    }
+
+    private void confirmLogOut() {
+        TurboUi.showConfirmDialog(this, getString(R.string.log_out_title), getString(R.string.log_out_message),
+                getString(R.string.cancel), getString(R.string.txtLogout), () -> TurboUi.logOut(this));
     }
 }

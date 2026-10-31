@@ -63,6 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -70,22 +71,30 @@
                 android:textColor="@color/turbo_text_secondary"
                 android:textSize="15sp" />
 
-            <LinearLayout
+            <!-- The document's name shows until its photo is loaded on top of it. -->
+            <FrameLayout
+                android:id="@+id/boxDocument"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_card"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:background="@drawable/bg_card">
 
                 <TextView
+                    android:id="@+id/txtPreview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="STUDY PERMIT · Tap to enlarge"
                     android:textColor="@color/turbo_text_secondary"
                     android:textSize="15sp" />
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgDocument"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/chipStatus"
@@ -112,6 +121,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/txtFirstLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Permit number"
@@ -119,6 +129,7 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/txtFirstValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -136,6 +147,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/txtSecondLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Expiry"
@@ -143,6 +155,7 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/txtSecondValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -160,6 +173,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/txtOtherName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
@@ -168,6 +182,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/txtOtherDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -176,6 +191,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/chipOther"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"

@@ -7,46 +7,68 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.turbo.mobile.AppContainer;
 import com.turbo.mobile.R;
+import com.turbo.mobile.TurboApp;
+import com.turbo.mobile.data.model.DocumentKind;
+import com.turbo.mobile.data.model.PendingDocumentItem;
 import com.turbo.mobile.databinding.ActivityPendingDocumentsBinding;
+import com.turbo.mobile.ui.TurboUi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PendingDocumentsActivity extends AppCompatActivity {
 
     private ActivityPendingDocumentsBinding binding;
     private PendingDocumentsAdapter adapter;
+    private DocumentKind kind = DocumentKind.DRIVER; // the selected segment: Drivers or Vehicles
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPendingDocumentsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        TurboUi.fitSystemBars(this);
+        TurboUi.setUpAdminBar(this);
 
-        adapter = new PendingDocumentsAdapter(document ->
-                startActivity(new Intent(this, ReviewDocumentActivity.class)));
+        adapter = new PendingDocumentsAdapter(document -> openDocument(document));
         binding.recyclerPendingDocuments.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerPendingDocuments.setAdapter(adapter);
 
-        binding.segmentDrivers.setOnClickListener(v -> showDrivers());
-        binding.segmentVehicles.setOnClickListener(v -> showVehicles());
-
-        showDrivers();
+        binding.segmentDrivers.setOnClickListener(v -> showDocuments(DocumentKind.DRIVER));
+        binding.segmentVehicles.setOnClickListener(v -> showDocuments(DocumentKind.VEHICLE));
     }
 
-    private void showDrivers() {
-        selectSegment(binding.segmentDrivers, binding.segmentVehicles);
-        List<PendingDocumentsAdapter.PendingDocumentRow> docs = driverDocuments();
-        adapter.setDocuments(docs);
-        binding.txtCount.setText(getString(R.string.documentsWaitingFormat, docs.size()));
+    // Also runs when coming back from "Review document", so a reviewed document leaves the list.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showDocuments(kind);
     }
 
-    private void showVehicles() {
-        selectSegment(binding.segmentVehicles, binding.segmentDrivers);
-        List<PendingDocumentsAdapter.PendingDocumentRow> docs = vehicleDocuments();
-        adapter.setDocuments(docs);
-        binding.txtCount.setText(getString(R.string.documentsWaitingFormat, docs.size()));
+    private void showDocuments(DocumentKind newKind) {
+        kind = newKind;
+        if (kind == DocumentKind.DRIVER) {
+            selectSegment(binding.segmentDrivers, binding.segmentVehicles);
+        } else {
+            selectSegment(binding.segmentVehicles, binding.segmentDrivers);
+        }
+
+        AppContainer container = ((TurboApp) getApplication()).getContainer();
+        container.executor.execute(() -> {
+            List<PendingDocumentItem> docs = container.documentRepository.getPendingDocuments(newKind);
+            runOnUiThread(() -> {
+                adapter.setDocuments(docs);
+                binding.txtCount.setText(getString(R.string.documentsWaitingFormat, docs.size()));
+            });
+        });
+    }
+
+    private void openDocument(PendingDocumentItem document) {
+        Intent intent = new Intent(this, ReviewDocumentActivity.class);
+        intent.putExtra(ReviewDocumentActivity.EXTRA_KIND, document.getKind().name());
+        intent.putExtra(ReviewDocumentActivity.EXTRA_DOCUMENT_ID, document.getDocumentId());
+        startActivity(intent);
     }
 
     private void selectSegment(TextView active, TextView inactive) {
@@ -54,30 +76,5 @@ public class PendingDocumentsActivity extends AppCompatActivity {
         active.setTextColor(getColor(R.color.turbo_primary));
         inactive.setBackgroundResource(0);
         inactive.setTextColor(getColor(R.color.turbo_text_secondary));
-    }
-
-    /** Placeholder lists matching the "Pending documents" screen of the PDF. Replaced by real data later. */
-    private List<PendingDocumentsAdapter.PendingDocumentRow> driverDocuments() {
-        List<PendingDocumentsAdapter.PendingDocumentRow> docs = new ArrayList<>();
-        docs.add(new PendingDocumentsAdapter.PendingDocumentRow(
-                "Ana Lopez", "Study permit · Uploaded Oct 4", null, "Pending review"));
-        docs.add(new PendingDocumentsAdapter.PendingDocumentRow(
-                "Kenji Sato", "Driver's license · Uploaded Oct 4", null, "Pending review"));
-        docs.add(new PendingDocumentsAdapter.PendingDocumentRow(
-                "Kenji Sato", "Study permit · Uploaded Oct 3", null, "Pending review"));
-        docs.add(new PendingDocumentsAdapter.PendingDocumentRow(
-                "Raj Patel", "Driver's license · Uploaded Oct 3", null, "Pending review"));
-        return docs;
-    }
-
-    private List<PendingDocumentsAdapter.PendingDocumentRow> vehicleDocuments() {
-        List<PendingDocumentsAdapter.PendingDocumentRow> docs = new ArrayList<>();
-        docs.add(new PendingDocumentsAdapter.PendingDocumentRow(
-                "Honda Fit 2021", "Insurance certificate · Oct 4", "Maria Lee", "Pending review"));
-        docs.add(new PendingDocumentsAdapter.PendingDocumentRow(
-                "Ford Escape 2019", "Vehicle registration · Oct 3", "Tom Wu", "Pending review"));
-        docs.add(new PendingDocumentsAdapter.PendingDocumentRow(
-                "Kia Soul 2020", "Insurance certificate · Oct 2", "Maria Lee", "Pending review"));
-        return docs;
     }
 }

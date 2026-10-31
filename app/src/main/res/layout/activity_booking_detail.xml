@@ -56,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
+                android:id="@+id/txtBookingNumber"
                 android:text="Booking #1039"
                 android:textColor="@color/turbo_text_primary"
                 android:textSize="30sp"
@@ -80,6 +81,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/txtVehicle"
                     android:text="Honda Fit 2021"
                     android:textColor="@color/turbo_text_secondary"
                     android:textSize="15sp" />
@@ -112,6 +114,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/txtPeople"
                         android:text="Kenji Sato → Maria Lee"
                         android:textColor="@color/turbo_text_primary"
                         android:textSize="16sp" />
@@ -126,6 +129,7 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="4dp"
+                        android:id="@+id/chipStatus"
                         android:text="Completed"
                         android:textColor="@color/turbo_success"
                         android:textSize="12sp" />
@@ -135,6 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:id="@+id/txtWhen"
                     android:text="Oct 10 · 8 hours"
                     android:textColor="@color/turbo_text_secondary"
                     android:textSize="14sp" />
@@ -167,6 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/txtDriverPaid"
                         android:text="Driver CAD 72.00"
                         android:textColor="@color/turbo_text_primary"
                         android:textSize="16sp" />
@@ -181,6 +187,7 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="4dp"
+                        android:id="@+id/chipPayment"
                         android:text="Paid"
                         android:textColor="@color/turbo_success"
                         android:textSize="12sp" />
@@ -190,6 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:id="@+id/txtSplit"
                     android:text="Owner CAD 57.60 · Platform CAD 14.40"
                     android:textColor="@color/turbo_text_secondary"
                     android:textSize="14sp" />
@@ -216,6 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
+                    android:id="@+id/txtService"
                     android:text="Delivery"
                     android:textColor="@color/turbo_text_primary"
                     android:textSize="16sp" />
@@ -224,6 +233,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:id="@+id/txtAddress"
                     android:text="8888 University Dr, Burnaby"
                     android:textColor="@color/turbo_text_secondary"
                     android:textSize="14sp" />

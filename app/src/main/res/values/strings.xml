@@ -61,11 +61,17 @@
     <string name="txtStatusLabel">Status</string>
     <string name="btnActivate">Activate</string>
     <string name="btnDeactivate">Deactivate</string>
+    <string name="accountActivated">Account activated</string>
+    <string name="accountDeactivated">Account deactivated</string>
 
     <!-- Admin console: pending documents -->
     <string name="pendingDocumentsTitle">Pending documents</string>
     <string name="tabDrivers">Drivers</string>
     <string name="documentsWaitingFormat">%1$d documents waiting for review</string>
+    <string name="pendingDocumentSubtitleFormat">%1$s · Uploaded %2$s</string>
+
+    <!-- Joins two texts, e.g. "Study permit · Ana Lopez" -->
+    <string name="twoPartsFormat">%1$s · %2$s</string>
 
     <!-- Admin console: activate account dialog -->
     <string name="activateTitle">Activate account?</string>
@@ -75,6 +81,11 @@
     <string name="reviewTitle">Review document</string>
     <string name="btnApproveDocument">Approve document</string>
     <string name="btnReject">Reject</string>
+    <string name="lblLicenseNumber">License number</string>
+    <string name="lblPermitNumber">Permit number</string>
+    <string name="licenseClassFormat">Class %1$d</string>
+    <string name="documentApproved">Document approved</string>
+    <string name="documentRejected">Document rejected</string>
 
     <!-- Admin console: reject overlay -->
     <string name="rejectTitle">Reject document</string>
@@ -89,18 +100,25 @@
     <string name="lblPlatformEarnings">Platform earnings 20%</string>
     <string name="lblPayments">Payments</string>
     <string name="lblCompleted">Completed</string>
+    <string name="bookingTitleFormat">#%1$d · %2$s</string>
+    <string name="bookingRouteFormat">%1$s → %2$s · %3$s</string>
 
     <!-- Admin console: booking detail -->
     <string name="lblPeople">People</string>
     <string name="lblPayment">Payment</string>
     <string name="lblService">Service</string>
     <string name="btnViewInspectionPhotos">View inspection photos</string>
+    <string name="bookingNumberFormat">Booking #%1$d</string>
+    <string name="peopleFormat">%1$s → %2$s</string>
+    <string name="driverPaysFormat">Driver %1$s</string>
+    <string name="paymentSplitFormat">Owner %1$s · Platform %2$s</string>
 
     <!-- Admin console: inspection photos -->
     <string name="inspectionTitle">Inspection photos</string>
     <string name="tabPickup">Pickup</string>
     <string name="tabReturn">Return</string>
     <string name="tabCompare">Compare</string>
+    <string name="inspectionSummaryFormat">Pickup %1$d photos · Return %2$d photos · Angles may differ</string>
 
     <string-array name="month_filter">
         <item>October 2026</item>

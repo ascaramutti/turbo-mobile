@@ -5,8 +5,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.turbo.mobile.AppContainer;
 import com.turbo.mobile.R;
+import com.turbo.mobile.TurboApp;
+import com.turbo.mobile.data.model.DeactivationResult;
+import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.databinding.ActivityUserAccountBinding;
+import com.turbo.mobile.ui.TurboUi;
 
 public class UserAccountActivity extends AppCompatActivity {
 
@@ -17,6 +22,8 @@ public class UserAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityUserAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        TurboUi.fitSystemBars(this);
+        TurboUi.setUpAdminBar(this);
 
         String name = getIntent().getStringExtra(UsersActivity.EXTRA_NAME);
         String role = getIntent().getStringExtra(UsersActivity.EXTRA_ROLE);
@@ -36,10 +43,28 @@ public class UserAccountActivity extends AppCompatActivity {
         StatusChip.apply(binding.chipStatus, status);
 
         binding.imgBack.setOnClickListener(v -> finish());
-        binding.btnActivate.setOnClickListener(v ->
-                Toast.makeText(this, "Activate (visual only)", Toast.LENGTH_SHORT).show());
-        binding.btnDeactivate.setOnClickListener(v ->
-                Toast.makeText(this, "Deactivate (visual only)", Toast.LENGTH_SHORT).show());
+        binding.btnActivate.setOnClickListener(v -> changeStatus(true));
+        binding.btnDeactivate.setOnClickListener(v -> changeStatus(false));
+    }
+
+    // Activates or deactivates the account, then goes back to "Users", which reloads its list.
+    // Deactivating a driver also cancels their open bookings (the repository does it).
+    private void changeStatus(boolean active) {
+        long userId = getIntent().getLongExtra(UsersActivity.EXTRA_USER_ID, 0);
+        AppContainer container = ((TurboApp) getApplication()).getContainer();
+        long adminId = container.sessionManager.getUserId();
+        container.executor.execute(() -> {
+            Result<DeactivationResult> result = container.userRepository.setActive(adminId, userId, active);
+            runOnUiThread(() -> {
+                if (result instanceof Result.Success) {
+                    Toast.makeText(this, active ? R.string.accountActivated : R.string.accountDeactivated,
+                            Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    TurboUi.showError(this, result);
+                }
+            });
+        });
     }
 
     private String initials(String fullName) {

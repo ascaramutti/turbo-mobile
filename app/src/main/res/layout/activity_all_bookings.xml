@@ -200,6 +200,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:id="@+id/nav_documents"
             android:text="@string/navDocuments"
             android:textColor="@color/turbo_text_secondary"
             android:textSize="11sp" />
@@ -211,6 +212,7 @@
             android:background="@drawable/bg_segment_selected"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
+            android:id="@+id/nav_bookings"
             android:text="@string/navBookings"
             android:textColor="@color/turbo_primary"
             android:textSize="11sp" />
@@ -220,6 +222,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:id="@+id/nav_users"
             android:text="@string/navUsers"
             android:textColor="@color/turbo_text_secondary"
             android:textSize="11sp" />
