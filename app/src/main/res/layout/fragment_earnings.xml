@@ -94,13 +94,12 @@
             android:textColor="@color/turbo_text_secondary"
             android:visibility="visible" />
 
-        <!-- Filled in code with item_info_card.xml, one per paid shift. -->
-        <LinearLayout
-            android:id="@+id/earning_list"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_earnings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical" />
+            android:nestedScrollingEnabled="false" />
 
         <TextView
             android:id="@+id/earnings_empty"

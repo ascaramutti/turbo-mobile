@@ -132,4 +132,25 @@
         <item>Completed</item>
         <item>Cancelled</item>
     </string-array>
+
+    <!-- Profile & Edit Profile -->
+    <string name="profileTitle">Profile</string>
+    <string name="editProfile">Edit profile</string>
+    <string name="changePhoto">Change photo</string>
+    <string name="accountSection">Account</string>
+    <string name="ownerSinceFormat">Owner since %s</string>
+    <string name="driverSinceFormat">Driver since %s</string>
+    <string name="identityVerifiedBanner">Identity verified · Ready to book</string>
+    <string name="pendingVerificationBanner">Verification pending · Documents under review</string>
+    <string name="manageContactDetails">Manage your contact details.</string>
+    <string name="btnSaveChanges">Save changes</string>
+    <string name="profileSavedToast">Profile changes saved</string>
+    <string name="profileReadyToSave">Your profile changes are ready to save.</string>
+    <string name="myDocuments">My documents</string>
+    <string name="documentsBothApproved">Both documents are approved.</string>
+    <string name="documentsPendingAction">Document review in progress.</string>
+    <string name="notificationsSubtitleDriver">Updates that need your attention</string>
+    <string name="notificationsSubtitleOwner">Vehicle and booking updates</string>
+    <string name="chipUnread">Unread</string>
+    <string name="chipRead">Read</string>
 </resources>

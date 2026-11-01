@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Profile tab for Driver and Owner (W-03 / W-04 Profile) -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            style="@style/TurboTitle"
+            android:text="@string/profileTitle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/profile_avatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/bg_avatar"
+                android:fontFamily="@font/manrope_bold"
+                android:gravity="center"
+                android:textColor="@color/turbo_text_primary"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_bold"
+                    android:textColor="@color/turbo_text_primary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/profile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:textColor="@color/turbo_text_secondary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/profile_role"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:textColor="@color/turbo_primary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Driver verification banner -->
+        <TextView
+            android:id="@+id/banner_verified"
+            style="@style/TurboBanner.Success"
+            android:layout_marginTop="20dp"
+            android:text="@string/identityVerifiedBanner"
+            android:visibility="gone" />
+
+        <!-- Driver Documents Card -->
+        <LinearLayout
+            android:id="@+id/card_driver_documents"
+            style="@style/TurboCard"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TurboCardTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/myDocuments" />
+
+                <TextView
+                    android:id="@+id/chip_documents_status"
+                    style="@style/TurboChip"
+                    android:text="@string/chip_approved" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/TurboCardText"
+                android:text="License · Study permit" />
+
+            <TextView
+                android:id="@+id/txt_documents_summary"
+                style="@style/TurboCardText"
+                android:layout_marginTop="8dp"
+                android:text="@string/documentsBothApproved"
+                android:textColor="@color/turbo_text_primary" />
+        </LinearLayout>
+
+        <!-- Owner Account Card -->
+        <LinearLayout
+            android:id="@+id/card_owner_account"
+            style="@style/TurboCard"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TurboCardTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/accountSection" />
+
+                <TextView
+                    style="@style/TurboChip"
+                    android:text="@string/chip_active" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_owner_since"
+                style="@style/TurboCardText"
+                android:text="Owner since September 2026" />
+
+            <TextView
+                style="@style/TurboCardText"
+                android:layout_marginTop="8dp"
+                android:text="@string/manageContactDetails"
+                android:textColor="@color/turbo_text_primary" />
+        </LinearLayout>
+
+        <!-- Space to push action buttons to bottom or give breathing room -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="32dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_edit_profile"
+            style="@style/TurboPrimaryButton"
+            android:text="@string/editProfile" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logout"
+            style="@style/TurboSecondaryButton"
+            android:layout_marginTop="12dp"
+            android:text="@string/txtLogout" />
+
+    </LinearLayout>
+</ScrollView>

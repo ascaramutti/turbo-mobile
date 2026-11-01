@@ -83,6 +83,10 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".ui.profile.EditProfileActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.admin.UsersActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

@@ -61,13 +61,12 @@
             android:id="@+id/results_banner"
             style="@style/TurboBanner.Info" />
 
-        <!-- Filled in code with item_info_card.xml, one per vehicle. -->
-        <LinearLayout
-            android:id="@+id/vehicle_list"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_vehicles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical" />
+            android:nestedScrollingEnabled="false" />
 
         <LinearLayout
             android:id="@+id/empty_state"

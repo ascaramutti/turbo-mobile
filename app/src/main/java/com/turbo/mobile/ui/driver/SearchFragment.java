@@ -2,14 +2,16 @@ package com.turbo.mobile.ui.driver;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.turbo.mobile.AppContainer;
 import com.turbo.mobile.R;
@@ -19,11 +21,11 @@ import com.turbo.mobile.data.model.SearchService;
 import com.turbo.mobile.data.model.VehicleCategory;
 import com.turbo.mobile.data.model.VehicleSummary;
 import com.turbo.mobile.data.model.Zone;
+import com.turbo.mobile.databinding.FragmentSearchBinding;
 import com.turbo.mobile.ui.TurboUi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /** W-05 Search vehicles: the published vehicles, filtered by zone, category, service and max price. */
 public class SearchFragment extends Fragment {
@@ -31,38 +33,44 @@ public class SearchFragment extends Fragment {
     // Options of the "Max price" filter, in dollars per hour.
     private static final int[] MAX_PRICES = {10, 12, 15, 20};
 
+    private FragmentSearchBinding binding;
     private AppContainer container;
     private final SearchFilter filter = new SearchFilter(); // starts empty = no filters
     private List<Zone> zones = new ArrayList<>();
+    private SearchVehiclesAdapter adapter;
 
-    private TextView zoneChip;
-    private TextView categoryChip;
-    private TextView serviceChip;
-    private TextView priceChip;
-    private TextView resultsBanner;
-    private LinearLayout vehicleList;
-    private View emptyState;
-
-    public SearchFragment() {
-        super(R.layout.fragment_search);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         container = ((TurboApp) requireActivity().getApplication()).getContainer();
-        zoneChip = view.findViewById(R.id.filter_zone);
-        categoryChip = view.findViewById(R.id.filter_category);
-        serviceChip = view.findViewById(R.id.filter_service);
-        priceChip = view.findViewById(R.id.filter_price);
-        resultsBanner = view.findViewById(R.id.results_banner);
-        vehicleList = view.findViewById(R.id.vehicle_list);
-        emptyState = view.findViewById(R.id.empty_state);
 
-        zoneChip.setOnClickListener(v -> chooseZone());
-        categoryChip.setOnClickListener(v -> chooseCategory());
-        serviceChip.setOnClickListener(v -> chooseService());
-        priceChip.setOnClickListener(v -> choosePrice());
-        view.findViewById(R.id.clear_filters).setOnClickListener(v -> clearFilters());
+        adapter = new SearchVehiclesAdapter(requireActivity(), vehicle -> {
+            Intent intent = new Intent(requireContext(), VehicleDetailActivity.class);
+            intent.putExtra(VehicleDetailActivity.EXTRA_VEHICLE_ID, vehicle.getId());
+            startActivity(intent);
+        });
+
+        binding.recyclerVehicles.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerVehicles.setAdapter(adapter);
+
+        binding.filterZone.setOnClickListener(v -> chooseZone());
+        binding.filterCategory.setOnClickListener(v -> chooseCategory());
+        binding.filterService.setOnClickListener(v -> chooseService());
+        binding.filterPrice.setOnClickListener(v -> choosePrice());
+        binding.clearFilters.setOnClickListener(v -> clearFilters());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     @Override
@@ -84,54 +92,26 @@ public class SearchFragment extends Fragment {
     }
 
     private void showVehicles(List<VehicleSummary> vehicles) {
-        vehicleList.removeAllViews();
-        for (VehicleSummary vehicle : vehicles) {
-            View card = getLayoutInflater().inflate(R.layout.item_info_card, vehicleList, false);
-            fillCard(card, vehicle);
-            vehicleList.addView(card);
+        if (binding == null) {
+            return;
         }
+        adapter.setItems(vehicles);
 
         // "Burnaby · 3 results". Without a zone filter: "All zones · 3 results".
         String zone = getString(R.string.all_zones);
         if (filter.getZoneId() != null) {
-            zone = zoneChip.getText().toString(); // the chip shows the chosen zone
+            zone = binding.filterZone.getText().toString(); // the chip shows the chosen zone
         }
-        resultsBanner.setText(getResources().getQuantityString(R.plurals.search_results, vehicles.size(),
+        binding.resultsBanner.setText(getResources().getQuantityString(R.plurals.search_results, vehicles.size(),
                 zone, vehicles.size()));
-        resultsBanner.setVisibility(vehicles.isEmpty() ? View.GONE : View.VISIBLE);
-        emptyState.setVisibility(vehicles.isEmpty() ? View.VISIBLE : View.GONE);
-    }
-
-    // "Toyota Corolla 2022", "Sedan · Taxi & Delivery", the price and the owner's rating, the zone and the photo.
-    private void fillCard(View card, VehicleSummary vehicle) {
-        TextView title = card.findViewById(R.id.card_title);
-        TextView subtitle = card.findViewById(R.id.card_subtitle);
-        TextView priceText = card.findViewById(R.id.chip_primary);
-        TextView ratingText = card.findViewById(R.id.chip_secondary);
-        TextView footer = card.findViewById(R.id.card_footer);
-
-        title.setText(vehicle.getMake() + " " + vehicle.getModel() + " " + vehicle.getYear());
-        subtitle.setText(TurboUi.categoryName(requireContext(), vehicle.getCategory()) + " · "
-                + TurboUi.serviceName(requireContext(), vehicle.getServiceType()));
-        String price = getString(R.string.price_per_hour, TurboUi.money(vehicle.getHourlyRateCents()));
-        TurboUi.paintChip(priceText, price, R.color.turbo_primary_container, R.color.turbo_primary);
-        if (vehicle.getOwnerRatingAvg() != null) { // null while the owner has no reviews
-            String rating = "★ " + String.format(Locale.US, "%.1f", vehicle.getOwnerRatingAvg());
-            TurboUi.paintChip(ratingText, rating, R.color.turbo_primary_container, R.color.turbo_primary);
-        }
-        footer.setText(vehicle.getZoneName());
-        TurboUi.showCardPhoto(requireActivity(), card, vehicle.getThumbnailPath());
-
-        card.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), VehicleDetailActivity.class);
-            intent.putExtra(VehicleDetailActivity.EXTRA_VEHICLE_ID, vehicle.getId());
-            startActivity(intent);
-        });
+        binding.resultsBanner.setVisibility(vehicles.isEmpty() ? View.GONE : View.VISIBLE);
+        binding.emptyState.setVisibility(vehicles.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     // Each filter shows a list. Position 0 of every list is "no filter" ("All zones", "Any price"...).
 
     private void chooseZone() {
+        if (binding == null) return;
         String[] options = new String[zones.size() + 1];
         options[0] = getString(R.string.all_zones);
         for (int i = 0; i < zones.size(); i++) {
@@ -144,13 +124,16 @@ public class SearchFragment extends Fragment {
                     } else {
                         filter.setZoneId(zones.get(which - 1).getId()); // -1 because of "All zones"
                     }
-                    updateChip(zoneChip, which, options[which], R.string.filter_zone);
+                    if (binding != null) {
+                        updateChip(binding.filterZone, which, options[which], R.string.filter_zone);
+                    }
                     search();
                 })
                 .show();
     }
 
     private void chooseCategory() {
+        if (binding == null) return;
         // The categories of the vehicle form ("Select", "Sedan", "SUV"...), with "Any category" instead of "Select".
         String[] options = getResources().getStringArray(R.array.vehicle_categories);
         options[0] = getString(R.string.any_category);
@@ -161,25 +144,31 @@ public class SearchFragment extends Fragment {
                     } else {
                         filter.setCategory(VehicleCategory.values()[which - 1]);
                     }
-                    updateChip(categoryChip, which, options[which], R.string.filter_category);
+                    if (binding != null) {
+                        updateChip(binding.filterCategory, which, options[which], R.string.filter_category);
+                    }
                     search();
                 })
                 .show();
     }
 
     private void chooseService() {
+        if (binding == null) return;
         // "Any service", "Taxi", "Delivery": the same order as SearchService (ANY, TAXI, DELIVERY).
         String[] options = getResources().getStringArray(R.array.search_services);
         new AlertDialog.Builder(requireContext())
                 .setItems(options, (dialog, which) -> {
                     filter.setService(SearchService.values()[which]);
-                    updateChip(serviceChip, which, options[which], R.string.filter_service);
+                    if (binding != null) {
+                        updateChip(binding.filterService, which, options[which], R.string.filter_service);
+                    }
                     search();
                 })
                 .show();
     }
 
     private void choosePrice() {
+        if (binding == null) return;
         String[] options = new String[MAX_PRICES.length + 1];
         options[0] = getString(R.string.any_price);
         for (int i = 0; i < MAX_PRICES.length; i++) {
@@ -192,7 +181,9 @@ public class SearchFragment extends Fragment {
                     } else {
                         filter.setMaxRateCents(MAX_PRICES[which - 1] * 100); // dollars -> cents
                     }
-                    updateChip(priceChip, which, options[which], R.string.filter_max_price);
+                    if (binding != null) {
+                        updateChip(binding.filterPrice, which, options[which], R.string.filter_max_price);
+                    }
                     search();
                 })
                 .show();
@@ -210,14 +201,15 @@ public class SearchFragment extends Fragment {
     }
 
     private void clearFilters() {
+        if (binding == null) return;
         filter.setZoneId(null);
         filter.setCategory(null);
         filter.setService(null);
         filter.setMaxRateCents(null);
-        updateChip(zoneChip, 0, null, R.string.filter_zone);
-        updateChip(categoryChip, 0, null, R.string.filter_category);
-        updateChip(serviceChip, 0, null, R.string.filter_service);
-        updateChip(priceChip, 0, null, R.string.filter_max_price);
+        updateChip(binding.filterZone, 0, null, R.string.filter_zone);
+        updateChip(binding.filterCategory, 0, null, R.string.filter_category);
+        updateChip(binding.filterService, 0, null, R.string.filter_service);
+        updateChip(binding.filterPrice, 0, null, R.string.filter_max_price);
         search();
     }
 }
