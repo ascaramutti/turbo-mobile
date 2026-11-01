@@ -1,0 +1,175 @@
+<resources>
+    <!-- Texts of the driver screens. Texts shared with the owner screens (chips, Cancel...) are in strings_owner.xml. -->
+    <string name="nav_search">Search</string>
+
+    <!-- W-05 Search vehicles -->
+    <string name="find_vehicle">Find a vehicle</string>
+    <string name="find_vehicle_subtitle">Approved, active vehicles near you</string>
+    <string name="filter_zone">Zone</string>
+    <string name="filter_category">Category</string>
+    <string name="filter_service">Service</string>
+    <string name="filter_max_price">Max price</string>
+    <string name="all_zones">All zones</string>
+    <string name="any_category">Any category</string>
+    <string name="any_price">Any price</string>
+    <string name="max_price_option">≤ CAD %d</string>
+    <!-- Same order as the SearchService enum: ANY, TAXI, DELIVERY. -->
+    <string-array name="search_services">
+        <item>Any service</item>
+        <item>@string/service_taxi</item>
+        <item>@string/service_delivery</item>
+    </string-array>
+    <plurals name="search_results">
+        <item quantity="one">%1$s · %2$d result</item>
+        <item quantity="other">%1$s · %2$d results</item>
+    </plurals>
+    <string name="price_per_hour">%s/h</string>
+    <string name="no_results_title">No vehicles match</string>
+    <string name="no_results_body">Try removing a filter or increasing your max price.</string>
+    <string name="clear_filters">Clear filters</string>
+
+    <!-- W-06 Vehicle detail + Book a shift -->
+    <string name="vehicle_gallery">Vehicle gallery</string>
+    <string name="photo_counter">%1$d of %2$d</string>
+    <string name="owner">Owner</string>
+    <string name="no_reviews_yet">No reviews yet</string>
+    <plurals name="review_count">
+        <item quantity="one">%d review</item>
+        <item quantity="other">%d reviews</item>
+    </plurals>
+    <string name="pickup">Pickup</string>
+    <string name="book_shift">Book a shift</string>
+    <string name="hours_4" translatable="false">4 h</string>
+    <string name="hours_8" translatable="false">8 h</string>
+    <string name="hours_short">%d h</string>
+    <string name="shift_price">%1$d h × %2$s · Total %3$s</string>
+    <string name="this_week">This week</string>
+    <string name="selected_shift">Selected shift</string>
+    <string name="hours_of_limit">%1$d of %2$d h</string>
+    <string name="weekly_limit_exceeded">This %1$d-hour shift would exceed your weekly %2$d-hour limit.</string>
+    <string name="documents_required">Both documents must be approved before you can request a booking.</string>
+    <string name="review_my_documents">Review my documents</string>
+    <string name="request_booking">Request booking</string>
+
+    <!-- W-07 Booking request confirmation -->
+    <string name="request_title">Request this booking?</string>
+    <string name="request_summary">%1$s · %2$s\n%3$s · %4$s · %5$d hours\nTotal %6$s\n\nYou’ll pay after the owner confirms.</string>
+    <string name="send_request">Send request</string>
+    <string name="booking_request_sent">Booking request sent</string>
+
+    <!-- W-08 My bookings -->
+    <string name="my_bookings">My bookings</string>
+    <string name="tab_in_progress">In progress</string>
+    <string name="total_spent">Total spent</string>
+    <plurals name="hours_long">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <string name="chip_pending">Pending</string>
+    <string name="chip_expired">Expired</string>
+    <string name="waiting_for_owner">Waiting for owner</string>
+    <string name="pay_now">Pay now · %s</string>
+    <string name="ready_to_start">Ready to start</string>
+    <string name="trip_ends_at">Trip ends at %s</string>
+    <string name="request_declined">Request declined</string>
+    <string name="no_owner_response">No owner response</string>
+    <string name="cancelled_before_payment">Cancelled before payment</string>
+
+    <!-- W-09 Booking detail -->
+    <string name="booking_number">Booking #%d</string>
+    <string name="banner_waiting_owner">Waiting for owner confirmation.</string>
+    <string name="banner_payment_required">Payment is required to start your trip.</string>
+    <string name="banner_booking_ready">Paid · Your booking is ready.</string>
+    <string name="banner_trip_in_progress">Trip in progress · Payment paid</string>
+    <string name="banner_trip_completed">Trip completed · Paid</string>
+    <string name="banner_rejected">Booking request rejected by the owner.</string>
+    <string name="banner_expired">Booking request expired without a response.</string>
+    <string name="banner_cancelled">Booking cancelled before payment.</string>
+    <string name="card_shift">Shift</string>
+    <string name="card_amount">Amount</string>
+    <string name="card_booking">Booking</string>
+    <string name="card_current_trip">Current trip</string>
+    <string name="card_trip_summary">Trip summary</string>
+    <string name="card_inspection_photos">Inspection photos</string>
+    <string name="card_final_status">Final status</string>
+    <string name="chip_payment_unavailable">Payment unavailable</string>
+    <string name="payment_split">Payment split: owner %1$s · platform %2$s</string>
+    <string name="return_photos_required">Return inspection photos are required.</string>
+    <string name="photo_counts">Pickup %1$d · Return %2$d</string>
+    <string name="photos_saved">Saved with this booking</string>
+    <string name="no_payment_made">No payment was made</string>
+    <string name="request_closed">This request is closed.</string>
+    <string name="booking_history_preserved">Booking history is preserved.</string>
+    <string name="pay_amount">Pay %s</string>
+    <string name="start_trip">Start trip</string>
+    <string name="end_trip">End trip</string>
+    <string name="find_another_vehicle">Find another vehicle</string>
+    <string name="cancel_booking">Cancel booking</string>
+    <string name="cancel_booking_title">Cancel booking?</string>
+    <string name="cancel_booking_body">This request will be cancelled. No payment has been made.</string>
+    <string name="keep_booking">Keep booking</string>
+    <string name="booking_cancelled">Booking cancelled</string>
+    <string name="rate_question_owner">How was %s as a car owner?</string>
+
+    <!-- W-10 Payment. The card fields start with Stripe's test card, as in the wireframe. -->
+    <string name="payment">Payment</string>
+    <string name="payment_subtitle">Booking #%1$d · %2$s</string>
+    <string name="simulated_payment">Simulated payment - no real charge.</string>
+    <string name="check_card">Check your card details and try again.</string>
+    <string name="label_card_number">Card number</string>
+    <string name="card_invalid">Card details are invalid</string>
+    <string name="label_expiry">Expiry</string>
+    <string name="label_cvv">CVV</string>
+    <string name="test_card_number" translatable="false">4242 4242 4242 4242</string>
+    <string name="test_card_expiry" translatable="false">10/29</string>
+    <string name="test_card_cvv" translatable="false">123</string>
+    <string name="schedule">Schedule</string>
+    <string name="amount_value">Amount %s</string>
+    <string name="processing_payment">Processing payment</string>
+    <string name="processing_body">Simulated payment - no real charge.\nPlease keep this screen open.</string>
+    <string name="processing">Processing…</string>
+    <string name="payment_complete">Payment complete</string>
+    <string name="amount_paid">%s paid</string>
+    <string name="payment_complete_body">Booking #%1$d is confirmed and paid.\nPayment split: owner %2$s · platform %3$s.</string>
+    <string name="view_booking">View booking</string>
+    <string name="payment_failed">Payment failed</string>
+    <string name="payment_failed_title">Your payment didn’t go through</string>
+    <string name="payment_failed_body">No charge was made. Check your card or retry the simulated payment.</string>
+    <string name="retry_payment">Retry payment</string>
+    <string name="back_to_booking">Back to booking</string>
+
+    <!-- W-11 Trip photos -->
+    <string name="pickup_photos">Pickup photos</string>
+    <string name="pickup_photos_subtitle">Add 1–5 photos before starting</string>
+    <string name="return_photos">Return photos</string>
+    <string name="return_photos_subtitle">Add 1–5 photos before ending</string>
+    <string name="photo_suggestions">Suggestions: front, back, sides and interior · Camera</string>
+    <string name="photo_progress">Photo progress</string>
+    <string name="photo_progress_count">%1$d of %2$d photos</string>
+    <string name="photos_selected">%d selected</string>
+    <string name="tap_to_delete">Tap × to delete a photo</string>
+    <string name="camera_error">The camera could not be opened</string>
+    <string name="trip_started">Trip started</string>
+    <string name="trip_ended">Trip ended</string>
+
+    <!-- W-13 My documents -->
+    <string name="my_documents">My documents</string>
+    <string name="documents_ready">Both documents are ready</string>
+    <string name="documents_in_review">Review usually completes shortly</string>
+    <string name="can_request_booking">You can request a booking.</string>
+    <string name="can_browse_only">You can browse, but requests need both documents approved.</string>
+    <string name="request_after_approval">You can request a booking once both documents are approved.</string>
+    <string name="take_photo">Take photo</string>
+    <string name="choose_from_gallery">Choose from gallery</string>
+    <string name="selected_document">Selected document</string>
+    <string name="no_photo_selected">No photo selected</string>
+    <string name="choose_date">Choose date</string>
+    <string name="drivers_license">Driver’s license</string>
+    <string name="study_permit">Study permit</string>
+    <string name="expires_on">Expires %s</string>
+    <string name="reupload_required">Re-upload required</string>
+    <string name="not_uploaded">Not uploaded</string>
+    <string name="submit_for_review">Submit for review</string>
+    <string name="choose_photo_and_expiry">Choose a photo and the expiry date.</string>
+    <string name="document_sent">Sent for review</string>
+</resources>

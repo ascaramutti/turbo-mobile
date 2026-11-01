@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-06 Vehicle detail + Book a shift. Three versions:
+     normal (owner, pickup and the shift to book), weekly limit (red message, can't request)
+     and documents required (the driver's documents instead of the booking). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.VehicleDetailActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- "Toyota Corolla 2022" -->
+            <TextView
+                android:id="@+id/vehicle_title"
+                style="@style/TurboTitle" />
+
+            <!-- Category (orange), fuel and service. Only information, they can't be tapped.
+                 Scrolls sideways if they don't fit, like the filters of W-05. -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chip_category"
+                        style="@style/TurboFilterChip" />
+
+                    <TextView
+                        android:id="@+id/chip_fuel"
+                        style="@style/TurboFilterChip" />
+
+                    <TextView
+                        android:id="@+id/chip_service"
+                        style="@style/TurboFilterChip" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Gallery: tap it to see the next photo. The icon and text show while there is no photo. -->
+            <FrameLayout
+                android:id="@+id/gallery"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_turbo_card"
+                android:backgroundTint="@color/turbo_primary_container">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="12dp"
+                    android:drawableTint="@color/turbo_primary"
+                    android:drawableTop="@drawable/ic_image"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:text="@string/vehicle_gallery"
+                    android:textColor="@color/turbo_text_secondary"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/gallery_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/vehicle_photo"
+                    android:scaleType="centerCrop" />
+
+                <!-- "1 of 4" -->
+                <TextView
+                    android:id="@+id/gallery_counter"
+                    style="@style/TurboChip"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="@color/turbo_surface"
+                    android:textColor="@color/turbo_text_secondary"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <!-- Weekly limit: only visible when the chosen shift goes over the 24 hours of the week. -->
+            <LinearLayout
+                android:id="@+id/limit_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/TurboCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/TurboStatLabel"
+                            android:text="@string/this_week" />
+
+                        <!-- "20 of 24 h" -->
+                        <TextView
+                            android:id="@+id/week_hours"
+                            style="@style/TurboStatValue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/TurboCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/TurboStatLabel"
+                            android:text="@string/selected_shift" />
+
+                        <!-- "8 h" -->
+                        <TextView
+                            android:id="@+id/selected_hours"
+                            style="@style/TurboStatValue" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/limit_banner"
+                    style="@style/TurboBanner.Error"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <!-- Normal version: owner, pickup point and the shift to book. -->
+            <LinearLayout
+                android:id="@+id/booking_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <!-- "Maria L." -->
+                    <TextView
+                        android:id="@+id/owner_name"
+                        style="@style/TurboCardTitle" />
+
+                    <!-- "★ 4.8 · 12 reviews" -->
+                    <TextView
+                        android:id="@+id/owner_rating"
+                        style="@style/TurboCardText" />
+
+                    <TextView
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/owner" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        style="@style/TurboCardTitle"
+                        android:text="@string/pickup" />
+
+                    <!-- "8888 University Dr, Burnaby" -->
+                    <TextView
+                        android:id="@+id/pickup_address"
+                        style="@style/TurboCardText" />
+
+                    <!-- "Burnaby" -->
+                    <TextView
+                        android:id="@+id/pickup_zone"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        style="@style/TurboCardTitle"
+                        android:text="@string/book_shift" />
+
+                    <!-- "Wed, Oct 14 · 08:00". Tap it to choose another day and time. -->
+                    <TextView
+                        android:id="@+id/shift_start"
+                        style="@style/TurboCardText"
+                        android:drawableEnd="@drawable/ic_calendar_days"
+                        android:drawablePadding="8dp"
+                        android:drawableTint="@color/turbo_primary"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:textSize="14sp" />
+
+                    <!-- Duration and service. The chosen ones are orange. Less padding than usual so all four fit;
+                         on a narrow phone the row scrolls sideways. -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/hours_4"
+                                style="@style/TurboFilterChip"
+                                android:paddingHorizontal="12dp"
+                                android:text="@string/hours_4" />
+
+                            <TextView
+                                android:id="@+id/hours_8"
+                                style="@style/TurboFilterChip"
+                                android:paddingHorizontal="12dp"
+                                android:text="@string/hours_8" />
+
+                            <TextView
+                                android:id="@+id/service_taxi"
+                                style="@style/TurboFilterChip"
+                                android:paddingHorizontal="12dp"
+                                android:text="@string/service_taxi" />
+
+                            <TextView
+                                android:id="@+id/service_delivery"
+                                style="@style/TurboFilterChip"
+                                android:paddingHorizontal="12dp"
+                                android:text="@string/service_delivery" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <!-- "4 h × CAD 12.50 · Total CAD 50.00" -->
+                    <TextView
+                        android:id="@+id/shift_price"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/manrope_semibold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Documents required: the driver's documents while they are not both approved. -->
+            <LinearLayout
+                android:id="@+id/documents_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TurboBanner.Warning"
+                    android:text="@string/documents_required"
+                    android:visibility="visible" />
+
+                <!-- Filled in code with item_info_card.xml, one per document. -->
+                <LinearLayout
+                    android:id="@+id/document_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <!-- Only in the "documents required" version. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/review_documents"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/review_my_documents"
+        android:visibility="gone" />
+
+    <!-- Disabled (grey) when the driver can't book this shift. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/request_booking"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp"
+        android:enabled="false"
+        android:text="@string/request_booking" />
+</LinearLayout>

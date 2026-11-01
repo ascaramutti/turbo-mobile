@@ -1,3 +1,156 @@
 <resources>
     <string name="app_name">TURBO</string>
+
+    <!-- activity_login -->
+    <string name="txtLogTURBO">Log in to Turbo</string>
+    <string name="txtSubTitle">Enter your email and password</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtPassword">Password</string>
+    <string name="tfEmailHint">ana@gmail.com</string>
+    <string name="tfPasswordHint">********</string>
+    <string name="btnLogin">Log in</string>
+    <string name="txtNoAccount">Don\'t have an account? Sign up</string>
+
+    <!-- activity_register -->
+    <string name="txtAvatarInitials">BH</string>
+    <string name="descBack">Back</string>
+    <string name="txtCreateAccount">Create account</string>
+    <string name="txtJoinDriver">Join Turbo as a driver.</string>
+    <string name="txtRoleDriver">Driver</string>
+    <string name="txtRoleOwner">Car Owner</string>
+    <string name="txtFirstName">First name</string>
+    <string name="hintFirstName">First name</string>
+    <string name="txtLastName">Last name</string>
+    <string name="hintLastName">Last name</string>
+    <string name="txtPhone">Phone</string>
+    <string name="hintPhone">+1 604 555 0100</string>
+    <string name="txtDob">Date of birth</string>
+    <string name="hintDob">yyyy-mm-dd</string>
+    <string name="descTogglePassword">Show or hide password</string>
+    <string name="txtConfirmPassword">Confirm password</string>
+    <string name="hintConfirmPassword">Repeat your password</string>
+    <string name="txtHaveAccount">Already have an account? Log in</string>
+
+    <!-- activity_notifications -->
+    <string name="notificationsTitle">Notifications</string>
+    <string name="notificationsSubtitle">Vehicle and booking updates</string>
+    <string name="notificationsEmptyTitle">You’re all caught up</string>
+    <string name="notificationsEmptyMessage">New booking and document updates will appear here.</string>
+    <string name="descNotificationsEmpty">No notifications</string>
+    <string name="navVehicles">Vehicles</string>
+    <string name="navBookings">Bookings</string>
+    <string name="navEarnings">Earnings</string>
+    <string name="navAlerts">Alerts</string>
+    <string name="navProfile">Profile</string>
+
+    <!-- Bottom nav (Admin) -->
+    <string name="navDocuments">Documents</string>
+    <string name="navUsers">Users</string>
+
+    <!-- activity_users (Admin) -->
+    <string name="txtLogout">Log out</string>
+    <string name="usersTitle">Users</string>
+    <string name="roleFilterAll">All roles</string>
+    <string name="txtSearch">Search</string>
+    <string name="searchHintNameEmail">Name or email</string>
+    <string name="btnViewUser">View user</string>
+    <string name="userRoleEmailFormat">%1$s · %2$s</string>
+
+    <!-- activity_user_account (Admin) -->
+    <string name="userAccountTitle">User account</string>
+    <string name="txtStatusLabel">Status</string>
+    <string name="btnActivate">Activate</string>
+    <string name="btnDeactivate">Deactivate</string>
+    <string name="accountActivated">Account activated</string>
+    <string name="accountDeactivated">Account deactivated</string>
+
+    <!-- Admin console: pending documents -->
+    <string name="pendingDocumentsTitle">Pending documents</string>
+    <string name="tabDrivers">Drivers</string>
+    <string name="documentsWaitingFormat">%1$d documents waiting for review</string>
+    <string name="pendingDocumentSubtitleFormat">%1$s · Uploaded %2$s</string>
+
+    <!-- Joins two texts, e.g. "Study permit · Ana Lopez" -->
+    <string name="twoPartsFormat">%1$s · %2$s</string>
+
+    <!-- Admin console: activate account dialog -->
+    <string name="activateTitle">Activate account?</string>
+    <string name="activateMessageFormat">%1$s will regain access to Turbo.</string>
+
+    <!-- Admin console: review document -->
+    <string name="reviewTitle">Review document</string>
+    <string name="btnApproveDocument">Approve document</string>
+    <string name="btnReject">Reject</string>
+    <string name="lblLicenseNumber">License number</string>
+    <string name="lblPermitNumber">Permit number</string>
+    <string name="licenseClassFormat">Class %1$d</string>
+    <string name="documentApproved">Document approved</string>
+    <string name="documentRejected">Document rejected</string>
+
+    <!-- Admin console: reject overlay -->
+    <string name="rejectTitle">Reject document</string>
+    <string name="rejectMessage">The user will be notified with this reason.</string>
+    <string name="lblReason">Reason</string>
+    <string name="hintReason">Reason</string>
+    <string name="errReasonRequired">Reason Required</string>
+    <string name="btnCancel">Cancel</string>
+
+    <!-- Admin console: all bookings -->
+    <string name="allBookingsTitle">All bookings</string>
+    <string name="lblPlatformEarnings">Platform earnings 20%</string>
+    <string name="lblPayments">Payments</string>
+    <string name="lblCompleted">Completed</string>
+    <string name="bookingTitleFormat">#%1$d · %2$s</string>
+    <string name="bookingRouteFormat">%1$s → %2$s · %3$s</string>
+
+    <!-- Admin console: booking detail -->
+    <string name="lblPeople">People</string>
+    <string name="lblPayment">Payment</string>
+    <string name="lblService">Service</string>
+    <string name="btnViewInspectionPhotos">View inspection photos</string>
+    <string name="bookingNumberFormat">Booking #%1$d</string>
+    <string name="peopleFormat">%1$s → %2$s</string>
+    <string name="driverPaysFormat">Driver %1$s</string>
+    <string name="paymentSplitFormat">Owner %1$s · Platform %2$s</string>
+
+    <!-- Admin console: inspection photos -->
+    <string name="inspectionTitle">Inspection photos</string>
+    <string name="tabPickup">Pickup</string>
+    <string name="tabReturn">Return</string>
+    <string name="tabCompare">Compare</string>
+    <string name="inspectionSummaryFormat">Pickup %1$d photos · Return %2$d photos · Angles may differ</string>
+
+    <string-array name="month_filter">
+        <item>October 2026</item>
+        <item>September 2026</item>
+        <item>November 2026</item>
+    </string-array>
+
+    <string-array name="status_filter">
+        <item>All statuses</item>
+        <item>Confirmed</item>
+        <item>Completed</item>
+        <item>Cancelled</item>
+    </string-array>
+
+    <!-- Profile & Edit Profile -->
+    <string name="profileTitle">Profile</string>
+    <string name="editProfile">Edit profile</string>
+    <string name="changePhoto">Change photo</string>
+    <string name="accountSection">Account</string>
+    <string name="ownerSinceFormat">Owner since %s</string>
+    <string name="driverSinceFormat">Driver since %s</string>
+    <string name="identityVerifiedBanner">Identity verified · Ready to book</string>
+    <string name="pendingVerificationBanner">Verification pending · Documents under review</string>
+    <string name="manageContactDetails">Manage your contact details.</string>
+    <string name="btnSaveChanges">Save changes</string>
+    <string name="profileSavedToast">Profile changes saved</string>
+    <string name="profileReadyToSave">Your profile changes are ready to save.</string>
+    <string name="myDocuments">My documents</string>
+    <string name="documentsBothApproved">Both documents are approved.</string>
+    <string name="documentsPendingAction">Document review in progress.</string>
+    <string name="notificationsSubtitleDriver">Updates that need your attention</string>
+    <string name="notificationsSubtitleOwner">Vehicle and booking updates</string>
+    <string name="chipUnread">Unread</string>
+    <string name="chipRead">Read</string>
 </resources>

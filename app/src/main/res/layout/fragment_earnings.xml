@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-19 Earnings: vehicle filter, three totals, the 80% note and the list of paid shifts. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_bold"
+            android:text="@string/nav_earnings"
+            android:textColor="@color/turbo_text_primary"
+            android:textSize="28sp" />
+
+        <!-- Tapping it opens a list to choose one vehicle (or all again). -->
+        <TextView
+            android:id="@+id/vehicle_filter"
+            style="@style/TurboChip"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/turbo_primary_container"
+            android:paddingHorizontal="16dp"
+            android:text="@string/all_vehicles"
+            android:textColor="@color/turbo_primary"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/TurboCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/TurboStatLabel"
+                    android:text="@string/total_earned" />
+
+                <TextView
+                    android:id="@+id/total_earned"
+                    style="@style/TurboStatValue" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/TurboCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/TurboStatLabel"
+                    android:text="@string/completed_shifts" />
+
+                <TextView
+                    android:id="@+id/completed_shifts"
+                    style="@style/TurboStatValue" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/TurboCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/TurboStatLabel"
+                android:text="@string/this_month" />
+
+            <TextView
+                android:id="@+id/this_month"
+                style="@style/TurboStatValue" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/TurboBanner"
+            android:backgroundTint="@color/turbo_neutral_bg"
+            android:drawableStart="@drawable/ic_info"
+            android:drawableTint="@color/turbo_text_secondary"
+            android:text="@string/earnings_share"
+            android:textColor="@color/turbo_text_secondary"
+            android:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_earnings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:id="@+id/earnings_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/manrope_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/earnings_empty"
+            android:textColor="@color/turbo_text_secondary"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

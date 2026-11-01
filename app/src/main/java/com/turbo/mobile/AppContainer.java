@@ -20,8 +20,13 @@ import com.turbo.mobile.data.repository.fake.FakeVehicleRepository;
 import com.turbo.mobile.util.ImageStorage;
 import com.turbo.mobile.util.SessionManager;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class AppContainer {
 
+    // Single thread: Room forbids main-thread queries and FakeDataStore isn't thread-safe.
+    public final ExecutorService executor = Executors.newSingleThreadExecutor();
     public final SessionManager sessionManager;
     public final ImageStorage imageStorage;
     public final UserRepository userRepository;

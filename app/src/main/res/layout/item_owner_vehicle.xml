@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/bg_turbo_card"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/vehicle_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_bold"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/vehicle_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/manrope_regular"
+        android:textColor="@color/turbo_text_secondary"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/chip_primary"
+            style="@style/TurboChip" />
+
+        <TextView
+            android:id="@+id/chip_secondary"
+            style="@style/TurboChip"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Actions: Edit · Activate/Deactivate · Documents · Delete -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/action_edit"
+            style="@style/TurboCardAction"
+            android:text="@string/action_edit" />
+
+        <TextView
+            style="@style/TurboCardAction"
+            android:paddingHorizontal="4dp"
+            android:text="@string/action_separator" />
+
+        <!-- "Activate" or "Deactivate", set in code. Hidden (with its dot) while the vehicle is in review. -->
+        <TextView
+            android:id="@+id/action_toggle"
+            style="@style/TurboCardAction" />
+
+        <TextView
+            android:id="@+id/action_toggle_separator"
+            style="@style/TurboCardAction"
+            android:paddingHorizontal="4dp"
+            android:text="@string/action_separator" />
+
+        <TextView
+            android:id="@+id/action_documents"
+            style="@style/TurboCardAction"
+            android:text="@string/action_documents" />
+
+        <TextView
+            style="@style/TurboCardAction"
+            android:paddingHorizontal="4dp"
+            android:text="@string/action_separator" />
+
+        <TextView
+            android:id="@+id/action_delete"
+            style="@style/TurboCardAction"
+            android:text="@string/action_delete" />
+    </LinearLayout>
+</LinearLayout>

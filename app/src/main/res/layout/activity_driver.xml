@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Driver shell: top bar + tab content + bottom bar (Search, Bookings, Alerts, Profile). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.DriverActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <FrameLayout
+        android:id="@+id/driver_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@color/turbo_surface"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp">
+
+        <TextView
+            android:id="@+id/nav_search"
+            style="@style/TurboNavItem"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_search"
+            android:text="@string/nav_search" />
+
+        <TextView
+            android:id="@+id/nav_bookings"
+            style="@style/TurboNavItem"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_calendar_days"
+            android:text="@string/nav_bookings" />
+
+        <TextView
+            android:id="@+id/nav_alerts"
+            style="@style/TurboNavItem"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_bell"
+            android:text="@string/nav_alerts" />
+
+        <TextView
+            android:id="@+id/nav_profile"
+            style="@style/TurboNavItem"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_user"
+            android:text="@string/nav_profile" />
+    </LinearLayout>
+</LinearLayout>

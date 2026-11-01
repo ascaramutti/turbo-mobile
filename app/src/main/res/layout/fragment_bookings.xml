@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-18 Bookings: three tabs (Requests, Upcoming, History) and the list of the selected tab. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_bold"
+            android:text="@string/nav_bookings"
+            android:textColor="@color/turbo_text_primary"
+            android:textSize="28sp" />
+
+        <!-- The selected tab is marked with setSelected(true), like the bottom bar. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_input"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/tab_requests"
+                style="@style/TurboSegment"
+                android:text="@string/tab_requests" />
+
+            <TextView
+                android:id="@+id/tab_upcoming"
+                style="@style/TurboSegment"
+                android:text="@string/tab_upcoming" />
+
+            <TextView
+                android:id="@+id/tab_history"
+                style="@style/TurboSegment"
+                android:text="@string/tab_history" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_owner_bookings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:id="@+id/bookings_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/manrope_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/bookings_empty"
+            android:textColor="@color/turbo_text_secondary"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

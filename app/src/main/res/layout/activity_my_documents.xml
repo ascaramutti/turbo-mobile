@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-13 My documents: the driver's license and study permit with their status.
+     When one was rejected it also shows how to send a new photo and its expiry date. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.MyDocumentsActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                style="@style/TurboTitle"
+                android:text="@string/my_documents" />
+
+            <!-- "Both documents are ready" or "Review usually completes shortly". Hidden when one was rejected. -->
+            <TextView
+                android:id="@+id/documents_subtitle"
+                style="@style/TurboSubtitle" />
+
+            <!-- Rejected only: where the new photo comes from. The one used turns orange.
+                 Scrolls sideways on a narrow phone. -->
+            <HorizontalScrollView
+                android:id="@+id/photo_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:scrollbars="none"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/take_photo"
+                        style="@style/TurboFilterChip"
+                        android:text="@string/take_photo" />
+
+                    <TextView
+                        android:id="@+id/choose_gallery"
+                        style="@style/TurboFilterChip"
+                        android:text="@string/choose_from_gallery" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Only one of the three banners is shown. -->
+            <TextView
+                android:id="@+id/banner_success"
+                style="@style/TurboBanner.Success"
+                android:text="@string/can_request_booking" />
+
+            <TextView
+                android:id="@+id/banner_warning"
+                style="@style/TurboBanner.Warning"
+                android:text="@string/can_browse_only" />
+
+            <TextView
+                android:id="@+id/banner_error"
+                style="@style/TurboBanner.Error"
+                android:text="@string/request_after_approval" />
+
+            <!-- Rejected only: the new photo and its expiry date (tap to choose it). -->
+            <LinearLayout
+                android:id="@+id/reupload_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/selected_document" />
+
+                <TextView
+                    android:id="@+id/selected_photo"
+                    style="@style/TurboInput"
+                    android:text="@string/no_photo_selected" />
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/label_expiry" />
+
+                <TextView
+                    android:id="@+id/pick_expiry"
+                    style="@style/TurboInput"
+                    android:drawableEnd="@drawable/ic_calendar_days"
+                    android:drawableTint="@color/turbo_primary"
+                    android:text="@string/choose_date" />
+            </LinearLayout>
+
+            <!-- Filled in code with item_info_card.xml, one per document. -->
+            <LinearLayout
+                android:id="@+id/document_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Rejected only. -->
+    <LinearLayout
+        android:id="@+id/submit_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/turbo_stroke" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submit_document"
+            style="@style/TurboPrimaryButton"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="12dp"
+            android:text="@string/submit_for_review" />
+    </LinearLayout>
+</LinearLayout>

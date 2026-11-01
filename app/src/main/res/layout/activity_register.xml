@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:clipToPadding="false"
+    tools:context=".ui.auth.RegisterActivity">
+
+    <!-- Header: back + logo + avatar -->
+    <TextView
+        android:id="@+id/txtAvatar"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_avatar"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/txtAvatarInitials"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="22dp"
+        android:contentDescription="@string/descBack"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@id/txtAvatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtAvatar" />
+    <TextView
+        android:id="@+id/txtLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/app_name"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/txtAvatar"
+        app:layout_constraintStart_toEndOf="@id/imgBack"
+        app:layout_constraintTop_toTopOf="@id/txtAvatar" />
+
+    <!-- Title and Subtitle -->
+    <TextView
+        android:id="@+id/txtCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/txtCreateAccount"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtAvatar" />
+    <TextView
+        android:id="@+id/txtJoinSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/txtJoinDriver"
+        android:textColor="@color/turbo_text_secondary"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtCreateTitle" />
+
+    <!-- Select role: Driver or Car Owner -->
+    <LinearLayout
+        android:id="@+id/segmentRole"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_input"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtJoinSubtitle">
+
+        <TextView
+            android:id="@+id/btnRoleDriver"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_segment_selected"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/txtRoleDriver"
+            android:textColor="@color/turbo_primary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnRoleOwner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/txtRoleOwner"
+            android:textColor="@color/turbo_text_secondary"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/txtFirstName"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/segmentRole" />
+    <EditText
+        android:id="@+id/tfFirstName"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints="personGivenName"
+        android:background="@drawable/bg_input"
+        android:hint="@string/hintFirstName"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/turbo_text_primary"
+        android:textColorHint="@color/turbo_text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtFirstName" />
+
+    <TextView
+        android:id="@+id/txtLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/txtLastName"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tfFirstName"
+        app:layout_goneMarginTop="16dp" />
+
+    <EditText
+        android:id="@+id/tfLastName"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints="personFamilyName"
+        android:background="@drawable/bg_input"
+        android:hint="@string/hintLastName"
+        android:inputType="textPersonName|textCapWords"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/turbo_text_primary"
+        android:textColorHint="@color/turbo_text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtLastName" />
+
+
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/txtEmail"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tfLastName"
+        app:layout_goneMarginTop="16dp" />
+    <EditText
+        android:id="@+id/tfEmail"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/bg_input"
+        android:hint="@string/tfEmailHint"
+        android:inputType="textEmailAddress"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/turbo_text_primary"
+        android:textColorHint="@color/turbo_text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtEmail" />
+
+    <TextView
+        android:id="@+id/txtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/txtPhone"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tfEmail"
+        app:layout_goneMarginTop="16dp" />
+    <EditText
+        android:id="@+id/tfPhone"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints="phone"
+        android:background="@drawable/bg_input"
+        android:hint="@string/hintPhone"
+        android:inputType="phone"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/turbo_text_primary"
+        android:textColorHint="@color/turbo_text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtPhone" />
+
+    <TextView
+        android:id="@+id/txtDob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/txtDob"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tfPhone"
+        app:layout_goneMarginTop="16dp" />
+
+    <EditText
+        android:id="@+id/tfDob"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_input"
+        android:hint="@string/hintDob"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/turbo_text_primary"
+        android:textColorHint="@color/turbo_text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDob" />
+
+    <TextView
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/txtPassword"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tfDob"
+        app:layout_goneMarginTop="16dp" />
+
+    <EditText
+        android:id="@+id/tfPassword"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints="newPassword"
+        android:background="@drawable/bg_input"
+        android:hint="@string/tfPasswordHint"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:paddingEnd="48dp"
+        android:textColor="@color/turbo_text_primary"
+        android:textColorHint="@color/turbo_text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtPassword" />
+
+    <ImageView
+        android:id="@+id/imgTogglePassword"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="14dp"
+        android:contentDescription="@string/descTogglePassword"
+        app:layout_constraintBottom_toBottomOf="@id/tfPassword"
+        app:layout_constraintEnd_toEndOf="@id/tfPassword"
+        app:layout_constraintTop_toTopOf="@id/tfPassword" />
+
+
+    <TextView
+        android:id="@+id/txtConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/txtConfirmPassword"
+        android:textColor="@color/turbo_text_primary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgTogglePassword"
+        app:layout_goneMarginTop="16dp" />
+
+    <EditText
+        android:id="@+id/tfConfirmPassword"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints="newPassword"
+        android:background="@drawable/bg_input"
+        android:hint="@string/hintConfirmPassword"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:paddingEnd="48dp"
+        android:textColor="@color/turbo_text_primary"
+        android:textColorHint="@color/turbo_text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtConfirmPassword" />
+
+    <ImageView
+        android:id="@+id/imgToggleConfirmPassword"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="14dp"
+        android:contentDescription="@string/descTogglePassword"
+        app:layout_constraintBottom_toBottomOf="@id/tfConfirmPassword"
+        app:layout_constraintEnd_toEndOf="@id/tfConfirmPassword"
+        app:layout_constraintTop_toTopOf="@id/tfConfirmPassword" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/txtCreateAccount"
+        android:textAllCaps="false"
+        android:textColor="@color/turbo_on_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/turbo_primary"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgToggleConfirmPassword"
+        app:layout_goneMarginTop="24dp" />
+
+    <TextView
+        android:id="@+id/txtHaveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtHaveAccount"
+        android:textColor="@color/turbo_text_secondary"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCreateAccount" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

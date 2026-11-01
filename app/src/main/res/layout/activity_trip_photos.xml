@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-11 Trip photos (Pickup and Return): up to 5 photos in rows, a tip, the progress and the button. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.TripPhotosActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- "Pickup photos" or "Return photos" -->
+            <TextView
+                android:id="@+id/photos_title"
+                style="@style/TurboTitle" />
+
+            <TextView
+                android:id="@+id/photos_subtitle"
+                style="@style/TurboSubtitle" />
+
+            <!-- One item_photo_tile.xml per photo, then the "+ Add" tile. A ChipGroup puts its views in a row
+                 and starts a new row when the next one doesn't fit (3 per row on most phones). -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/photo_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:chipSpacingHorizontal="0dp"
+                app:chipSpacingVertical="8dp">
+
+                <TextView
+                    android:id="@+id/add_photo"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/bg_input"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="@color/turbo_primary"
+                    android:drawableTop="@drawable/ic_camera"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:gravity="center"
+                    android:paddingTop="24dp"
+                    android:text="@string/add_photo_short"
+                    android:textColor="@color/turbo_text_secondary"
+                    android:textSize="14sp" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                style="@style/TurboBanner.Info"
+                android:layout_marginTop="8dp"
+                android:text="@string/photo_suggestions"
+                android:visibility="visible" />
+
+            <!-- "Photo progress / 3 of 5 photos / 3 selected / Tap × to delete a photo" -->
+            <include layout="@layout/item_info_card" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <!-- "Start trip" or "End trip". Disabled (grey) until there is at least one photo. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/finish_photos"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp"
+        android:enabled="false" />
+</LinearLayout>

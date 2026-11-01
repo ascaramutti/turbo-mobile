@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Template defaults -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Brand -->
+    <color name="turbo_primary">#C44721</color>              <!-- main button, active links, text on container -->
+    <color name="turbo_on_primary">#FFFFFF</color>           <!-- text on the main button -->
+    <color name="turbo_primary_container">#F3E0D6</color>    <!-- selected tab/chip, avatar, placeholders -->
+
+    <!-- Surfaces -->
+    <color name="turbo_background">#FAF8F5</color>           <!-- background of every screen -->
+    <color name="turbo_surface">#FFFFFF</color>              <!-- inputs, cards, dialogs -->
+    <color name="turbo_stroke">#E3DFDA</color>               <!-- borders of inputs and cards -->
+    <color name="turbo_neutral_bg">#EFEEEB</color>           <!-- neutral chip, disabled button, map placeholder -->
+
+    <!-- Text -->
+    <color name="turbo_text_primary">#232321</color>
+    <color name="turbo_text_secondary">#686863</color>
+    <color name="turbo_text_disabled">#B8B4AF</color>        <!-- text on the disabled button -->
+
+    <!-- Status: success (Paid, Approved, Confirmed, Active) -->
+    <color name="turbo_success">#235D45</color>
+    <color name="turbo_success_bg">#E5F2EA</color>
+
+    <!-- Status: warning (Pending, Payment pending) -->
+    <color name="turbo_warning">#8A5A12</color>
+    <color name="turbo_warning_bg">#FAEFD8</color>
+
+    <!-- Status: error (Rejected, form errors) -->
+    <color name="turbo_error">#9A3028</color>
+    <color name="turbo_error_bg">#F8E4E1</color>
+
+    <!-- Dimmed background behind dialogs (60% of #232321) -->
+    <color name="turbo_scrim">#99232321</color>
+
 </resources>

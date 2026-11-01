@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared styles for the owner and driver screens. Colors live in colors.xml. Spacing goes in multiples of 4dp. -->
+<resources>
+    <style name="TurboChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:background">@drawable/bg_turbo_chip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TurboCardAction">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/turbo_error</item>
+    </style>
+
+    <!-- Label above an input ("Make", "Model"...). -->
+    <style name="TurboLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <!-- White box for inputs, dropdowns and "Choose photo". The hint ("Required") is red, as in W-15. -->
+    <style name="TurboInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+        <item name="android:textColorHint">@color/turbo_error</item>
+    </style>
+
+    <!-- Colored message box (error or warning) at the top of a form. Color set with backgroundTint. -->
+    <style name="TurboBanner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:background">@drawable/bg_turbo_chip</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!-- The four banner colors. Each one is a TurboBanner (the name before the dot) with its own icon and colors. -->
+    <style name="TurboBanner.Info">
+        <item name="android:backgroundTint">@color/turbo_neutral_bg</item>
+        <item name="android:drawableStart">@drawable/ic_info</item>
+        <item name="android:drawableTint">@color/turbo_text_secondary</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <style name="TurboBanner.Warning">
+        <item name="android:backgroundTint">@color/turbo_warning_bg</item>
+        <item name="android:drawableStart">@drawable/ic_clock</item>
+        <item name="android:drawableTint">@color/turbo_warning</item>
+        <item name="android:textColor">@color/turbo_warning</item>
+    </style>
+
+    <style name="TurboBanner.Success">
+        <item name="android:backgroundTint">@color/turbo_success_bg</item>
+        <item name="android:drawableStart">@drawable/ic_circle_check</item>
+        <item name="android:drawableTint">@color/turbo_success</item>
+        <item name="android:textColor">@color/turbo_success</item>
+    </style>
+
+    <style name="TurboBanner.Error">
+        <item name="android:backgroundTint">@color/turbo_error_bg</item>
+        <item name="android:drawableStart">@drawable/ic_circle_alert</item>
+        <item name="android:drawableTint">@color/turbo_error</item>
+        <item name="android:textColor">@color/turbo_error</item>
+    </style>
+
+    <!-- Big title of a screen ("Find a vehicle") and the grey line below it. -->
+    <style name="TurboTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <style name="TurboSubtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <!-- Filter chips of W-05 and the option chips of W-06 / W-13. Selected = orange (setSelected(true)). -->
+    <style name="TurboFilterChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:background">@drawable/bg_turbo_filter_chip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_nav_item</item>
+    </style>
+
+    <!-- Big button at the bottom of a screen ("Add vehicle", "Save vehicle"...). -->
+    <style name="TurboPrimaryButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <!-- Material buttons add 6dp of empty space above and below; 0 so the button really is 52dp tall. -->
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <!-- Material buttons also have 24dp of padding at each side; 0 so long texts fit on one line. -->
+        <item name="android:padding">0dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textColor">@color/turbo_button_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="backgroundTint">@color/turbo_button_background</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <!-- Same button, white with a border ("Cancel"). -->
+    <style name="TurboSecondaryButton" parent="TurboPrimaryButton">
+        <item name="android:textColor">@color/turbo_primary</item>
+        <item name="backgroundTint">@color/turbo_surface</item>
+        <item name="strokeColor">@color/turbo_stroke</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- White rounded box with a border: vehicle, booking, document and earning cards. -->
+    <style name="TurboCard">
+        <item name="android:background">@drawable/bg_turbo_card</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- Texts of a card: bold title ("Pickup"), and the grey lines below it. -->
+    <style name="TurboCardTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <style name="TurboCardText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <!-- Small grey title inside a card ("Total earned") and the big number below it. -->
+    <style name="TurboStatLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <style name="TurboStatValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <!-- One of the Requests / Upcoming / History tabs. Same colors as the bottom bar items. -->
+    <style name="TurboSegment">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/bg_turbo_nav_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_nav_item</item>
+    </style>
+
+    <style name="TurboNavItem">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/bg_turbo_nav_item</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:drawableTint">@color/turbo_nav_item</item>
+        <item name="android:textColor">@color/turbo_nav_item</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

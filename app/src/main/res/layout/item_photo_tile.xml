@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One photo of the W-15 vehicle form or of W-11 trip photos: the image icon shows until the photo is loaded on top of it. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="96dp"
+    android:layout_height="96dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/bg_input"
+    android:backgroundTint="@color/turbo_primary_container">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="center"
+        android:src="@drawable/ic_image"
+        app:tint="@color/turbo_primary" />
+
+    <ImageView
+        android:id="@+id/photo_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/vehicle_photo"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/photo_remove"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_avatar"
+        android:backgroundTint="@color/turbo_surface"
+        android:contentDescription="@string/remove_photo"
+        android:scaleType="center"
+        android:src="@drawable/ic_x"
+        app:tint="@color/turbo_error" />
+</FrameLayout>
