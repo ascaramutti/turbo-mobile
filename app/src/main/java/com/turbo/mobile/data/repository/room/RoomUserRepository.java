@@ -7,12 +7,15 @@ import androidx.annotation.Nullable;
 
 import com.turbo.mobile.data.db.AppDatabase;
 import com.turbo.mobile.data.db.entity.BookingEntity;
+import com.turbo.mobile.data.db.entity.DriverDocumentEntity;
 import com.turbo.mobile.data.db.entity.DriverProfileEntity;
 import com.turbo.mobile.data.db.entity.NotificationEntity;
 import com.turbo.mobile.data.db.entity.UserEntity;
 import com.turbo.mobile.data.db.entity.VehicleEntity;
 import com.turbo.mobile.data.model.BookingStatus;
 import com.turbo.mobile.data.model.DeactivationResult;
+import com.turbo.mobile.data.model.DocumentStatus;
+import com.turbo.mobile.data.model.DriverState;
 import com.turbo.mobile.data.model.RatingSummary;
 import com.turbo.mobile.data.model.RegistrationForm;
 import com.turbo.mobile.data.model.Result;
@@ -39,6 +42,7 @@ public class RoomUserRepository implements UserRepository {
 
     private static final String TAG = "RoomUserRepository";
     private static final int ADULT_AGE = 18;
+    private static final long RENEW_WINDOW = 30L * 24 * 60 * 60 * 1000;
 
     private final AppDatabase db;
     private final ImageStorage imageStorage;
@@ -138,7 +142,7 @@ public class RoomUserRepository implements UserRepository {
                 if (driverProfile != null) {
                     profile.setLicenseClass(driverProfile.licenseClass);
                 }
-                profile.setDriverState(DriverStates.of(db, user, System.currentTimeMillis()));
+                profile.setDriverState(calculateDriverState(user));
             }
             RatingSummary rating = db.reviewDao().getRatingSummary(user.id);
             profile.setRatingAvg(rating.getAverage());
@@ -223,6 +227,30 @@ public class RoomUserRepository implements UserRepository {
         } catch (RuntimeException e) {
             return unexpected(e);
         }
+    }
+
+    private DriverState calculateDriverState(UserEntity driver) {
+        if (!driver.isActive) {
+            return DriverState.DEACTIVATED;
+        }
+        int approved = 0;
+        for (DriverDocumentEntity document : db.driverDocumentDao().getAll(driver.id)) {
+            if (document.status == DocumentStatus.REJECTED) {
+                return DriverState.DOCUMENT_REJECTED;
+            }
+            if (document.status == DocumentStatus.APPROVED) {
+                approved++;
+            }
+        }
+        if (approved < 2) {
+            return DriverState.PENDING_VERIFICATION;
+        }
+        DriverProfileEntity profile = db.driverProfileDao().findByUserId(driver.id);
+        long now = System.currentTimeMillis();
+        if (profile != null && Math.min(profile.licenseExpiry, profile.studyPermitExpiry) <= now + RENEW_WINDOW) {
+            return DriverState.VERIFIED_RENEW;
+        }
+        return DriverState.VERIFIED;
     }
 
     private void closeDriverBookings(UserEntity driver, DeactivationResult result) {
