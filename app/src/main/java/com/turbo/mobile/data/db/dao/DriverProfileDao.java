@@ -19,6 +19,6 @@ public interface DriverProfileDao {
     @Query("SELECT * FROM driver_profiles WHERE user_id = :userId")
     DriverProfileEntity findByUserId(long userId);
 
-    @Query("SELECT * FROM driver_profiles WHERE license_number = :licenseNumber")
+    @Query("SELECT * FROM driver_profiles WHERE license_number = :licenseNumber COLLATE NOCASE")
     DriverProfileEntity findByLicenseNumber(String licenseNumber);
 }

@@ -7,6 +7,8 @@ import androidx.room.Update;
 
 import com.turbo.mobile.data.db.entity.BookingEntity;
 
+import java.util.List;
+
 @Dao
 public interface BookingDao {
 
@@ -18,4 +20,11 @@ public interface BookingDao {
 
     @Query("SELECT * FROM bookings WHERE id = :id")
     BookingEntity findById(long id);
+
+    @Query("SELECT * FROM bookings WHERE driver_id = :driverId AND status IN ('PENDING', 'CONFIRMED', 'IN_PROGRESS')")
+    List<BookingEntity> getOpenByDriver(long driverId);
+
+    @Query("SELECT b.* FROM bookings b JOIN vehicles v ON v.id = b.vehicle_id "
+            + "WHERE v.owner_id = :ownerId AND b.status IN ('PENDING', 'CONFIRMED', 'IN_PROGRESS')")
+    List<BookingEntity> getOpenByOwner(long ownerId);
 }
