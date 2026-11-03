@@ -27,4 +27,7 @@ public interface DriverDocumentDao {
 
     @Query("SELECT * FROM driver_documents WHERE driver_id = :ownerId ORDER BY document_type")
     List<DriverDocumentEntity> getAll(long ownerId);
+
+    @Query("SELECT * FROM driver_documents WHERE status = 'PENDING' ORDER BY uploaded_at, id")
+    List<DriverDocumentEntity> getPending();
 }

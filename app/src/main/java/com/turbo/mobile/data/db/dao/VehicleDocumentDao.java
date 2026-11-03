@@ -27,4 +27,7 @@ public interface VehicleDocumentDao {
 
     @Query("SELECT * FROM vehicle_documents WHERE vehicle_id = :ownerId ORDER BY document_type")
     List<VehicleDocumentEntity> getAll(long ownerId);
+
+    @Query("SELECT * FROM vehicle_documents WHERE status = 'PENDING' ORDER BY uploaded_at, id")
+    List<VehicleDocumentEntity> getPending();
 }
