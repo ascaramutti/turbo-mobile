@@ -40,10 +40,12 @@ public class RoomDocumentRepository implements DocumentRepository {
 
     private final AppDatabase db;
     private final ImageStorage imageStorage;
+    private final DriverStateCalculator driverStateCalculator;
 
     public RoomDocumentRepository(Context context) {
         db = AppDatabase.getInstance(context);
         imageStorage = new ImageStorage(context);
+        driverStateCalculator = new DriverStateCalculator(context);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class RoomDocumentRepository implements DocumentRepository {
             DriverStatus status = new DriverStatus();
             DriverProfileEntity profile = db.driverProfileDao().findByUserId(driverId);
             if (user.role == Role.DRIVER && profile != null) {
-                DriverState state = calculateDriverState(user, profile);
+                DriverState state = driverStateCalculator.calculate(user);
                 status.setState(state);
                 status.setVerified(countApproved(driverId) == 2);
                 status.setCanBook(state == DriverState.VERIFIED || state == DriverState.VERIFIED_RENEW);
@@ -438,25 +440,6 @@ public class RoomDocumentRepository implements DocumentRepository {
             db.endTransaction();
         }
         return Result.success(null);
-    }
-
-    private DriverState calculateDriverState(UserEntity driver, DriverProfileEntity profile) {
-        if (!driver.isActive) {
-            return DriverState.DEACTIVATED;
-        }
-        for (DriverDocumentEntity document : db.driverDocumentDao().getAll(driver.id)) {
-            if (document.status == DocumentStatus.REJECTED) {
-                return DriverState.DOCUMENT_REJECTED;
-            }
-        }
-        if (countApproved(driver.id) < 2) {
-            return DriverState.PENDING_VERIFICATION;
-        }
-        long now = System.currentTimeMillis();
-        if (Math.min(profile.licenseExpiry, profile.studyPermitExpiry) <= now + RENEW_WINDOW) {
-            return DriverState.VERIFIED_RENEW;
-        }
-        return DriverState.VERIFIED;
     }
 
     private int countApproved(long driverId) {
