@@ -2,4 +2,28 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="turbo_primary">#C44721</color>
+    <color name="turbo_on_primary">#FFFFFF</color>
+    <color name="turbo_primary_container">#F3E0D6</color>
+
+    <color name="turbo_background">#FAF8F5</color>
+    <color name="turbo_surface">#FFFFFF</color>
+    <color name="turbo_stroke">#E3DFDA</color>
+    <color name="turbo_neutral_bg">#EFEEEB</color>
+
+    <color name="turbo_text_primary">#232321</color>
+    <color name="turbo_text_secondary">#686863</color>
+    <color name="turbo_text_disabled">#B8B4AF</color>
+
+    <color name="turbo_success">#235D45</color>
+    <color name="turbo_success_bg">#E5F2EA</color>
+
+    <color name="turbo_warning">#8A5A12</color>
+    <color name="turbo_warning_bg">#FAEFD8</color>
+
+    <color name="turbo_error">#9A3028</color>
+    <color name="turbo_error_bg">#F8E4E1</color>
+
+    <color name="turbo_scrim">#99232321</color>
 </resources>
