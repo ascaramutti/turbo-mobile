@@ -1,5 +1,6 @@
 package com.turbo.mobile.data.repository.room;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -47,9 +48,9 @@ public class RoomUserRepository implements UserRepository {
     private final AppDatabase db;
     private final ImageStorage imageStorage;
 
-    public RoomUserRepository(AppDatabase db, ImageStorage imageStorage) {
-        this.db = db;
-        this.imageStorage = imageStorage;
+    public RoomUserRepository(Context context) {
+        db = AppDatabase.getInstance(context);
+        imageStorage = new ImageStorage(context);
     }
 
     @Override
