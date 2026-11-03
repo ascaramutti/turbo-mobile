@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TurboChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:background">@drawable/bg_turbo_chip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TurboCardAction">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/turbo_error</item>
+    </style>
+
+    <style name="TurboLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <style name="TurboInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+        <item name="android:textColorHint">@color/turbo_error</item>
+    </style>
+
+    <style name="TurboBanner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:background">@drawable/bg_turbo_chip</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="TurboBanner.Info">
+        <item name="android:backgroundTint">@color/turbo_neutral_bg</item>
+        <item name="android:drawableStart">@drawable/ic_info</item>
+        <item name="android:drawableTint">@color/turbo_text_secondary</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <style name="TurboBanner.Warning">
+        <item name="android:backgroundTint">@color/turbo_warning_bg</item>
+        <item name="android:drawableStart">@drawable/ic_clock</item>
+        <item name="android:drawableTint">@color/turbo_warning</item>
+        <item name="android:textColor">@color/turbo_warning</item>
+    </style>
+
+    <style name="TurboBanner.Success">
+        <item name="android:backgroundTint">@color/turbo_success_bg</item>
+        <item name="android:drawableStart">@drawable/ic_circle_check</item>
+        <item name="android:drawableTint">@color/turbo_success</item>
+        <item name="android:textColor">@color/turbo_success</item>
+    </style>
+
+    <style name="TurboBanner.Error">
+        <item name="android:backgroundTint">@color/turbo_error_bg</item>
+        <item name="android:drawableStart">@drawable/ic_circle_alert</item>
+        <item name="android:drawableTint">@color/turbo_error</item>
+        <item name="android:textColor">@color/turbo_error</item>
+    </style>
+
+    <style name="TurboTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <style name="TurboSubtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <style name="TurboFilterChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:background">@drawable/bg_turbo_filter_chip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_nav_item</item>
+    </style>
+
+    <style name="TurboPrimaryButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+
+        <item name="android:padding">0dp</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textColor">@color/turbo_button_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="backgroundTint">@color/turbo_button_background</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="TurboSecondaryButton" parent="TurboPrimaryButton">
+        <item name="android:textColor">@color/turbo_primary</item>
+        <item name="backgroundTint">@color/turbo_surface</item>
+        <item name="strokeColor">@color/turbo_stroke</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="TurboCard">
+        <item name="android:background">@drawable/bg_turbo_card</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="TurboCardTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <style name="TurboCardText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <style name="TurboStatLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/turbo_text_secondary</item>
+    </style>
+
+    <style name="TurboStatValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/turbo_text_primary</item>
+    </style>
+
+    <style name="TurboSegment">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/bg_turbo_nav_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/turbo_nav_item</item>
+    </style>
+
+    <style name="TurboNavItem">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/bg_turbo_nav_item</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:drawableTint">@color/turbo_nav_item</item>
+        <item name="android:textColor">@color/turbo_nav_item</item>
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>
