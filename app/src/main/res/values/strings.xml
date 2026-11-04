@@ -9,6 +9,10 @@
     <string name="nav_alerts">Alerts</string>
     <string name="nav_profile">Profile</string>
 
+    <string name="error_not_found">This item no longer exists.</string>
+    <string name="error_not_allowed">You cannot do this.</string>
+    <string name="error_unexpected">Something went wrong. Please try again.</string>
+
     <string name="search_title">Find a vehicle</string>
     <string name="search_subtitle">Approved, active vehicles near you</string>
     <string name="search_all_zones">All zones</string>
@@ -40,4 +44,34 @@
         <item>Taxi &amp; Delivery</item>
         <item>Delivery only</item>
     </string-array>
+
+    <string name="my_vehicles_title">My vehicles</string>
+    <string name="my_vehicles_add">Add vehicle</string>
+    <string name="my_vehicles_empty_title">Add your first vehicle</string>
+    <string name="my_vehicles_empty_body">Approved and active vehicles can appear in driver search.</string>
+    <string name="my_vehicles_approved_active">Approved · Active</string>
+    <string name="my_vehicles_hidden_by_owner">Hidden by owner</string>
+    <plurals name="my_vehicles_documents_pending">
+        <item quantity="one">%d document pending</item>
+        <item quantity="other">%d documents pending</item>
+    </plurals>
+    <string name="my_vehicles_insurance_rejected">Insurance rejected</string>
+    <string name="my_vehicles_registration_rejected">Registration rejected</string>
+    <string name="my_vehicles_chip_approved">Approved</string>
+    <string name="my_vehicles_chip_active">Active</string>
+    <string name="my_vehicles_chip_inactive">Inactive</string>
+    <string name="my_vehicles_chip_pending_review">Pending review</string>
+    <string name="my_vehicles_chip_action_needed">Action needed</string>
+    <string name="my_vehicles_chip_not_visible">Not visible</string>
+    <string name="my_vehicles_edit">Edit</string>
+    <string name="my_vehicles_activate">Activate</string>
+    <string name="my_vehicles_deactivate">Deactivate</string>
+    <string name="my_vehicles_documents">Documents</string>
+    <string name="my_vehicles_delete">Delete</string>
+    <string name="my_vehicles_separator" translatable="false">·</string>
+    <plurals name="my_vehicles_deleted">
+        <item quantity="one">Vehicle deleted. %d pending request was rejected.</item>
+        <item quantity="other">Vehicle deleted. %d pending requests were rejected.</item>
+    </plurals>
+    <string name="my_vehicles_error_active_bookings">This vehicle has confirmed or active bookings and cannot be deleted.</string>
 </resources>
