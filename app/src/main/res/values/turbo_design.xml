@@ -104,11 +104,7 @@
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:background">@drawable/bg_turbo_filter_chip</item>
         <item name="android:gravity">center</item>
-        <item name="android:maxLines">1</item>
         <item name="android:paddingHorizontal">16dp</item>
-        <item name="android:fontFamily">@font/manrope_semibold</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/turbo_nav_item</item>
     </style>
 
     <style name="TurboPrimaryButton" parent="Widget.Material3.Button">
