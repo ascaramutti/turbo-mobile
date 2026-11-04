@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TURBO</string>
+
+    <string name="top_bar_back">Back</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_vehicles">Vehicles</string>
+    <string name="nav_bookings">Bookings</string>
+    <string name="nav_earnings">Earnings</string>
+    <string name="nav_alerts">Alerts</string>
+    <string name="nav_profile">Profile</string>
 </resources>

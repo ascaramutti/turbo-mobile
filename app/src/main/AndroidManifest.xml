@@ -13,15 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TURBO">
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:name=".ui.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.driver.DriverHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.owner.OwnerHomeActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

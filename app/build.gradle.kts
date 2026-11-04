@@ -32,6 +32,7 @@ android {
     //Turn on the buildConfigField to translate to JAVA code
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -50,4 +51,5 @@ dependencies {
     implementation("androidx.room:room-runtime:2.8.5")
     annotationProcessor("androidx.room:room-compiler:2.8.5")
     implementation("androidx.work:work-runtime:2.12.0")      //Reminders
+    implementation("androidx.fragment:fragment:1.8.9")
 }
