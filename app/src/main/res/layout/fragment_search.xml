@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            style="@style/TurboTitle"
+            android:text="@string/search_title" />
+
+        <TextView
+            style="@style/TurboSubtitle"
+            android:text="@string/search_subtitle" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/filter_zone"
+                    style="@style/TurboFilterChip" />
+
+                <Spinner
+                    android:id="@+id/filter_category"
+                    style="@style/TurboFilterChip" />
+
+                <Spinner
+                    android:id="@+id/filter_service"
+                    style="@style/TurboFilterChip" />
+
+                <Spinner
+                    android:id="@+id/filter_price"
+                    style="@style/TurboFilterChip" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/results_banner"
+            style="@style/TurboBanner.Info" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_vehicles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false" />
+
+        <LinearLayout
+            android:id="@+id/empty_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/bg_avatar">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_search_x"
+                    app:tint="@color/turbo_primary" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/manrope_bold"
+                android:text="@string/search_empty_title"
+                android:textColor="@color/turbo_text_primary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/manrope_regular"
+                android:gravity="center_horizontal"
+                android:text="@string/search_empty_body"
+                android:textColor="@color/turbo_text_secondary"
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clear_filters"
+                style="@style/TurboPrimaryButton"
+                android:layout_marginTop="64dp"
+                android:text="@string/search_clear_filters" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

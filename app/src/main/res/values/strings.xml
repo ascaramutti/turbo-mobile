@@ -8,4 +8,36 @@
     <string name="nav_earnings">Earnings</string>
     <string name="nav_alerts">Alerts</string>
     <string name="nav_profile">Profile</string>
+
+    <string name="search_title">Find a vehicle</string>
+    <string name="search_subtitle">Approved, active vehicles near you</string>
+    <string name="search_all_zones">All zones</string>
+    <string name="search_any_category">Any category</string>
+    <string name="search_any_price">Any price</string>
+    <string name="search_max_price_option">≤ CAD %d</string>
+    <string name="search_price_per_hour">%s/h</string>
+    <string name="search_rating">★ %.1f</string>
+    <string name="search_empty_title">No vehicles match</string>
+    <string name="search_empty_body">Try removing a filter or increasing your max price.</string>
+    <string name="search_clear_filters">Clear filters</string>
+    <plurals name="search_results">
+        <item quantity="one">%1$s · %2$d result</item>
+        <item quantity="other">%1$s · %2$d results</item>
+    </plurals>
+    <string-array name="search_services">
+        <item>Any service</item>
+        <item>Taxi</item>
+        <item>Delivery</item>
+    </string-array>
+    <string-array name="vehicle_category_names">
+        <item>Sedan</item>
+        <item>SUV</item>
+        <item>Van</item>
+        <item>Truck</item>
+        <item>Compact</item>
+    </string-array>
+    <string-array name="vehicle_service_names">
+        <item>Taxi &amp; Delivery</item>
+        <item>Delivery only</item>
+    </string-array>
 </resources>
