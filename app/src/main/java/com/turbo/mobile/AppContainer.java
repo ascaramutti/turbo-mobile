@@ -19,6 +19,8 @@ import com.turbo.mobile.data.repository.fake.FakeUserRepository;
 import com.turbo.mobile.data.repository.fake.FakeVehicleRepository;
 import com.turbo.mobile.util.ImageStorage;
 import com.turbo.mobile.util.SessionManager;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AppContainer {
 
@@ -31,6 +33,7 @@ public class AppContainer {
     public final BookingRepository bookingRepository;
     public final PaymentRepository paymentRepository;
     public final ReviewRepository reviewRepository;
+    public final ExecutorService executor = Executors.newFixedThreadPool(4);
 
     public AppContainer(Context context) {
         sessionManager = new SessionManager(context);
