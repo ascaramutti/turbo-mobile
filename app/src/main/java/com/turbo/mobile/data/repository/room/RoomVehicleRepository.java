@@ -335,6 +335,60 @@ public class RoomVehicleRepository {
         }
     }
 
+    public Result<Long> addVehiclePhoto(long ownerId, long vehicleId, Uri photo) {
+        try {
+            VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
+            if (vehicle == null) {
+                return Result.error(VehicleError.NOT_FOUND, "Vehicle " + vehicleId + " not found");
+            }
+            if (vehicle.ownerId != ownerId) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only the owner can add photos");
+            }
+            if (vehicle.deletedAt != null) {
+                return Result.error(VehicleError.VEHICLE_DELETED, "Vehicle " + vehicleId + " was deleted");
+            }
+            VehiclePhotoEntity entity = new VehiclePhotoEntity();
+            try {
+                entity.filePath = imageStorage.save(photo, ImageStorage.Folder.VEHICLES);
+            } catch (IOException e) {
+                Log.e("RoomVehicleRepository", "Cannot save the vehicle photo", e);
+                return Result.error(VehicleError.FILE_ERROR, "Cannot save the photo");
+            }
+            entity.vehicleId = vehicleId;
+            entity.uploadedAt = System.currentTimeMillis();
+            long photoId = db.vehiclePhotoDao().insert(entity);
+            return Result.success(photoId);
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    public Result<Void> deleteVehiclePhoto(long ownerId, long photoId) {
+        try {
+            VehiclePhotoEntity photo = db.vehiclePhotoDao().findById(photoId);
+            VehicleEntity vehicle = null;
+            if (photo != null) {
+                vehicle = db.vehicleDao().findById(photo.vehicleId);
+            }
+            if (photo == null || vehicle.deletedAt != null) {
+                return Result.error(VehicleError.NOT_FOUND, "Photo " + photoId + " not found");
+            }
+            if (vehicle.ownerId != ownerId) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only the owner can delete photos");
+            }
+            if (db.vehiclePhotoDao().getAll(vehicle.id).size() == 1) {
+                return Result.error(VehicleError.LAST_PHOTO, "A vehicle needs at least one photo");
+            }
+            db.vehiclePhotoDao().delete(photoId);
+            imageStorage.delete(photo.filePath);
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
     private VehicleError validateForm(VehicleForm form) {
         if (Validators.isBlank(form.getMake()) || Validators.isBlank(form.getModel())
                 || Validators.isBlank(form.getPlate()) || Validators.isBlank(form.getAddress())
