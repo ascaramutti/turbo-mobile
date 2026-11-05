@@ -74,4 +74,32 @@
         <item quantity="other">Vehicle deleted. %d pending requests were rejected.</item>
     </plurals>
     <string name="my_vehicles_error_active_bookings">This vehicle has confirmed or active bookings and cannot be deleted.</string>
+
+    <string name="vehicle_detail_not_available">This vehicle is no longer available.</string>
+    <string name="vehicle_detail_photo">Vehicle photo</string>
+    <string name="vehicle_detail_owner">Owner</string>
+    <string name="vehicle_detail_no_reviews">No reviews yet</string>
+    <plurals name="vehicle_detail_rating">
+        <item quantity="one">★ %1$.1f · %2$d review</item>
+        <item quantity="other">★ %1$.1f · %2$d reviews</item>
+    </plurals>
+    <string name="vehicle_detail_pickup">Pickup</string>
+    <string name="vehicle_detail_documents_required">Both documents must be approved before you can request a booking.</string>
+    <string name="vehicle_detail_book_shift">Book a shift</string>
+    <string name="vehicle_detail_available_until">Available until %1$s · %2$s</string>
+    <string name="vehicle_detail_hours">%d h</string>
+    <string-array name="vehicle_detail_services">
+        <item>Delivery</item>
+        <item>Taxi</item>
+    </string-array>
+    <string name="vehicle_detail_price">%1$d h × %2$s · Total %3$s</string>
+    <string name="vehicle_detail_too_soon">Shifts must start at least 2 hours from now.</string>
+    <string name="vehicle_detail_after_available">This car is available until %1$s · %2$s.</string>
+    <string name="vehicle_detail_request">Request booking</string>
+    <string-array name="vehicle_fuel_names">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Electric</item>
+        <item>Hybrid</item>
+    </string-array>
 </resources>

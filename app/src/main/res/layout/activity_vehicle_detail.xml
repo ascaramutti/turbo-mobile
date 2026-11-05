@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.VehicleDetailActivity">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/error_banner"
+                style="@style/TurboBanner.Error" />
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/vehicle_title"
+                    style="@style/TurboTitle" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chip_category"
+                        style="@style/TurboChip"
+                        android:backgroundTint="@color/turbo_primary_container"
+                        android:textColor="@color/turbo_primary" />
+
+                    <TextView
+                        android:id="@+id/chip_fuel"
+                        style="@style/TurboChip"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@color/turbo_neutral_bg"
+                        android:textColor="@color/turbo_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/chip_service"
+                        style="@style/TurboChip"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@color/turbo_neutral_bg"
+                        android:textColor="@color/turbo_text_secondary" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/vehicle_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_turbo_card"
+                    android:backgroundTint="@color/turbo_primary_container"
+                    android:contentDescription="@string/vehicle_detail_photo"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_photo_placeholder" />
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/owner_name"
+                        style="@style/TurboCardTitle" />
+
+                    <TextView
+                        android:id="@+id/owner_rating"
+                        style="@style/TurboCardText" />
+
+                    <TextView
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/vehicle_detail_owner" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        style="@style/TurboCardTitle"
+                        android:text="@string/vehicle_detail_pickup" />
+
+                    <TextView
+                        android:id="@+id/pickup_address"
+                        style="@style/TurboCardText" />
+
+                    <TextView
+                        android:id="@+id/pickup_zone"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/documents_banner"
+                    style="@style/TurboBanner.Warning"
+                    android:text="@string/vehicle_detail_documents_required" />
+
+                <LinearLayout
+                    android:id="@+id/shift_card"
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        style="@style/TurboCardTitle"
+                        android:text="@string/vehicle_detail_book_shift" />
+
+                    <TextView
+                        android:id="@+id/available_until"
+                        style="@style/TurboCardText" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/shift_day"
+                            style="@style/TurboFilterChip" />
+
+                        <Spinner
+                            android:id="@+id/shift_time"
+                            style="@style/TurboFilterChip" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/shift_duration"
+                            style="@style/TurboFilterChip" />
+
+                        <Spinner
+                            android:id="@+id/shift_service"
+                            style="@style/TurboFilterChip" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/shift_price"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/manrope_semibold" />
+
+                    <TextView
+                        android:id="@+id/shift_error"
+                        style="@style/TurboBanner.Error"
+                        android:layout_marginTop="12dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/request_booking"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp"
+        android:enabled="false"
+        android:text="@string/vehicle_detail_request" />
+</LinearLayout>
