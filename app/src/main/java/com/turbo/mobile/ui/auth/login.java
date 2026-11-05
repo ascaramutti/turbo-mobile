@@ -59,27 +59,23 @@ public class login extends AppCompatActivity {
             return;
         }
 
-        AppContainer container = ((TurboApp) getApplication()).getContainer();
-        container.executor.execute(() -> {
-            Result<SessionUser> result = viewModel.login(email, password);
-            runOnUiThread(() -> {
-                if (result instanceof Result.Success) {
-                    startActivity(new Intent(this, SplashActivity.class));
-                    finish();
-                } else {
-                    RepoError code = ((Result.Error<SessionUser>) result).code;
-                    if (code == UserError.ACCOUNT_DEACTIVATED) {
-                        new AlertDialog.Builder(this)
-                                .setMessage(R.string.error_account_deactivated)
-                                .setPositiveButton(android.R.string.ok, null)
-                                .show();
-                    } else if (code == UserError.INVALID_CREDENTIALS) {
-                        Snackbar.make(binding.getRoot(), R.string.error_invalid_credentials, Snackbar.LENGTH_LONG).show();
-                    } else {
-                        Snackbar.make(binding.getRoot(), R.string.error_unexpected, Snackbar.LENGTH_LONG).show();
-                    }
-                }
-            });
-        });
+        Result<SessionUser> result = viewModel.login(email, password);
+        
+        if (result instanceof Result.Success) {
+            startActivity(new Intent(this, SplashActivity.class));
+            finish();
+        } else {
+            RepoError code = ((Result.Error<SessionUser>) result).code;
+            if (code == UserError.ACCOUNT_DEACTIVATED) {
+                new AlertDialog.Builder(this)
+                        .setMessage(R.string.error_account_deactivated)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
+            } else if (code == UserError.INVALID_CREDENTIALS) {
+                Snackbar.make(binding.getRoot(), R.string.error_invalid_credentials, Snackbar.LENGTH_LONG).show();
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_unexpected, Snackbar.LENGTH_LONG).show();
+            }
+        }
     }
 }
