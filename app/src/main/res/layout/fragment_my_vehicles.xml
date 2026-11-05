@@ -56,23 +56,12 @@
             </FrameLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/manrope_bold"
-                android:text="@string/my_vehicles_empty_title"
-                android:textColor="@color/turbo_text_primary"
-                android:textSize="20sp" />
+                style="@style/TurboEmptyTitle"
+                android:text="@string/my_vehicles_empty_title" />
 
             <TextView
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/manrope_regular"
-                android:gravity="center_horizontal"
-                android:text="@string/my_vehicles_empty_body"
-                android:textColor="@color/turbo_text_secondary"
-                android:textSize="14sp" />
+                style="@style/TurboEmptyBody"
+                android:text="@string/my_vehicles_empty_body" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
