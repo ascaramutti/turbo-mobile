@@ -1,6 +1,7 @@
 package com.turbo.mobile.data.repository.room;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.turbo.mobile.data.db.AppDatabase;
@@ -10,29 +11,39 @@ import com.turbo.mobile.data.db.entity.VehicleEntity;
 import com.turbo.mobile.data.db.entity.VehiclePhotoEntity;
 import com.turbo.mobile.data.db.entity.ZoneEntity;
 import com.turbo.mobile.data.model.DocumentStatus;
+import com.turbo.mobile.data.model.DocumentType;
 import com.turbo.mobile.data.model.OwnerVehicleItem;
 import com.turbo.mobile.data.model.PhotoItem;
 import com.turbo.mobile.data.model.RatingSummary;
 import com.turbo.mobile.data.model.Result;
+import com.turbo.mobile.data.model.Role;
 import com.turbo.mobile.data.model.SearchFilter;
 import com.turbo.mobile.data.model.SearchService;
 import com.turbo.mobile.data.model.VehicleBadge;
+import com.turbo.mobile.data.model.VehicleCategory;
 import com.turbo.mobile.data.model.VehicleDetail;
 import com.turbo.mobile.data.model.VehicleEditData;
 import com.turbo.mobile.data.model.VehicleError;
 import com.turbo.mobile.data.model.VehicleForm;
+import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.data.model.VehicleSummary;
 import com.turbo.mobile.data.model.Zone;
+import com.turbo.mobile.util.ImageStorage;
+import com.turbo.mobile.util.Validators;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class RoomVehicleRepository {
 
     private final AppDatabase db;
+    private final ImageStorage imageStorage;
 
     public RoomVehicleRepository(Context context) {
         db = AppDatabase.getInstance(context);
+        imageStorage = new ImageStorage(context);
     }
 
     public List<Zone> getZones() {
@@ -182,6 +193,200 @@ public class RoomVehicleRepository {
             Log.e("RoomVehicleRepository", "Unexpected database error", e);
             return Result.error(VehicleError.UNEXPECTED, e.getMessage());
         }
+    }
+
+    public Result<Long> registerVehicle(long ownerId, VehicleForm form, List<Uri> photos, Uri insurance, Uri registration) {
+        try {
+            if (!isActiveOwner(ownerId)) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only an active owner can register a vehicle");
+            }
+            VehicleError formError = validateForm(form);
+            if (formError != null) {
+                return Result.error(formError, "Invalid vehicle data");
+            }
+            String vin = normalize(form.getVin());
+            if (!vin.matches("[A-HJ-NPR-Z0-9]{17}")) {
+                return Result.error(VehicleError.INVALID_VIN, "Invalid VIN");
+            }
+            if (photos == null || photos.isEmpty()) {
+                return Result.error(VehicleError.PHOTO_REQUIRED, "At least one photo is required");
+            }
+            if (insurance == null || registration == null) {
+                return Result.error(VehicleError.DOCUMENTS_REQUIRED, "Both documents are required");
+            }
+            VehicleEntity sameVin = db.vehicleDao().findByVin(vin);
+            if (sameVin != null) {
+                if (sameVin.deletedAt != null && sameVin.ownerId == ownerId) {
+                    return Result.error(VehicleError.VIN_RESTORABLE, "Vehicle " + sameVin.id + " can be restored");
+                }
+                return Result.error(VehicleError.VIN_TAKEN, "VIN " + vin + " is already registered");
+            }
+            String plate = normalize(form.getPlate());
+            if (db.vehicleDao().findByPlate(plate) != null) {
+                return Result.error(VehicleError.PLATE_TAKEN, "Plate " + plate + " is already registered");
+            }
+            List<String> savedPaths = new ArrayList<>();
+            String insurancePath;
+            String registrationPath;
+            try {
+                for (Uri photo : photos) {
+                    savedPaths.add(imageStorage.save(photo, ImageStorage.Folder.VEHICLES));
+                }
+                insurancePath = imageStorage.save(insurance, ImageStorage.Folder.DOCUMENTS);
+                savedPaths.add(insurancePath);
+                registrationPath = imageStorage.save(registration, ImageStorage.Folder.DOCUMENTS);
+                savedPaths.add(registrationPath);
+            } catch (IOException e) {
+                Log.e("RoomVehicleRepository", "Cannot save the vehicle images", e);
+                for (String path : savedPaths) {
+                    imageStorage.delete(path);
+                }
+                return Result.error(VehicleError.FILE_ERROR, "Cannot save the images");
+            }
+            long now = System.currentTimeMillis();
+            VehicleEntity vehicle = new VehicleEntity();
+            vehicle.ownerId = ownerId;
+            vehicle.vin = vin;
+            vehicle.createdAt = now;
+            copyForm(form, vehicle);
+            long vehicleId;
+            db.beginTransaction();
+            try {
+                vehicleId = db.vehicleDao().insert(vehicle);
+                for (int i = 0; i < photos.size(); i++) {
+                    VehiclePhotoEntity photo = new VehiclePhotoEntity();
+                    photo.vehicleId = vehicleId;
+                    photo.filePath = savedPaths.get(i);
+                    photo.uploadedAt = now;
+                    db.vehiclePhotoDao().insert(photo);
+                }
+                insertDocument(vehicleId, DocumentType.INSURANCE, insurancePath, now);
+                insertDocument(vehicleId, DocumentType.REGISTRATION, registrationPath, now);
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+            return Result.success(vehicleId);
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    public Result<Long> restoreVehicle(long ownerId, String vin) {
+        try {
+            if (!isActiveOwner(ownerId)) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only an active owner can restore a vehicle");
+            }
+            VehicleEntity vehicle = db.vehicleDao().findByVin(normalize(vin));
+            if (vehicle == null || vehicle.deletedAt == null || vehicle.ownerId != ownerId) {
+                return Result.error(VehicleError.NOT_FOUND, "No deleted vehicle with VIN " + vin);
+            }
+            vehicle.deletedAt = null;
+            vehicle.availableUntil = null;
+            db.beginTransaction();
+            try {
+                db.vehicleDao().update(vehicle);
+                for (VehicleDocumentEntity document : db.vehicleDocumentDao().getAll(vehicle.id)) {
+                    document.status = DocumentStatus.PENDING;
+                    document.rejectionReason = null;
+                    document.reviewedBy = null;
+                    document.reviewedAt = null;
+                    db.vehicleDocumentDao().update(document);
+                }
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+            return Result.success(vehicle.id);
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    public Result<Void> updateVehicle(long ownerId, long vehicleId, VehicleForm form) {
+        try {
+            VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
+            if (vehicle == null) {
+                return Result.error(VehicleError.NOT_FOUND, "Vehicle " + vehicleId + " not found");
+            }
+            if (vehicle.ownerId != ownerId) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only the owner can edit this vehicle");
+            }
+            if (vehicle.deletedAt != null) {
+                return Result.error(VehicleError.VEHICLE_DELETED, "Vehicle " + vehicleId + " was deleted");
+            }
+            VehicleError formError = validateForm(form);
+            if (formError != null) {
+                return Result.error(formError, "Invalid vehicle data");
+            }
+            String plate = normalize(form.getPlate());
+            VehicleEntity samePlate = db.vehicleDao().findByPlate(plate);
+            if (samePlate != null && samePlate.id != vehicleId) {
+                return Result.error(VehicleError.PLATE_TAKEN, "Plate " + plate + " is already registered");
+            }
+            copyForm(form, vehicle);
+            db.vehicleDao().update(vehicle);
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    private VehicleError validateForm(VehicleForm form) {
+        if (Validators.isBlank(form.getMake()) || Validators.isBlank(form.getModel())
+                || Validators.isBlank(form.getPlate()) || Validators.isBlank(form.getAddress())
+                || form.getCategory() == null || form.getFuelType() == null || form.getServiceType() == null
+                || form.getHourlyRateCents() <= 0 || db.zoneDao().findById(form.getZoneId()) == null) {
+            return VehicleError.INVALID_INPUT;
+        }
+        if (Calendar.getInstance().get(Calendar.YEAR) - form.getYear() >= 9) {
+            return VehicleError.TOO_OLD;
+        }
+        if (form.getCategory() == VehicleCategory.COMPACT && form.getServiceType() == VehicleServiceType.TAXI_AND_DELIVERY) {
+            return VehicleError.COMPACT_DELIVERY_ONLY;
+        }
+        return null;
+    }
+
+    private void copyForm(VehicleForm form, VehicleEntity vehicle) {
+        vehicle.make = form.getMake().trim();
+        vehicle.model = form.getModel().trim();
+        vehicle.licensePlate = normalize(form.getPlate());
+        vehicle.description = form.getDescription();
+        vehicle.address = form.getAddress().trim();
+        vehicle.year = form.getYear();
+        vehicle.category = form.getCategory();
+        vehicle.fuelType = form.getFuelType();
+        vehicle.serviceType = form.getServiceType();
+        vehicle.hourlyRateCents = form.getHourlyRateCents();
+        vehicle.zoneId = form.getZoneId();
+        vehicle.latitude = form.getLatitude();
+        vehicle.longitude = form.getLongitude();
+    }
+
+    private void insertDocument(long vehicleId, DocumentType type, String filePath, long now) {
+        VehicleDocumentEntity document = new VehicleDocumentEntity();
+        document.vehicleId = vehicleId;
+        document.documentType = type;
+        document.filePath = filePath;
+        document.status = DocumentStatus.PENDING;
+        document.uploadedAt = now;
+        db.vehicleDocumentDao().insert(document);
+    }
+
+    private boolean isActiveOwner(long ownerId) {
+        UserEntity owner = db.userDao().findById(ownerId);
+        return owner != null && owner.role == Role.CAR_OWNER && owner.isActive;
+    }
+
+    private String normalize(String text) {
+        if (text == null) {
+            return "";
+        }
+        return text.trim().toUpperCase();
     }
 
     private VehicleSummary toSummary(VehicleEntity vehicle) {
