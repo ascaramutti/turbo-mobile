@@ -27,6 +27,9 @@
         <activity
             android:name=".ui.owner.OwnerHomeActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.driver.VehicleDetailActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

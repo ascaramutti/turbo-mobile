@@ -2,6 +2,8 @@ package com.turbo.mobile.ui;
 
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.turbo.mobile.AppContainer;
+import com.turbo.mobile.R;
 import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.ui.auth.AuthViewModel;
 
@@ -32,5 +35,11 @@ public class ScreenSetup {
         AppContainer container = ((TurboApp) activity.getApplication()).getContainer();
         AuthViewModel viewModel = new AuthViewModel(container.userRepository, container.sessionManager);
         avatar.setText(viewModel.getInitials());
+    }
+
+    public static void fillSpinner(Spinner spinner, String[] options) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(spinner.getContext(), R.layout.item_filter_option, options);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 }

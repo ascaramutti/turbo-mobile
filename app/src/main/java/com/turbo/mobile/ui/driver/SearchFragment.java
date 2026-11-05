@@ -1,12 +1,11 @@
 package com.turbo.mobile.ui.driver;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +19,7 @@ import com.turbo.mobile.data.model.VehicleCategory;
 import com.turbo.mobile.data.model.VehicleSummary;
 import com.turbo.mobile.data.model.Zone;
 import com.turbo.mobile.databinding.FragmentSearchBinding;
+import com.turbo.mobile.ui.ScreenSetup;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class SearchFragment extends Fragment {
         viewModel = new SearchViewModel(appContainer.vehicleRepository);
         zones = viewModel.getZones();
 
-        adapter = new VehicleAdapter(appContainer.imageStorage);
+        adapter = new VehicleAdapter(appContainer.imageStorage, this);
         binding.recyclerVehicles.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerVehicles.setAdapter(adapter);
 
@@ -69,6 +69,12 @@ public class SearchFragment extends Fragment {
         binding = null;
     }
 
+    public void openVehicle(VehicleSummary vehicle) {
+        Intent intent = new Intent(requireContext(), VehicleDetailActivity.class);
+        intent.putExtra(VehicleDetailActivity.EXTRA_VEHICLE_ID, vehicle.getId());
+        startActivity(intent);
+    }
+
     private void search() {
         List<VehicleSummary> vehicles = viewModel.search(filter);
         adapter.setItems(vehicles);
@@ -85,7 +91,7 @@ public class SearchFragment extends Fragment {
         for (int i = 0; i < zones.size(); i++) {
             options[i + 1] = zones.get(i).getName();
         }
-        setOptions(binding.filterZone, options);
+        ScreenSetup.fillSpinner(binding.filterZone, options);
         binding.filterZone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -111,7 +117,7 @@ public class SearchFragment extends Fragment {
         for (int i = 0; i < names.length; i++) {
             options[i + 1] = names[i];
         }
-        setOptions(binding.filterCategory, options);
+        ScreenSetup.fillSpinner(binding.filterCategory, options);
         binding.filterCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -132,7 +138,7 @@ public class SearchFragment extends Fragment {
 
     private void setUpServiceFilter() {
         String[] options = getResources().getStringArray(R.array.search_services);
-        setOptions(binding.filterService, options);
+        ScreenSetup.fillSpinner(binding.filterService, options);
         binding.filterService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -153,7 +159,7 @@ public class SearchFragment extends Fragment {
         for (int i = 0; i < MAX_PRICES.length; i++) {
             options[i + 1] = getString(R.string.search_max_price_option, MAX_PRICES[i]);
         }
-        setOptions(binding.filterPrice, options);
+        ScreenSetup.fillSpinner(binding.filterPrice, options);
         binding.filterPrice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -170,12 +176,6 @@ public class SearchFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-    }
-
-    private void setOptions(Spinner spinner, String[] options) {
-        ArrayAdapter<String> optionsAdapter = new ArrayAdapter<>(requireContext(), R.layout.item_filter_option, options);
-        optionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(optionsAdapter);
     }
 
     private void clearFilters() {

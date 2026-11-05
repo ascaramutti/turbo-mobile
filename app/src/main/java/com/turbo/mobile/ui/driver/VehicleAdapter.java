@@ -20,10 +20,12 @@ import java.util.List;
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
 
     private final ImageStorage imageStorage;
+    private final SearchFragment fragment;
     private List<VehicleSummary> vehicles = new ArrayList<>();
 
-    public VehicleAdapter(ImageStorage imageStorage) {
+    public VehicleAdapter(ImageStorage imageStorage, SearchFragment fragment) {
         this.imageStorage = imageStorage;
+        this.fragment = fragment;
     }
 
     public void setItems(List<VehicleSummary> vehicles) {
@@ -60,6 +62,7 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         }
 
         binding.vehiclePhoto.setImageBitmap(imageStorage.load(vehicle.getThumbnailPath(), 400));
+        binding.getRoot().setOnClickListener(v -> fragment.openVehicle(vehicle));
     }
 
     @Override
