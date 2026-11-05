@@ -1,6 +1,23 @@
 <resources>
+    <!-- App Information -->
     <string name="app_name">TURBO</string>
 
+    <!-- activity_login -->
+    <string name="txtLogTURBO">Log in to Turbo</string>
+    <string name="txtSubTitle">Rent a car for your next shift</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtPassword">Password</string>
+    <string name="tfEmailHint">ana@mail.com</string>
+    <string name="tfPasswordHint">••••••••</string>
+    <string name="btnLogin">Log In</string>
+    <string name="txtNoAccount">Don\'t have an account? Create one</string>
+    <string name="error_invalid_credentials">Invalid email or password</string>
+    <string name="error_account_deactivated">Your account was deactivated by the Admin.</string>
+    <string name="error_email_required">Email is required</string>
+    <string name="error_invalid_email_format">Invalid email format</string>
+    <string name="error_password_required">Password is required</string>
+
+    <!-- Navigation & Common UI -->
     <string name="top_bar_back">Back</string>
     <string name="nav_search">Search</string>
     <string name="nav_vehicles">Vehicles</string>
@@ -9,10 +26,12 @@
     <string name="nav_alerts">Alerts</string>
     <string name="nav_profile">Profile</string>
 
+    <!-- General Errors -->
     <string name="error_not_found">This item no longer exists.</string>
     <string name="error_not_allowed">You cannot do this.</string>
     <string name="error_unexpected">Something went wrong. Please try again.</string>
 
+    <!-- Search / Driver Home -->
     <string name="search_title">Find a vehicle</string>
     <string name="search_subtitle">Approved, active vehicles near you</string>
     <string name="search_all_zones">All zones</string>
@@ -45,6 +64,7 @@
         <item>Delivery only</item>
     </string-array>
 
+    <!-- My Vehicles / Owner Home -->
     <string name="my_vehicles_title">My vehicles</string>
     <string name="my_vehicles_add">Add vehicle</string>
     <string name="my_vehicles_empty_title">Add your first vehicle</string>
@@ -75,6 +95,7 @@
     </plurals>
     <string name="my_vehicles_error_active_bookings">This vehicle has confirmed or active bookings and cannot be deleted.</string>
 
+    <!-- Vehicle Detail -->
     <string name="vehicle_detail_not_available">This vehicle is no longer available.</string>
     <string name="vehicle_detail_photo">Vehicle photo</string>
     <string name="vehicle_detail_owner">Owner</string>
