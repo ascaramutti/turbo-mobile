@@ -5,11 +5,14 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.turbo.mobile.data.db.AppDatabase;
+import com.turbo.mobile.data.db.entity.BookingEntity;
+import com.turbo.mobile.data.db.entity.NotificationEntity;
 import com.turbo.mobile.data.db.entity.UserEntity;
 import com.turbo.mobile.data.db.entity.VehicleDocumentEntity;
 import com.turbo.mobile.data.db.entity.VehicleEntity;
 import com.turbo.mobile.data.db.entity.VehiclePhotoEntity;
 import com.turbo.mobile.data.db.entity.ZoneEntity;
+import com.turbo.mobile.data.model.BookingStatus;
 import com.turbo.mobile.data.model.DocumentStatus;
 import com.turbo.mobile.data.model.DocumentType;
 import com.turbo.mobile.data.model.OwnerVehicleItem;
@@ -19,6 +22,7 @@ import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.Role;
 import com.turbo.mobile.data.model.SearchFilter;
 import com.turbo.mobile.data.model.SearchService;
+import com.turbo.mobile.data.model.StatusReasons;
 import com.turbo.mobile.data.model.VehicleBadge;
 import com.turbo.mobile.data.model.VehicleCategory;
 import com.turbo.mobile.data.model.VehicleDetail;
@@ -28,6 +32,7 @@ import com.turbo.mobile.data.model.VehicleForm;
 import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.data.model.VehicleSummary;
 import com.turbo.mobile.data.model.Zone;
+import com.turbo.mobile.data.repository.VehicleRepository;
 import com.turbo.mobile.util.ImageStorage;
 import com.turbo.mobile.util.Validators;
 
@@ -36,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class RoomVehicleRepository {
+public class RoomVehicleRepository implements VehicleRepository {
 
     private final AppDatabase db;
     private final ImageStorage imageStorage;
@@ -46,6 +51,7 @@ public class RoomVehicleRepository {
         imageStorage = new ImageStorage(context);
     }
 
+    @Override
     public List<Zone> getZones() {
         List<Zone> zones = new ArrayList<>();
         for (ZoneEntity entity : db.zoneDao().getAll()) {
@@ -57,6 +63,7 @@ public class RoomVehicleRepository {
         return zones;
     }
 
+    @Override
     public List<VehicleSummary> searchPublished(SearchFilter filter) {
         Long zoneId = null;
         String category = null;
@@ -79,6 +86,7 @@ public class RoomVehicleRepository {
         return vehicles;
     }
 
+    @Override
     public Result<VehicleDetail> getVehicleDetail(long vehicleId) {
         try {
             VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
@@ -120,6 +128,7 @@ public class RoomVehicleRepository {
         }
     }
 
+    @Override
     public List<OwnerVehicleItem> getOwnerVehicles(long ownerId) {
         List<OwnerVehicleItem> items = new ArrayList<>();
         for (VehicleEntity vehicle : db.vehicleDao().getByOwner(ownerId)) {
@@ -153,6 +162,7 @@ public class RoomVehicleRepository {
         return items;
     }
 
+    @Override
     public Result<VehicleEditData> getVehicleForEdit(long ownerId, long vehicleId) {
         try {
             VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
@@ -195,6 +205,7 @@ public class RoomVehicleRepository {
         }
     }
 
+    @Override
     public Result<Long> registerVehicle(long ownerId, VehicleForm form, List<Uri> photos, Uri insurance, Uri registration) {
         try {
             if (!isActiveOwner(ownerId)) {
@@ -273,6 +284,7 @@ public class RoomVehicleRepository {
         }
     }
 
+    @Override
     public Result<Long> restoreVehicle(long ownerId, String vin) {
         try {
             if (!isActiveOwner(ownerId)) {
@@ -305,6 +317,7 @@ public class RoomVehicleRepository {
         }
     }
 
+    @Override
     public Result<Void> updateVehicle(long ownerId, long vehicleId, VehicleForm form) {
         try {
             VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
@@ -335,6 +348,7 @@ public class RoomVehicleRepository {
         }
     }
 
+    @Override
     public Result<Long> addVehiclePhoto(long ownerId, long vehicleId, Uri photo) {
         try {
             VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
@@ -364,6 +378,7 @@ public class RoomVehicleRepository {
         }
     }
 
+    @Override
     public Result<Void> deleteVehiclePhoto(long ownerId, long photoId) {
         try {
             VehiclePhotoEntity photo = db.vehiclePhotoDao().findById(photoId);
@@ -387,6 +402,104 @@ public class RoomVehicleRepository {
             Log.e("RoomVehicleRepository", "Unexpected database error", e);
             return Result.error(VehicleError.UNEXPECTED, e.getMessage());
         }
+    }
+
+    @Override
+    public Result<Void> publish(long ownerId, long vehicleId, long availableUntil) {
+        try {
+            VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
+            if (vehicle == null) {
+                return Result.error(VehicleError.NOT_FOUND, "Vehicle " + vehicleId + " not found");
+            }
+            if (vehicle.ownerId != ownerId) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only the owner can publish this vehicle");
+            }
+            if (vehicle.deletedAt != null) {
+                return Result.error(VehicleError.VEHICLE_DELETED, "Vehicle " + vehicleId + " was deleted");
+            }
+            if (!isApproved(vehicle)) {
+                return Result.error(VehicleError.NOT_APPROVED, "Both documents must be approved");
+            }
+            if (availableUntil <= System.currentTimeMillis()) {
+                return Result.error(VehicleError.DATE_NOT_FUTURE, "The date must be in the future");
+            }
+            vehicle.availableUntil = availableUntil;
+            db.vehicleDao().update(vehicle);
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    @Override
+    public Result<Void> unpublish(long ownerId, long vehicleId) {
+        try {
+            VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
+            if (vehicle == null || vehicle.deletedAt != null) {
+                return Result.error(VehicleError.NOT_FOUND, "Vehicle " + vehicleId + " not found");
+            }
+            if (vehicle.ownerId != ownerId) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only the owner can unpublish this vehicle");
+            }
+            vehicle.availableUntil = null;
+            db.vehicleDao().update(vehicle);
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    @Override
+    public Result<Integer> deleteVehicle(long ownerId, long vehicleId) {
+        try {
+            VehicleEntity vehicle = db.vehicleDao().findById(vehicleId);
+            if (vehicle == null || vehicle.deletedAt != null) {
+                return Result.error(VehicleError.NOT_FOUND, "Vehicle " + vehicleId + " not found");
+            }
+            if (vehicle.ownerId != ownerId) {
+                return Result.error(VehicleError.NOT_ALLOWED, "Only the owner can delete this vehicle");
+            }
+            List<BookingEntity> pending = new ArrayList<>();
+            for (BookingEntity booking : db.bookingDao().getOpenByVehicle(vehicleId)) {
+                if (booking.status != BookingStatus.PENDING) {
+                    return Result.error(VehicleError.HAS_ACTIVE_BOOKINGS, "Vehicle " + vehicleId + " has active bookings");
+                }
+                pending.add(booking);
+            }
+            vehicle.deletedAt = System.currentTimeMillis();
+            vehicle.availableUntil = null;
+            db.beginTransaction();
+            try {
+                db.vehicleDao().update(vehicle);
+                for (BookingEntity booking : pending) {
+                    booking.status = BookingStatus.REJECTED;
+                    booking.statusReason = StatusReasons.VEHICLE_UNAVAILABLE;
+                    db.bookingDao().update(booking);
+                    notify(booking.driverId, "Booking request rejected", "Your request for the "
+                            + vehicle.make + " " + vehicle.model + " " + vehicle.year
+                            + " was rejected: " + StatusReasons.VEHICLE_UNAVAILABLE + ".");
+                }
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+            return Result.success(pending.size());
+        } catch (RuntimeException e) {
+            Log.e("RoomVehicleRepository", "Unexpected database error", e);
+            return Result.error(VehicleError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    private void notify(long userId, String title, String message) {
+        NotificationEntity notification = new NotificationEntity();
+        notification.userId = userId;
+        notification.title = title;
+        notification.message = message;
+        notification.isRead = false;
+        notification.createdAt = System.currentTimeMillis();
+        db.notificationDao().insert(notification);
     }
 
     private VehicleError validateForm(VehicleForm form) {
