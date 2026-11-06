@@ -20,10 +20,10 @@ import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.databinding.ActivityVehicleDetailBinding;
 import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
+import com.turbo.mobile.ui.driver.viewmodels.BookingViewModel;
 import com.turbo.mobile.util.ImageStorage;
 
 import java.util.List;
-import java.util.Locale;
 
 public class VehicleDetailActivity extends AppCompatActivity {
 
@@ -131,11 +131,7 @@ public class VehicleDetailActivity extends AppCompatActivity {
             binding.shiftDay.setSelection(1);
         }
 
-        String[] times = new String[48];
-        for (int i = 0; i < times.length; i++) {
-            times[i] = String.format(Locale.US, "%02d:%02d", i / 2, i % 2 * 30);
-        }
-        ScreenSetup.fillSpinner(binding.shiftTime, times);
+        ScreenSetup.fillSpinner(binding.shiftTime, DisplayFormat.halfHours());
         binding.shiftTime.setSelection(16);
 
         String[] durations = new String[DURATIONS.length];

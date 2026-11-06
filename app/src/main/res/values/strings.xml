@@ -49,7 +49,8 @@
     <string name="my_vehicles_add">Add vehicle</string>
     <string name="my_vehicles_empty_title">Add your first vehicle</string>
     <string name="my_vehicles_empty_body">Approved and active vehicles can appear in driver search.</string>
-    <string name="my_vehicles_approved_active">Approved · Active</string>
+    <string name="my_vehicles_published_until">Published until %s</string>
+    <string name="my_vehicles_change_date">Change date</string>
     <string name="my_vehicles_hidden_by_owner">Hidden by owner</string>
     <plurals name="my_vehicles_documents_pending">
         <item quantity="one">%d document pending</item>
@@ -74,6 +75,16 @@
         <item quantity="other">Vehicle deleted. %d pending requests were rejected.</item>
     </plurals>
     <string name="my_vehicles_error_active_bookings">This vehicle has confirmed or active bookings and cannot be deleted.</string>
+
+    <string name="publish_vehicle_title">Publish until</string>
+    <string name="publish_vehicle_date">Date</string>
+    <string name="publish_vehicle_time">Time</string>
+    <string name="publish_vehicle_hint">Drivers can book shifts that end by this date and time.</string>
+    <string name="publish_vehicle_cancel">Cancel</string>
+    <string name="publish_vehicle_publish">Publish</string>
+    <string name="publish_vehicle_error_not_approved">The vehicle can be published after both documents are approved.</string>
+    <string name="publish_vehicle_error_date">Choose a future date and time.</string>
+    <string name="publish_vehicle_error_deleted">This vehicle was deleted.</string>
 
     <string name="vehicle_detail_not_available">This vehicle is no longer available.</string>
     <string name="vehicle_detail_photo">Vehicle photo</string>

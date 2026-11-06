@@ -1,4 +1,4 @@
-package com.turbo.mobile.ui.driver;
+package com.turbo.mobile.ui.driver.viewmodels;
 
 import com.turbo.mobile.data.model.DriverStatus;
 import com.turbo.mobile.data.model.Result;

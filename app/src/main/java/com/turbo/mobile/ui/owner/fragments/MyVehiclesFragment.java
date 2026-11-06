@@ -1,4 +1,4 @@
-package com.turbo.mobile.ui.owner;
+package com.turbo.mobile.ui.owner.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +16,8 @@ import com.turbo.mobile.data.model.RepoError;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.VehicleError;
 import com.turbo.mobile.databinding.FragmentMyVehiclesBinding;
+import com.turbo.mobile.ui.owner.adapters.OwnerVehicleAdapter;
+import com.turbo.mobile.ui.owner.viewmodels.MyVehiclesViewModel;
 
 import java.util.List;
 
@@ -54,6 +56,16 @@ public class MyVehiclesFragment extends Fragment {
         binding = null;
     }
 
+    public void openPublishDialog(OwnerVehicleItem vehicle) {
+        hideBanners();
+        Bundle arguments = new Bundle();
+        arguments.putLong(PublishVehicleDialogFragment.ARG_VEHICLE_ID, vehicle.getId());
+        arguments.putString(PublishVehicleDialogFragment.ARG_VEHICLE_TITLE, vehicle.getTitle());
+        PublishVehicleDialogFragment dialog = new PublishVehicleDialogFragment();
+        dialog.setArguments(arguments);
+        dialog.show(getChildFragmentManager(), "publish_vehicle");
+    }
+
     public void deactivate(OwnerVehicleItem vehicle) {
         hideBanners();
         Result<Void> result = viewModel.unpublish(vehicle.getId());
@@ -76,7 +88,7 @@ public class MyVehiclesFragment extends Fragment {
         loadVehicles();
     }
 
-    private void loadVehicles() {
+    public void loadVehicles() {
         List<OwnerVehicleItem> vehicles = viewModel.getVehicles();
         adapter.setItems(vehicles);
         binding.emptyState.setVisibility(vehicles.isEmpty() ? View.VISIBLE : View.GONE);

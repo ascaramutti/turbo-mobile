@@ -1,4 +1,4 @@
-package com.turbo.mobile.ui.driver;
+package com.turbo.mobile.ui.driver.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,9 @@ import com.turbo.mobile.data.model.VehicleSummary;
 import com.turbo.mobile.data.model.Zone;
 import com.turbo.mobile.databinding.FragmentSearchBinding;
 import com.turbo.mobile.ui.ScreenSetup;
+import com.turbo.mobile.ui.driver.VehicleDetailActivity;
+import com.turbo.mobile.ui.driver.adapters.VehicleAdapter;
+import com.turbo.mobile.ui.driver.viewmodels.SearchViewModel;
 
 import java.util.List;
 
