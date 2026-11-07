@@ -2,7 +2,9 @@ package com.turbo.mobile.ui.driver.viewmodels;
 
 import com.turbo.mobile.data.model.DriverStatus;
 import com.turbo.mobile.data.model.Result;
+import com.turbo.mobile.data.model.ServiceType;
 import com.turbo.mobile.data.model.VehicleDetail;
+import com.turbo.mobile.data.repository.BookingRepository;
 import com.turbo.mobile.data.repository.DocumentRepository;
 import com.turbo.mobile.data.repository.VehicleRepository;
 import com.turbo.mobile.util.SessionManager;
@@ -14,15 +16,18 @@ import java.util.List;
 public class BookingViewModel {
 
     private static final long ONE_HOUR = 60 * 60 * 1000L;
+    private static final long FIFTEEN_MINUTES = 15 * 60 * 1000L;
     private static final int DAYS_AHEAD = 14;
 
     private final VehicleRepository vehicleRepository;
     private final DocumentRepository documentRepository;
+    private final BookingRepository bookingRepository;
     private final SessionManager sessionManager;
 
-    public BookingViewModel(VehicleRepository vehicleRepository, DocumentRepository documentRepository, SessionManager sessionManager) {
+    public BookingViewModel(VehicleRepository vehicleRepository, DocumentRepository documentRepository, BookingRepository bookingRepository, SessionManager sessionManager) {
         this.vehicleRepository = vehicleRepository;
         this.documentRepository = documentRepository;
+        this.bookingRepository = bookingRepository;
         this.sessionManager = sessionManager;
     }
 
@@ -68,6 +73,18 @@ public class BookingViewModel {
     }
 
     public boolean endsAfterAvailable(long start, int hours, long availableUntil) {
-        return start + hours * ONE_HOUR > availableUntil;
+        return getShiftEnd(start, hours) > availableUntil;
+    }
+
+    public long getShiftEnd(long start, int hours) {
+        return start + hours * ONE_HOUR;
+    }
+
+    public long getPayDeadline(long start) {
+        return start - FIFTEEN_MINUTES;
+    }
+
+    public Result<Long> createBooking(long vehicleId, long start, long end, ServiceType serviceType) {
+        return bookingRepository.createBooking(sessionManager.getUserId(), vehicleId, start, end, serviceType);
     }
 }
