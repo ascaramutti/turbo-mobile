@@ -15,6 +15,18 @@
     <string name="logout_confirm">Log out</string>
     <string name="logout_cancel">Cancel</string>
 
+    <string name="pending_documents_title">Pending documents</string>
+    <string name="pending_documents_tab_drivers">Drivers (%d)</string>
+    <string name="pending_documents_tab_vehicles">Vehicles (%d)</string>
+    <string name="pending_documents_status">Pending review</string>
+    <string name="pending_documents_type_date">%1$s · %2$s</string>
+    <string name="pending_documents_empty_title">No pending documents</string>
+    <string name="pending_documents_empty_body">All driver and vehicle documents have been reviewed.</string>
+    <string name="document_type_drivers_license">Driver\'s license</string>
+    <string name="document_type_study_permit">Study permit</string>
+    <string name="document_type_insurance">Insurance certificate</string>
+    <string name="document_type_registration">Vehicle registration</string>
+
     <string name="error_not_found">This item no longer exists.</string>
     <string name="error_not_allowed">You cannot do this.</string>
     <string name="error_unexpected">Something went wrong. Please try again.</string>
