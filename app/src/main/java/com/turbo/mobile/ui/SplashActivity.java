@@ -10,6 +10,7 @@ import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.data.model.Role;
 import com.turbo.mobile.databinding.ActivitySplashBinding;
 import com.turbo.mobile.ui.auth.AuthViewModel;
+import com.turbo.mobile.ui.admin.AdminHomeActivity;
 import com.turbo.mobile.ui.driver.DriverHomeActivity;
 import com.turbo.mobile.ui.owner.OwnerHomeActivity;
 
@@ -32,6 +33,8 @@ public class SplashActivity extends AppCompatActivity {
             openHome(DriverHomeActivity.class);
         } else if (viewModel.getRole() == Role.CAR_OWNER) {
             openHome(OwnerHomeActivity.class);
+        } else if (viewModel.getRole() == Role.ADMIN) {
+            openHome(AdminHomeActivity.class);
         }
     }
 
