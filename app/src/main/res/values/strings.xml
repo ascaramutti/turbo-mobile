@@ -107,6 +107,28 @@
     <string name="vehicle_detail_too_soon">Shifts must start at least 2 hours from now.</string>
     <string name="vehicle_detail_after_available">This car is available until %1$s · %2$s.</string>
     <string name="vehicle_detail_request">Request booking</string>
+
+    <string name="booking_confirm_title">Request this booking?</string>
+    <string name="booking_confirm_vehicle">%1$s · %2$s</string>
+    <string name="booking_confirm_shift">%1$s · %2$s (%3$d h)</string>
+    <string name="booking_confirm_total">Total: %s</string>
+    <string name="booking_confirm_payment">You will pay after the owner confirms (before %1$s · %2$s).</string>
+    <string name="booking_confirm_cancel">Cancel</string>
+    <string name="booking_confirm_request">Request</string>
+    <string name="booking_confirm_sent">Request sent</string>
+    <string name="booking_confirm_error_not_verified">Your documents must be approved before you can book.</string>
+    <string name="booking_confirm_error_inactive">Your account is not active.</string>
+    <string name="booking_confirm_error_documents_expire">Your license or study permit expires before this shift ends.</string>
+    <string name="booking_confirm_error_not_published">This vehicle is not available for booking.</string>
+    <string name="booking_confirm_error_too_far">You can book up to 14 days ahead.</string>
+    <string name="booking_confirm_error_start_step">Choose a start time in 30-minute steps.</string>
+    <string name="booking_confirm_error_duration">A shift is 4 or 8 hours.</string>
+    <string name="booking_confirm_error_taxi_class">Taxi needs a Class 4 license.</string>
+    <string name="booking_confirm_error_taxi_offered">This vehicle is for delivery only.</string>
+    <string name="booking_confirm_error_vehicle_overlap">This vehicle is already booked at that time.</string>
+    <string name="booking_confirm_error_driver_overlap">You already have a booking at that time.</string>
+    <string name="booking_confirm_error_weekly_limit">This booking goes over your 24-hour weekly limit.</string>
+
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>
         <item>Diesel</item>

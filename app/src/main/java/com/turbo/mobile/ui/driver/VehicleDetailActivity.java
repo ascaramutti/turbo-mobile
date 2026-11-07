@@ -20,6 +20,7 @@ import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.databinding.ActivityVehicleDetailBinding;
 import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
+import com.turbo.mobile.ui.driver.fragments.BookingConfirmDialogFragment;
 import com.turbo.mobile.ui.driver.viewmodels.BookingViewModel;
 import com.turbo.mobile.util.ImageStorage;
 
@@ -49,7 +50,7 @@ public class VehicleDetailActivity extends AppCompatActivity {
         binding.topBar.back.setOnClickListener(v -> finish());
 
         AppContainer appContainer = ((TurboApp) getApplication()).getContainer();
-        viewModel = new BookingViewModel(appContainer.vehicleRepository, appContainer.documentRepository, appContainer.sessionManager);
+        viewModel = new BookingViewModel(appContainer.vehicleRepository, appContainer.documentRepository, appContainer.bookingRepository, appContainer.sessionManager);
         imageStorage = appContainer.imageStorage;
 
         binding.vehiclePhoto.setClipToOutline(true);
@@ -161,6 +162,8 @@ public class VehicleDetailActivity extends AppCompatActivity {
         binding.shiftDay.setOnItemSelectedListener(shiftChanged);
         binding.shiftTime.setOnItemSelectedListener(shiftChanged);
         binding.shiftDuration.setOnItemSelectedListener(shiftChanged);
+
+        binding.requestBooking.setOnClickListener(v -> openConfirmDialog());
     }
 
     private void showShift() {
@@ -184,5 +187,29 @@ public class VehicleDetailActivity extends AppCompatActivity {
             binding.shiftError.setVisibility(View.GONE);
         }
         binding.requestBooking.setEnabled(!tooSoon && !afterAvailable);
+    }
+
+    private void openConfirmDialog() {
+        binding.successBanner.setVisibility(View.GONE);
+
+        long day = shiftDays.get(binding.shiftDay.getSelectedItemPosition());
+        long start = viewModel.getShiftStart(day, binding.shiftTime.getSelectedItemPosition());
+
+        Bundle arguments = new Bundle();
+        arguments.putLong(BookingConfirmDialogFragment.ARG_VEHICLE_ID, vehicle.getId());
+        arguments.putString(BookingConfirmDialogFragment.ARG_VEHICLE_TITLE, binding.vehicleTitle.getText().toString());
+        arguments.putInt(BookingConfirmDialogFragment.ARG_HOURLY_RATE, vehicle.getHourlyRateCents());
+        arguments.putLong(BookingConfirmDialogFragment.ARG_AVAILABLE_UNTIL, vehicle.getAvailableUntil());
+        arguments.putLong(BookingConfirmDialogFragment.ARG_START, start);
+        arguments.putInt(BookingConfirmDialogFragment.ARG_HOURS, DURATIONS[binding.shiftDuration.getSelectedItemPosition()]);
+        arguments.putInt(BookingConfirmDialogFragment.ARG_SERVICE_POSITION, binding.shiftService.getSelectedItemPosition());
+
+        BookingConfirmDialogFragment dialog = new BookingConfirmDialogFragment();
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "booking_confirm");
+    }
+
+    public void showRequestSent() {
+        binding.successBanner.setVisibility(View.VISIBLE);
     }
 }
