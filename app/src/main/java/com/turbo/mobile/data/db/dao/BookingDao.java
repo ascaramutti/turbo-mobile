@@ -30,4 +30,18 @@ public interface BookingDao {
 
     @Query("SELECT * FROM bookings WHERE vehicle_id = :vehicleId AND status IN ('PENDING', 'CONFIRMED', 'IN_PROGRESS')")
     List<BookingEntity> getOpenByVehicle(long vehicleId);
+
+    @Query("SELECT * FROM bookings WHERE driver_id = :driverId ORDER BY start_time, id")
+    List<BookingEntity> getByDriver(long driverId);
+
+    @Query("SELECT * FROM bookings WHERE status = 'PENDING' AND start_time - 900000 <= :now")
+    List<BookingEntity> getExpiredRequests(long now);
+
+    @Query("SELECT * FROM bookings WHERE status = 'CONFIRMED' AND start_time - 900000 <= :now "
+            + "AND id NOT IN (SELECT booking_id FROM payments)")
+    List<BookingEntity> getNotPaid(long now);
+
+    @Query("SELECT * FROM bookings WHERE status = 'CONFIRMED' AND start_time + 3600000 < :now "
+            + "AND id IN (SELECT booking_id FROM payments)")
+    List<BookingEntity> getNoShows(long now);
 }
