@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import com.turbo.mobile.databinding.ActivityDriverHomeBinding;
 import com.turbo.mobile.ui.ScreenSetup;
+import com.turbo.mobile.ui.driver.fragments.SearchFragment;
 
 public class DriverHomeActivity extends AppCompatActivity {
 

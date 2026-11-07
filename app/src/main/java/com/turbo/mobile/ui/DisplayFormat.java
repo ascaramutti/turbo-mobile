@@ -34,6 +34,14 @@ public class DisplayFormat {
         return time(start) + "–" + time(end);
     }
 
+    public static String[] halfHours() {
+        String[] times = new String[48];
+        for (int i = 0; i < times.length; i++) {
+            times[i] = String.format(Locale.US, "%02d:%02d", i / 2, i % 2 * 30);
+        }
+        return times;
+    }
+
     private static String formatDate(String pattern, long millis) {
         return new SimpleDateFormat(pattern, Locale.US).format(new Date(millis));
     }
