@@ -27,4 +27,7 @@ public interface BookingDao {
     @Query("SELECT b.* FROM bookings b JOIN vehicles v ON v.id = b.vehicle_id "
             + "WHERE v.owner_id = :ownerId AND b.status IN ('PENDING', 'CONFIRMED', 'IN_PROGRESS')")
     List<BookingEntity> getOpenByOwner(long ownerId);
+
+    @Query("SELECT * FROM bookings WHERE vehicle_id = :vehicleId AND status IN ('PENDING', 'CONFIRMED', 'IN_PROGRESS')")
+    List<BookingEntity> getOpenByVehicle(long vehicleId);
 }
