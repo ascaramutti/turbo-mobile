@@ -190,8 +190,6 @@ public class VehicleDetailActivity extends AppCompatActivity {
     }
 
     private void openConfirmDialog() {
-        binding.successBanner.setVisibility(View.GONE);
-
         long day = shiftDays.get(binding.shiftDay.getSelectedItemPosition());
         long start = viewModel.getShiftStart(day, binding.shiftTime.getSelectedItemPosition());
 
@@ -209,7 +207,8 @@ public class VehicleDetailActivity extends AppCompatActivity {
         dialog.show(getSupportFragmentManager(), "booking_confirm");
     }
 
-    public void showRequestSent() {
-        binding.successBanner.setVisibility(View.VISIBLE);
+    public void requestSent() {
+        setResult(RESULT_OK);
+        finish();
     }
 }

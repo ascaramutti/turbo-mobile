@@ -187,6 +187,40 @@
     <string name="vehicle_form_error_file">Could not save the images.</string>
     <string name="vehicle_form_error_deleted">This vehicle was deleted.</string>
 
+    <string name="my_bookings_title">My bookings</string>
+    <string name="my_bookings_upcoming">Upcoming</string>
+    <string name="my_bookings_in_progress">In progress</string>
+    <string name="my_bookings_history">History</string>
+    <string name="my_bookings_this_week">This week</string>
+    <string name="my_bookings_this_month">This month</string>
+    <string name="my_bookings_total_spent">Total spent</string>
+    <string name="my_bookings_completed">Completed shifts</string>
+    <string name="my_bookings_week_hours">%1$d of %2$d h</string>
+    <string name="my_bookings_empty_title">No bookings here</string>
+    <string name="my_bookings_empty_body">Your requests and trips will show up here.</string>
+    <string name="my_bookings_time">%1$s · %2$s</string>
+    <plurals name="my_bookings_hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <string name="my_bookings_chip_pending">Pending</string>
+    <string name="my_bookings_chip_confirmed">Confirmed</string>
+    <string name="my_bookings_chip_in_progress">In progress</string>
+    <string name="my_bookings_chip_completed">Completed</string>
+    <string name="my_bookings_chip_rejected">Rejected</string>
+    <string name="my_bookings_chip_expired">Expired</string>
+    <string name="my_bookings_chip_cancelled">Cancelled</string>
+    <string name="my_bookings_chip_paid">Paid</string>
+    <string name="my_bookings_chip_payment_pending">Payment pending</string>
+    <string name="my_bookings_waiting_owner">Waiting for owner</string>
+    <string name="my_bookings_ready">Ready to start</string>
+    <string name="my_bookings_pay_now">Pay now · %s</string>
+    <string name="my_bookings_trip_ends">Trip ends at %s</string>
+    <string name="my_bookings_overdue">Overdue: the trip ended at %s</string>
+    <string name="my_bookings_declined">Request declined</string>
+    <string name="my_bookings_no_response">No owner response</string>
+    <string name="my_bookings_cancelled_before_payment">Cancelled before payment</string>
+
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>
         <item>Diesel</item>

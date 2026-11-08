@@ -1,5 +1,6 @@
 package com.turbo.mobile.ui.driver.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -20,6 +23,7 @@ import com.turbo.mobile.data.model.VehicleSummary;
 import com.turbo.mobile.data.model.Zone;
 import com.turbo.mobile.databinding.FragmentSearchBinding;
 import com.turbo.mobile.ui.ScreenSetup;
+import com.turbo.mobile.ui.driver.DriverHomeActivity;
 import com.turbo.mobile.ui.driver.VehicleDetailActivity;
 import com.turbo.mobile.ui.driver.adapters.VehicleAdapter;
 import com.turbo.mobile.ui.driver.viewmodels.SearchViewModel;
@@ -35,6 +39,13 @@ public class SearchFragment extends Fragment {
     private VehicleAdapter adapter;
     private final SearchFilter filter = new SearchFilter();
     private List<Zone> zones;
+
+    private final ActivityResultLauncher<Intent> openDetail =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    ((DriverHomeActivity) requireActivity()).showRequestSent();
+                }
+            });
 
     public SearchFragment() {
     }
@@ -75,7 +86,7 @@ public class SearchFragment extends Fragment {
     public void openVehicle(VehicleSummary vehicle) {
         Intent intent = new Intent(requireContext(), VehicleDetailActivity.class);
         intent.putExtra(VehicleDetailActivity.EXTRA_VEHICLE_ID, vehicle.getId());
-        startActivity(intent);
+        openDetail.launch(intent);
     }
 
     private void search() {
