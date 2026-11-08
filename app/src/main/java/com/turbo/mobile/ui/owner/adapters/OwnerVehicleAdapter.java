@@ -91,6 +91,7 @@ public class OwnerVehicleAdapter extends RecyclerView.Adapter<OwnerVehicleAdapte
                 break;
         }
 
+        binding.actionEdit.setOnClickListener(v -> fragment.openEditForm(vehicle));
         binding.actionDelete.setOnClickListener(v -> fragment.delete(vehicle));
     }
 
