@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="24dp">
+
+    <LinearLayout
+        style="@style/TurboCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            style="@style/TurboCardTitle"
+            android:text="@string/booking_confirm_title"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/vehicle_summary"
+            style="@style/TurboCardText"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/shift_summary"
+            style="@style/TurboCardText"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/total"
+            style="@style/TurboCardText"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/manrope_semibold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/payment_note"
+            style="@style/TurboCardText"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/error_banner"
+            style="@style/TurboBanner.Error"
+            android:layout_marginTop="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel"
+                style="@style/TurboSecondaryButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/booking_confirm_cancel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/request"
+                style="@style/TurboPrimaryButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/booking_confirm_request" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

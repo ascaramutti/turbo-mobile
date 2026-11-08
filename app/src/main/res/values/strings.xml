@@ -25,6 +25,24 @@
     <string name="nav_earnings">Earnings</string>
     <string name="nav_alerts">Alerts</string>
     <string name="nav_profile">Profile</string>
+    <string name="nav_documents">Documents</string>
+    <string name="nav_users">Users</string>
+    <string name="logout_title">Log out</string>
+    <string name="logout_message">Are you sure you want to log out?</string>
+    <string name="logout_confirm">Log out</string>
+    <string name="logout_cancel">Cancel</string>
+
+    <string name="pending_documents_title">Pending documents</string>
+    <string name="pending_documents_tab_drivers">Drivers (%d)</string>
+    <string name="pending_documents_tab_vehicles">Vehicles (%d)</string>
+    <string name="pending_documents_status">Pending review</string>
+    <string name="pending_documents_type_date">%1$s · %2$s</string>
+    <string name="pending_documents_empty_title">No pending documents</string>
+    <string name="pending_documents_empty_body">All driver and vehicle documents have been reviewed.</string>
+    <string name="document_type_drivers_license">Driver\'s license</string>
+    <string name="document_type_study_permit">Study permit</string>
+    <string name="document_type_insurance">Insurance certificate</string>
+    <string name="document_type_registration">Vehicle registration</string>
 
     <!-- General Errors -->
     <string name="error_not_found">This item no longer exists.</string>
@@ -69,7 +87,8 @@
     <string name="my_vehicles_add">Add vehicle</string>
     <string name="my_vehicles_empty_title">Add your first vehicle</string>
     <string name="my_vehicles_empty_body">Approved and active vehicles can appear in driver search.</string>
-    <string name="my_vehicles_approved_active">Approved · Active</string>
+    <string name="my_vehicles_published_until">Published until %s</string>
+    <string name="my_vehicles_change_date">Change date</string>
     <string name="my_vehicles_hidden_by_owner">Hidden by owner</string>
     <plurals name="my_vehicles_documents_pending">
         <item quantity="one">%d document pending</item>
@@ -95,7 +114,15 @@
     </plurals>
     <string name="my_vehicles_error_active_bookings">This vehicle has confirmed or active bookings and cannot be deleted.</string>
 
-    <!-- Vehicle Detail -->
+    <string name="publish_vehicle_title">Publish until</string>
+    <string name="publish_vehicle_date">Date</string>
+    <string name="publish_vehicle_time">Time</string>
+    <string name="publish_vehicle_hint">Drivers can book shifts that end by this date and time.</string>
+    <string name="publish_vehicle_cancel">Cancel</string>
+    <string name="publish_vehicle_publish">Publish</string>
+    <string name="publish_vehicle_error_not_approved">The vehicle can be published after both documents are approved.</string>
+    <string name="publish_vehicle_error_date">Choose a future date and time.</string>
+    <string name="publish_vehicle_error_deleted">This vehicle was deleted.</string>
     <string name="vehicle_detail_not_available">This vehicle is no longer available.</string>
     <string name="vehicle_detail_photo">Vehicle photo</string>
     <string name="vehicle_detail_owner">Owner</string>
@@ -117,6 +144,28 @@
     <string name="vehicle_detail_too_soon">Shifts must start at least 2 hours from now.</string>
     <string name="vehicle_detail_after_available">This car is available until %1$s · %2$s.</string>
     <string name="vehicle_detail_request">Request booking</string>
+
+    <string name="booking_confirm_title">Request this booking?</string>
+    <string name="booking_confirm_vehicle">%1$s · %2$s</string>
+    <string name="booking_confirm_shift">%1$s · %2$s (%3$d h)</string>
+    <string name="booking_confirm_total">Total: %s</string>
+    <string name="booking_confirm_payment">You will pay after the owner confirms (before %1$s · %2$s).</string>
+    <string name="booking_confirm_cancel">Cancel</string>
+    <string name="booking_confirm_request">Request</string>
+    <string name="booking_confirm_sent">Request sent</string>
+    <string name="booking_confirm_error_not_verified">Your documents must be approved before you can book.</string>
+    <string name="booking_confirm_error_inactive">Your account is not active.</string>
+    <string name="booking_confirm_error_documents_expire">Your license or study permit expires before this shift ends.</string>
+    <string name="booking_confirm_error_not_published">This vehicle is not available for booking.</string>
+    <string name="booking_confirm_error_too_far">You can book up to 14 days ahead.</string>
+    <string name="booking_confirm_error_start_step">Choose a start time in 30-minute steps.</string>
+    <string name="booking_confirm_error_duration">A shift is 4 or 8 hours.</string>
+    <string name="booking_confirm_error_taxi_class">Taxi needs a Class 4 license.</string>
+    <string name="booking_confirm_error_taxi_offered">This vehicle is for delivery only.</string>
+    <string name="booking_confirm_error_vehicle_overlap">This vehicle is already booked at that time.</string>
+    <string name="booking_confirm_error_driver_overlap">You already have a booking at that time.</string>
+    <string name="booking_confirm_error_weekly_limit">This booking goes over your 24-hour weekly limit.</string>
+
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>
         <item>Diesel</item>

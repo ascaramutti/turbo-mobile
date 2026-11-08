@@ -1,4 +1,4 @@
-package com.turbo.mobile.ui.driver;
+package com.turbo.mobile.ui.driver.adapters;
 
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import com.turbo.mobile.R;
 import com.turbo.mobile.data.model.VehicleSummary;
 import com.turbo.mobile.databinding.ItemVehicleBinding;
 import com.turbo.mobile.ui.DisplayFormat;
+import com.turbo.mobile.ui.driver.fragments.SearchFragment;
 import com.turbo.mobile.util.ImageStorage;
 
 import java.util.ArrayList;

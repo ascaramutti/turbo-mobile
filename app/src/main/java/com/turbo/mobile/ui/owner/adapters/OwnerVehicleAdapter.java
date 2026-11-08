@@ -1,4 +1,4 @@
-package com.turbo.mobile.ui.owner;
+package com.turbo.mobile.ui.owner.adapters;
 
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -14,6 +14,8 @@ import com.turbo.mobile.R;
 import com.turbo.mobile.data.model.DocumentType;
 import com.turbo.mobile.data.model.OwnerVehicleItem;
 import com.turbo.mobile.databinding.ItemOwnerVehicleBinding;
+import com.turbo.mobile.ui.DisplayFormat;
+import com.turbo.mobile.ui.owner.fragments.MyVehiclesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +48,16 @@ public class OwnerVehicleAdapter extends RecyclerView.Adapter<OwnerVehicleAdapte
         Resources resources = binding.getRoot().getResources();
 
         binding.vehicleTitle.setText(vehicle.getTitle());
+        binding.actionChangeDate.setVisibility(View.GONE);
         binding.chipSecondary.setVisibility(View.VISIBLE);
         binding.actionToggle.setVisibility(View.VISIBLE);
         binding.actionToggleSeparator.setVisibility(View.VISIBLE);
 
         switch (vehicle.getBadge()) {
             case PUBLISHED:
-                binding.vehicleSubtitle.setText(R.string.my_vehicles_approved_active);
+                binding.vehicleSubtitle.setText(resources.getString(R.string.my_vehicles_published_until, DisplayFormat.date(vehicle.getAvailableUntil())));
+                binding.actionChangeDate.setVisibility(View.VISIBLE);
+                binding.actionChangeDate.setOnClickListener(v -> fragment.openPublishDialog(vehicle));
                 paintChip(binding.chipPrimary, R.string.my_vehicles_chip_approved, R.color.turbo_success_bg, R.color.turbo_success);
                 paintChip(binding.chipSecondary, R.string.my_vehicles_chip_active, R.color.turbo_success_bg, R.color.turbo_success);
                 binding.actionToggle.setText(R.string.my_vehicles_deactivate);
@@ -63,7 +68,7 @@ public class OwnerVehicleAdapter extends RecyclerView.Adapter<OwnerVehicleAdapte
                 paintChip(binding.chipPrimary, R.string.my_vehicles_chip_approved, R.color.turbo_success_bg, R.color.turbo_success);
                 paintChip(binding.chipSecondary, R.string.my_vehicles_chip_inactive, R.color.turbo_success_bg, R.color.turbo_success);
                 binding.actionToggle.setText(R.string.my_vehicles_activate);
-                binding.actionToggle.setOnClickListener(null);
+                binding.actionToggle.setOnClickListener(v -> fragment.openPublishDialog(vehicle));
                 break;
             case PENDING_REVIEW:
                 int pending = vehicle.getPendingDocuments();
