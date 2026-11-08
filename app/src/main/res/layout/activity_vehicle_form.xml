@@ -86,6 +86,10 @@
                 style="@style/TurboBanner.Error" />
 
             <TextView
+                android:id="@+id/success_banner"
+                style="@style/TurboBanner.Success" />
+
+            <TextView
                 android:id="@+id/restore_banner"
                 style="@style/TurboBanner.Warning"
                 android:text="@string/vehicle_form_restore_message" />
@@ -96,6 +100,29 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/vehicle_form_restore"
                 android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/edit_documents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TurboBanner.Warning"
+                    android:text="@string/vehicle_form_documents_warning"
+                    android:visibility="visible" />
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/vehicle_form_documents" />
+
+                <LinearLayout
+                    android:id="@+id/document_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </LinearLayout>
 
             <TextView
                 style="@style/TurboLabel"

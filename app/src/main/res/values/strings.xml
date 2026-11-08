@@ -186,6 +186,19 @@
     <string name="vehicle_form_error_last_photo">A vehicle needs at least one photo.</string>
     <string name="vehicle_form_error_file">Could not save the images.</string>
     <string name="vehicle_form_error_deleted">This vehicle was deleted.</string>
+    <string name="vehicle_form_error_approved_document">Approved documents cannot be replaced.</string>
+    <string name="vehicle_form_documents_warning">Newly uploaded documents will return to Pending review.</string>
+    <string name="vehicle_form_insurance_title">Insurance certificate</string>
+    <string name="vehicle_form_registration_title">Vehicle registration</string>
+    <string name="vehicle_form_document_reason">Reason: %s</string>
+    <string name="vehicle_form_document_uploaded">Uploaded %s</string>
+    <string name="vehicle_form_document_current">Current document</string>
+    <string name="vehicle_form_document_rejected">Rejected</string>
+    <string name="vehicle_form_document_pending">Pending review</string>
+    <string name="vehicle_form_document_approved">Approved</string>
+    <string name="vehicle_form_reupload">Re-upload ›</string>
+    <string name="vehicle_form_replace">Replace ›</string>
+    <string name="vehicle_form_document_sent">%s uploaded — pending review.</string>
 
     <string name="my_bookings_title">My bookings</string>
     <string name="my_bookings_upcoming">Upcoming</string>

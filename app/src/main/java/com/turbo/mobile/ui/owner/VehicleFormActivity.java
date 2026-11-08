@@ -5,19 +5,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.turbo.mobile.AppContainer;
 import com.turbo.mobile.R;
 import com.turbo.mobile.TurboApp;
+import com.turbo.mobile.data.model.DocumentAction;
+import com.turbo.mobile.data.model.DocumentError;
+import com.turbo.mobile.data.model.DocumentType;
 import com.turbo.mobile.data.model.FuelType;
 import com.turbo.mobile.data.model.PhotoItem;
 import com.turbo.mobile.data.model.RepoError;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.VehicleCategory;
+import com.turbo.mobile.data.model.VehicleDocumentItem;
 import com.turbo.mobile.data.model.VehicleEditData;
 import com.turbo.mobile.data.model.VehicleError;
 import com.turbo.mobile.data.model.VehicleForm;
@@ -25,6 +31,8 @@ import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.data.model.Zone;
 import com.turbo.mobile.databinding.ActivityVehicleFormBinding;
 import com.turbo.mobile.databinding.ItemPhotoTileBinding;
+import com.turbo.mobile.databinding.ItemVehicleDocumentBinding;
+import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.owner.viewmodels.VehicleFormViewModel;
 import com.turbo.mobile.util.ImageStorage;
@@ -47,6 +55,7 @@ public class VehicleFormActivity extends AppCompatActivity {
     private final List<PhotoItem> photos = new ArrayList<>();
     private Uri insurance;
     private Uri registration;
+    private DocumentType uploadType;
 
     private final ActivityResultLauncher<String> pickPhoto =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
@@ -71,6 +80,13 @@ public class VehicleFormActivity extends AppCompatActivity {
                 }
             });
 
+    private final ActivityResultLauncher<String> pickDocument =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri != null) {
+                    uploadDocument(uri);
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +99,7 @@ public class VehicleFormActivity extends AppCompatActivity {
         binding.topBar.back.setOnClickListener(v -> finish());
 
         AppContainer appContainer = ((TurboApp) getApplication()).getContainer();
-        viewModel = new VehicleFormViewModel(appContainer.vehicleRepository, appContainer.sessionManager);
+        viewModel = new VehicleFormViewModel(appContainer.vehicleRepository, appContainer.documentRepository, appContainer.sessionManager);
         imageStorage = appContainer.imageStorage;
 
         setUpSpinners();
@@ -97,8 +113,10 @@ public class VehicleFormActivity extends AppCompatActivity {
         if (vehicleId != 0) {
             binding.inputVin.setEnabled(false);
             binding.documents.setVisibility(View.GONE);
+            binding.editDocuments.setVisibility(View.VISIBLE);
             binding.save.setText(R.string.vehicle_form_save_changes);
             loadVehicle();
+            showDocuments();
         }
         showPhotos();
     }
@@ -260,6 +278,69 @@ public class VehicleFormActivity extends AppCompatActivity {
         finish();
     }
 
+    private void showDocuments() {
+        binding.documentList.removeAllViews();
+        for (VehicleDocumentItem document : viewModel.getDocuments(vehicleId)) {
+            ItemVehicleDocumentBinding card = ItemVehicleDocumentBinding.inflate(getLayoutInflater(), binding.documentList, false);
+            card.documentTitle.setText(documentName(document.getType()));
+            switch (document.getStatus()) {
+                case REJECTED:
+                    card.documentDetail.setText(getString(R.string.vehicle_form_document_reason, document.getRejectionReason()));
+                    paintChip(card.documentStatus, R.string.vehicle_form_document_rejected, R.color.turbo_error_bg, R.color.turbo_error);
+                    break;
+                case PENDING:
+                    card.documentDetail.setText(getString(R.string.vehicle_form_document_uploaded, DisplayFormat.date(document.getUploadedAt())));
+                    paintChip(card.documentStatus, R.string.vehicle_form_document_pending, R.color.turbo_warning_bg, R.color.turbo_warning);
+                    break;
+                case APPROVED:
+                    card.documentDetail.setText(R.string.vehicle_form_document_current);
+                    paintChip(card.documentStatus, R.string.vehicle_form_document_approved, R.color.turbo_success_bg, R.color.turbo_success);
+                    break;
+            }
+            if (document.getAllowedAction() == DocumentAction.REUPLOAD) {
+                card.documentAction.setText(R.string.vehicle_form_reupload);
+                card.documentAction.setOnClickListener(v -> pickDocumentFor(document.getType()));
+            } else if (document.getAllowedAction() == DocumentAction.REPLACE) {
+                card.documentAction.setText(R.string.vehicle_form_replace);
+                card.documentAction.setOnClickListener(v -> pickDocumentFor(document.getType()));
+            } else {
+                card.documentAction.setVisibility(View.GONE);
+            }
+            binding.documentList.addView(card.getRoot());
+        }
+    }
+
+    private int documentName(DocumentType type) {
+        if (type == DocumentType.INSURANCE) {
+            return R.string.vehicle_form_insurance_title;
+        }
+        return R.string.vehicle_form_registration_title;
+    }
+
+    private void paintChip(TextView chip, int text, int backgroundColor, int textColor) {
+        chip.setText(text);
+        chip.setBackgroundTintList(ContextCompat.getColorStateList(this, backgroundColor));
+        chip.setTextColor(ContextCompat.getColor(this, textColor));
+    }
+
+    private void pickDocumentFor(DocumentType type) {
+        uploadType = type;
+        pickDocument.launch("image/*");
+    }
+
+    private void uploadDocument(Uri image) {
+        hideBanners();
+        Result<Void> result = viewModel.uploadDocument(vehicleId, uploadType, image);
+        if (result instanceof Result.Success) {
+            binding.successBanner.setText(getString(R.string.vehicle_form_document_sent, getString(documentName(uploadType))));
+            binding.successBanner.setVisibility(View.VISIBLE);
+            binding.formScroll.scrollTo(0, 0);
+        } else {
+            showError(((Result.Error<Void>) result).code);
+        }
+        showDocuments();
+    }
+
     private void showError(RepoError code) {
         binding.formScroll.scrollTo(0, 0);
         if (code == VehicleError.VIN_RESTORABLE) {
@@ -286,13 +367,15 @@ public class VehicleFormActivity extends AppCompatActivity {
             message = R.string.vehicle_form_error_documents_required;
         } else if (code == VehicleError.LAST_PHOTO) {
             message = R.string.vehicle_form_error_last_photo;
-        } else if (code == VehicleError.FILE_ERROR) {
+        } else if (code == DocumentError.ACTION_NOT_ALLOWED) {
+            message = R.string.vehicle_form_error_approved_document;
+        } else if (code == VehicleError.FILE_ERROR || code == DocumentError.FILE_ERROR) {
             message = R.string.vehicle_form_error_file;
-        } else if (code == VehicleError.VEHICLE_DELETED) {
+        } else if (code == VehicleError.VEHICLE_DELETED || code == DocumentError.VEHICLE_DELETED) {
             message = R.string.vehicle_form_error_deleted;
-        } else if (code == VehicleError.NOT_FOUND) {
+        } else if (code == VehicleError.NOT_FOUND || code == DocumentError.NOT_FOUND) {
             message = R.string.error_not_found;
-        } else if (code == VehicleError.NOT_ALLOWED) {
+        } else if (code == VehicleError.NOT_ALLOWED || code == DocumentError.NOT_ALLOWED) {
             message = R.string.error_not_allowed;
         }
         binding.errorBanner.setText(message);
@@ -301,6 +384,7 @@ public class VehicleFormActivity extends AppCompatActivity {
 
     private void hideBanners() {
         binding.errorBanner.setVisibility(View.GONE);
+        binding.successBanner.setVisibility(View.GONE);
         binding.restoreBanner.setVisibility(View.GONE);
         binding.restore.setVisibility(View.GONE);
     }
