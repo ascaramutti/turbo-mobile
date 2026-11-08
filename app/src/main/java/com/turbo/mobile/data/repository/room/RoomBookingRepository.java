@@ -17,6 +17,7 @@ import com.turbo.mobile.data.model.BookingDetail;
 import com.turbo.mobile.data.model.BookingError;
 import com.turbo.mobile.data.model.BookingListItem;
 import com.turbo.mobile.data.model.BookingStatus;
+import com.turbo.mobile.data.model.ConfirmResult;
 import com.turbo.mobile.data.model.DocumentStatus;
 import com.turbo.mobile.data.model.DriverAction;
 import com.turbo.mobile.data.model.DriverState;
@@ -130,9 +131,7 @@ public class RoomBookingRepository {
             booking.serviceType = serviceType;
             booking.status = BookingStatus.PENDING;
             booking.createdAt = now;
-            String service = serviceType == ServiceType.TAXI ? "Taxi" : "Delivery";
-            String message = fullName(driverId) + " requested your " + title(vehicle)
-                    + " (" + (length / HOUR) + " h, " + service + ").";
+            String message = fullName(driverId) + " requested your " + title(vehicle) + " (" + shift(booking) + ").";
             if (overlapsRequest) {
                 message = message + " It overlaps another request.";
             }
@@ -324,6 +323,105 @@ public class RoomBookingRepository {
         return items;
     }
 
+    public Result<ConfirmResult> confirm(long ownerId, long bookingId) {
+        try {
+            expireBookings();
+            BookingEntity booking = db.bookingDao().findById(bookingId);
+            if (booking == null) {
+                return Result.error(BookingError.NOT_FOUND, "Booking " + bookingId + " not found");
+            }
+            VehicleEntity vehicle = db.vehicleDao().findById(booking.vehicleId);
+            UserEntity owner = db.userDao().findById(vehicle.ownerId);
+            if (vehicle.ownerId != ownerId || !owner.isActive) {
+                return Result.error(BookingError.NOT_ALLOWED, "Only the owner can confirm this booking");
+            }
+            if (booking.status != BookingStatus.PENDING) {
+                return Result.error(BookingError.NOT_PENDING, "Booking " + bookingId + " is not pending");
+            }
+            if (System.currentTimeMillis() >= booking.startTime - 15 * MINUTE) {
+                return Result.error(BookingError.PAYMENT_DEADLINE_PASSED, "It is too late to confirm this booking");
+            }
+            DriverState state = driverStateCalculator.calculate(db.userDao().findById(booking.driverId));
+            if (state == DriverState.DEACTIVATED) {
+                return Result.error(BookingError.DRIVER_INACTIVE, "The driver account is not active");
+            }
+            if (state == DriverState.PENDING_VERIFICATION || state == DriverState.DOCUMENT_REJECTED) {
+                return Result.error(BookingError.DRIVER_NOT_VERIFIED, "The driver documents are not approved");
+            }
+            DriverProfileEntity profile = db.driverProfileDao().findByUserId(booking.driverId);
+            if (profile.licenseExpiry < booking.endTime || profile.studyPermitExpiry < booking.endTime) {
+                return Result.error(BookingError.DOCUMENTS_EXPIRE, "A driver document expires before the shift ends");
+            }
+            if (!isApproved(vehicle)) {
+                return Result.error(BookingError.VEHICLE_NOT_APPROVED, "Vehicle " + vehicle.id + " is not approved");
+            }
+            if (vehicle.deletedAt != null) {
+                return Result.error(BookingError.VEHICLE_DELETED, "Vehicle " + vehicle.id + " was deleted");
+            }
+            List<Long> overlapping = db.bookingDao().getOverlappingPendingIds(
+                    vehicle.id, booking.id, booking.startTime, booking.endTime);
+            db.beginTransaction();
+            try {
+                close(booking, BookingStatus.CONFIRMED, null);
+                notify(booking.driverId, "Booking confirmed", "Your " + title(vehicle) + " shift ("
+                        + shift(booking) + ") was confirmed. Pay before the start window opens or it will be cancelled.");
+                for (long otherId : overlapping) {
+                    BookingEntity other = db.bookingDao().findById(otherId);
+                    close(other, BookingStatus.REJECTED, StatusReasons.OVERLAP);
+                    notify(other.driverId, "Booking request rejected", "Your request for the " + title(vehicle)
+                            + " was rejected: " + StatusReasons.OVERLAP + ".");
+                }
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+            ConfirmResult result = new ConfirmResult();
+            result.setAutoRejectedIds(overlapping);
+            return Result.success(result);
+        } catch (RuntimeException e) {
+            Log.e("RoomBookingRepository", "Unexpected database error", e);
+            return Result.error(BookingError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    public Result<Void> reject(long ownerId, long bookingId, String reason) {
+        try {
+            expireBookings();
+            BookingEntity booking = db.bookingDao().findById(bookingId);
+            if (booking == null) {
+                return Result.error(BookingError.NOT_FOUND, "Booking " + bookingId + " not found");
+            }
+            VehicleEntity vehicle = db.vehicleDao().findById(booking.vehicleId);
+            UserEntity owner = db.userDao().findById(vehicle.ownerId);
+            if (vehicle.ownerId != ownerId || !owner.isActive) {
+                return Result.error(BookingError.NOT_ALLOWED, "Only the owner can reject this booking");
+            }
+            if (booking.status != BookingStatus.PENDING) {
+                return Result.error(BookingError.NOT_PENDING, "Booking " + bookingId + " is not pending");
+            }
+            if (reason == null || reason.trim().isEmpty()) {
+                return Result.error(BookingError.REASON_REQUIRED, "Please write a reason");
+            }
+            String text = reason.trim();
+            String message = "Your request for the " + title(vehicle) + " was rejected: " + text;
+            if (!text.endsWith(".")) {
+                message = message + ".";
+            }
+            db.beginTransaction();
+            try {
+                close(booking, BookingStatus.REJECTED, text);
+                notify(booking.driverId, "Booking request rejected", message);
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomBookingRepository", "Unexpected database error", e);
+            return Result.error(BookingError.UNEXPECTED, e.getMessage());
+        }
+    }
+
     public Result<InspectionPhotos> getInspectionPhotos(long viewerId, long bookingId) {
         try {
             if (db.bookingDao().findById(bookingId) == null) {
@@ -466,15 +564,19 @@ public class RoomBookingRepository {
         return user != null && user.role == Role.ADMIN;
     }
 
-    private boolean isPublished(VehicleEntity vehicle) {
+    private boolean isApproved(VehicleEntity vehicle) {
         int approved = 0;
         for (VehicleDocumentEntity document : db.vehicleDocumentDao().getAll(vehicle.id)) {
             if (document.status == DocumentStatus.APPROVED) {
                 approved++;
             }
         }
+        return approved == 2;
+    }
+
+    private boolean isPublished(VehicleEntity vehicle) {
         UserEntity owner = db.userDao().findById(vehicle.ownerId);
-        return approved == 2
+        return isApproved(vehicle)
                 && vehicle.availableUntil != null
                 && vehicle.availableUntil > System.currentTimeMillis()
                 && vehicle.deletedAt == null
@@ -509,6 +611,11 @@ public class RoomBookingRepository {
     private String shortName(long userId) {
         UserEntity user = db.userDao().findById(userId);
         return user.firstName + " " + user.lastName.charAt(0) + ".";
+    }
+
+    private String shift(BookingEntity booking) {
+        String service = booking.serviceType == ServiceType.TAXI ? "Taxi" : "Delivery";
+        return (booking.endTime - booking.startTime) / HOUR + " h, " + service;
     }
 
     private String title(VehicleEntity vehicle) {
