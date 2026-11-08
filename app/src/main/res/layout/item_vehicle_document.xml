@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TurboCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/document_title"
+        style="@style/TurboCardTitle" />
+
+    <TextView
+        android:id="@+id/document_detail"
+        style="@style/TurboCardText" />
+
+    <TextView
+        android:id="@+id/document_status"
+        style="@style/TurboChip"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/document_action"
+        style="@style/TurboCardAction"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

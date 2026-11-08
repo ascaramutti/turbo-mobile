@@ -2,13 +2,16 @@ package com.turbo.mobile.ui.owner.viewmodels;
 
 import android.net.Uri;
 
+import com.turbo.mobile.data.model.DocumentType;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.VehicleCategory;
+import com.turbo.mobile.data.model.VehicleDocumentItem;
 import com.turbo.mobile.data.model.VehicleEditData;
 import com.turbo.mobile.data.model.VehicleError;
 import com.turbo.mobile.data.model.VehicleForm;
 import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.data.model.Zone;
+import com.turbo.mobile.data.repository.DocumentRepository;
 import com.turbo.mobile.data.repository.VehicleRepository;
 import com.turbo.mobile.util.SessionManager;
 
@@ -22,10 +25,12 @@ public class VehicleFormViewModel {
     private static final int MAX_AGE_YEARS = 9;
 
     private final VehicleRepository vehicleRepository;
+    private final DocumentRepository documentRepository;
     private final SessionManager sessionManager;
 
-    public VehicleFormViewModel(VehicleRepository vehicleRepository, SessionManager sessionManager) {
+    public VehicleFormViewModel(VehicleRepository vehicleRepository, DocumentRepository documentRepository, SessionManager sessionManager) {
         this.vehicleRepository = vehicleRepository;
+        this.documentRepository = documentRepository;
         this.sessionManager = sessionManager;
     }
 
@@ -108,5 +113,13 @@ public class VehicleFormViewModel {
 
     public Result<Void> deletePhoto(long photoId) {
         return vehicleRepository.deleteVehiclePhoto(sessionManager.getUserId(), photoId);
+    }
+
+    public List<VehicleDocumentItem> getDocuments(long vehicleId) {
+        return documentRepository.getVehicleDocuments(vehicleId);
+    }
+
+    public Result<Void> uploadDocument(long vehicleId, DocumentType type, Uri image) {
+        return documentRepository.uploadVehicleDocument(sessionManager.getUserId(), vehicleId, type, image);
     }
 }
