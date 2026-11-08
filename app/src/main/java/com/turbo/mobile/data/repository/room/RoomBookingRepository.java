@@ -19,6 +19,7 @@ import com.turbo.mobile.data.model.DriverAction;
 import com.turbo.mobile.data.model.DriverTab;
 import com.turbo.mobile.data.model.InspectionPhotos;
 import com.turbo.mobile.data.model.OwnerAction;
+import com.turbo.mobile.data.model.OwnerTab;
 import com.turbo.mobile.data.model.PhotoType;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.Role;
@@ -139,6 +140,45 @@ public class RoomBookingRepository {
         }
     }
 
+    public List<BookingListItem> getPendingByOwner(long ownerId) {
+        expireBookings();
+        List<BookingListItem> items = new ArrayList<>();
+        for (BookingEntity booking : db.bookingDao().getByOwner(ownerId)) {
+            if (booking.status == BookingStatus.PENDING) {
+                items.add(ownerItem(booking));
+            }
+        }
+        return items;
+    }
+
+    public List<BookingListItem> getOwnerBookings(long ownerId, OwnerTab tab) {
+        expireBookings();
+        List<BookingListItem> items = new ArrayList<>();
+        for (BookingEntity booking : db.bookingDao().getByOwner(ownerId)) {
+            if (tab.getStatuses().contains(booking.status)) {
+                if (tab == OwnerTab.HISTORY) {
+                    items.add(0, ownerItem(booking));
+                } else {
+                    items.add(ownerItem(booking));
+                }
+            }
+        }
+        return items;
+    }
+
+    public List<BookingListItem> getAllBookings(BookingStatus status) {
+        expireBookings();
+        List<BookingListItem> items = new ArrayList<>();
+        for (BookingEntity booking : db.bookingDao().getAll()) {
+            if (status == null || booking.status == status) {
+                BookingListItem item = new BookingListItem();
+                fillItem(item, booking);
+                items.add(0, item);
+            }
+        }
+        return items;
+    }
+
     public Result<InspectionPhotos> getInspectionPhotos(long viewerId, long bookingId) {
         try {
             if (db.bookingDao().findById(bookingId) == null) {
@@ -219,6 +259,14 @@ public class RoomBookingRepository {
         item.setOverdue(booking.status == BookingStatus.IN_PROGRESS && booking.endTime < System.currentTimeMillis());
         item.setDriverActions(new ArrayList<>());
         item.setOwnerActions(new ArrayList<>());
+    }
+
+    private BookingListItem ownerItem(BookingEntity booking) {
+        BookingListItem item = new BookingListItem();
+        fillItem(item, booking);
+        item.setCounterpartRatingAvg(db.reviewDao().getRatingSummary(booking.driverId).getAverage());
+        item.setOwnerActions(ownerActions(booking));
+        return item;
     }
 
     private Double ownerRating(BookingEntity booking) {

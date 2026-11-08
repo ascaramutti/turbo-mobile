@@ -34,6 +34,13 @@ public interface BookingDao {
     @Query("SELECT * FROM bookings WHERE driver_id = :driverId ORDER BY start_time, id")
     List<BookingEntity> getByDriver(long driverId);
 
+    @Query("SELECT b.* FROM bookings b JOIN vehicles v ON v.id = b.vehicle_id "
+            + "WHERE v.owner_id = :ownerId ORDER BY b.start_time, b.id")
+    List<BookingEntity> getByOwner(long ownerId);
+
+    @Query("SELECT * FROM bookings ORDER BY start_time, id")
+    List<BookingEntity> getAll();
+
     @Query("SELECT * FROM bookings WHERE driver_id = :driverId "
             + "AND status IN ('PENDING', 'CONFIRMED', 'IN_PROGRESS', 'COMPLETED') "
             + "AND start_time >= :weekStart AND start_time < :weekEnd")
