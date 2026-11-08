@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.owner.VehicleFormActivity">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:id="@+id/form_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/form_title"
+                style="@style/TurboTitle"
+                android:text="@string/vehicle_form_add_title" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/photo_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+
+                    <TextView
+                        android:id="@+id/add_photo"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:background="@drawable/bg_input"
+                        android:drawablePadding="8dp"
+                        android:drawableTint="@color/turbo_primary"
+                        android:drawableTop="@drawable/ic_camera"
+                        android:fontFamily="@font/manrope_regular"
+                        android:gravity="center"
+                        android:paddingVertical="20dp"
+                        android:text="@string/vehicle_form_add_photo"
+                        android:textColor="@color/turbo_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/photo_minimum"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_input"
+                        android:backgroundTint="@color/turbo_primary_container"
+                        android:drawablePadding="8dp"
+                        android:drawableTint="@color/turbo_primary"
+                        android:drawableTop="@drawable/ic_photo_placeholder"
+                        android:fontFamily="@font/manrope_regular"
+                        android:gravity="center"
+                        android:paddingVertical="20dp"
+                        android:text="@string/vehicle_form_photo_minimum"
+                        android:textColor="@color/turbo_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/error_banner"
+                style="@style/TurboBanner.Error" />
+
+            <TextView
+                android:id="@+id/restore_banner"
+                style="@style/TurboBanner.Warning"
+                android:text="@string/vehicle_form_restore_message" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/restore"
+                style="@style/TurboSecondaryButton"
+                android:layout_marginTop="8dp"
+                android:text="@string/vehicle_form_restore"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_make" />
+
+            <EditText
+                android:id="@+id/input_make"
+                style="@style/TurboInput"
+                android:hint="@string/vehicle_form_required"
+                android:inputType="textCapWords" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_model" />
+
+            <EditText
+                android:id="@+id/input_model"
+                style="@style/TurboInput"
+                android:hint="@string/vehicle_form_required"
+                android:inputType="textCapWords" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_year" />
+
+            <EditText
+                android:id="@+id/input_year"
+                style="@style/TurboInput"
+                android:hint="@string/vehicle_form_required"
+                android:inputType="number"
+                android:maxLength="4" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_plate" />
+
+            <EditText
+                android:id="@+id/input_plate"
+                style="@style/TurboInput"
+                android:hint="@string/vehicle_form_required"
+                android:inputType="textCapCharacters" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_vin" />
+
+            <EditText
+                android:id="@+id/input_vin"
+                style="@style/TurboInput"
+                android:hint="@string/vehicle_form_required"
+                android:inputType="textCapCharacters"
+                android:maxLength="17" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_category" />
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                style="@style/TurboInput" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_fuel" />
+
+            <Spinner
+                android:id="@+id/spinner_fuel"
+                style="@style/TurboInput" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_service" />
+
+            <Spinner
+                android:id="@+id/spinner_service"
+                style="@style/TurboInput" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_rate" />
+
+            <EditText
+                android:id="@+id/input_rate"
+                style="@style/TurboInput"
+                android:hint="@string/vehicle_form_required"
+                android:inputType="numberDecimal"
+                android:maxLength="6" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_zone" />
+
+            <Spinner
+                android:id="@+id/spinner_zone"
+                style="@style/TurboInput" />
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/vehicle_form_location" />
+
+            <EditText
+                android:id="@+id/input_address"
+                style="@style/TurboInput"
+                android:hint="@string/vehicle_form_required"
+                android:inputType="textPostalAddress" />
+
+            <LinearLayout
+                android:id="@+id/documents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/vehicle_form_documents" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/pick_insurance"
+                        style="@style/TurboInput"
+                        android:layout_width="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/vehicle_form_insurance"
+                        android:textColor="@color/turbo_primary" />
+
+                    <TextView
+                        android:id="@+id/pick_registration"
+                        style="@style/TurboInput"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/vehicle_form_registration"
+                        android:textColor="@color/turbo_primary" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/not_salvage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:buttonTint="@color/turbo_primary"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="@string/vehicle_form_not_salvage"
+                    android:textColor="@color/turbo_text_primary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp"
+        android:text="@string/vehicle_form_save" />
+</LinearLayout>

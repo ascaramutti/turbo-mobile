@@ -1,5 +1,6 @@
 package com.turbo.mobile.ui.owner.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.turbo.mobile.data.model.RepoError;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.VehicleError;
 import com.turbo.mobile.databinding.FragmentMyVehiclesBinding;
+import com.turbo.mobile.ui.owner.VehicleFormActivity;
 import com.turbo.mobile.ui.owner.adapters.OwnerVehicleAdapter;
 import com.turbo.mobile.ui.owner.viewmodels.MyVehiclesViewModel;
 
@@ -41,6 +43,8 @@ public class MyVehiclesFragment extends Fragment {
         binding.recyclerVehicles.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerVehicles.setAdapter(adapter);
 
+        binding.addVehicle.setOnClickListener(v -> startActivity(new Intent(requireContext(), VehicleFormActivity.class)));
+
         return binding.getRoot();
     }
 
@@ -54,6 +58,12 @@ public class MyVehiclesFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void openEditForm(OwnerVehicleItem vehicle) {
+        Intent intent = new Intent(requireContext(), VehicleFormActivity.class);
+        intent.putExtra(VehicleFormActivity.EXTRA_VEHICLE_ID, vehicle.getId());
+        startActivity(intent);
     }
 
     public void openPublishDialog(OwnerVehicleItem vehicle) {

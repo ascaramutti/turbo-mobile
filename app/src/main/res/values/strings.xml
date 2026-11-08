@@ -135,6 +135,46 @@
     <string name="booking_confirm_error_driver_overlap">You already have a booking at that time.</string>
     <string name="booking_confirm_error_weekly_limit">This booking goes over your 24-hour weekly limit.</string>
 
+    <string name="vehicle_form_add_title">Add vehicle</string>
+    <string name="vehicle_form_edit_title">Edit %1$s %2$s</string>
+    <string name="vehicle_form_photo">Vehicle photo</string>
+    <string name="vehicle_form_remove_photo">Remove photo</string>
+    <string name="vehicle_form_add_photo">+ Add photo</string>
+    <string name="vehicle_form_photo_minimum">Minimum 1</string>
+    <string name="vehicle_form_required">Required</string>
+    <string name="vehicle_form_make">Make</string>
+    <string name="vehicle_form_model">Model</string>
+    <string name="vehicle_form_year">Year</string>
+    <string name="vehicle_form_plate">Plate</string>
+    <string name="vehicle_form_vin">VIN</string>
+    <string name="vehicle_form_category">Category</string>
+    <string name="vehicle_form_fuel">Fuel</string>
+    <string name="vehicle_form_service">Service</string>
+    <string name="vehicle_form_rate">Rate / hour (CAD)</string>
+    <string name="vehicle_form_zone">Zone</string>
+    <string name="vehicle_form_location">Location</string>
+    <string name="vehicle_form_documents">Documents</string>
+    <string name="vehicle_form_insurance">Insurance</string>
+    <string name="vehicle_form_insurance_added">Insurance ✓</string>
+    <string name="vehicle_form_registration">Registration</string>
+    <string name="vehicle_form_registration_added">Registration ✓</string>
+    <string name="vehicle_form_not_salvage">This vehicle is not salvage / rebuilt</string>
+    <string name="vehicle_form_save">Save vehicle</string>
+    <string name="vehicle_form_save_changes">Save changes</string>
+    <string name="vehicle_form_restore_message">You deleted this vehicle before. Restore it?</string>
+    <string name="vehicle_form_restore">Restore vehicle</string>
+    <string name="vehicle_form_error_required">Complete the required fields.</string>
+    <string name="vehicle_form_error_invalid_vin">Invalid VIN. It has 17 characters and no I, O or Q.</string>
+    <string name="vehicle_form_error_vin_taken">This VIN is already registered.</string>
+    <string name="vehicle_form_error_plate_taken">This plate is already registered.</string>
+    <string name="vehicle_form_error_too_old">The vehicle must be less than 9 years old.</string>
+    <string name="vehicle_form_error_compact">Compact cars are for delivery only.</string>
+    <string name="vehicle_form_error_photo_required">Add at least one photo.</string>
+    <string name="vehicle_form_error_documents_required">Attach both documents.</string>
+    <string name="vehicle_form_error_last_photo">A vehicle needs at least one photo.</string>
+    <string name="vehicle_form_error_file">Could not save the images.</string>
+    <string name="vehicle_form_error_deleted">This vehicle was deleted.</string>
+
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>
         <item>Diesel</item>
