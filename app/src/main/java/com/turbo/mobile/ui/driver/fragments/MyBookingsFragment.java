@@ -1,5 +1,6 @@
 package com.turbo.mobile.ui.driver.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.WeeklyHours;
 import com.turbo.mobile.databinding.FragmentMyBookingsBinding;
 import com.turbo.mobile.ui.DisplayFormat;
+import com.turbo.mobile.ui.driver.BookingDetailActivity;
 import com.turbo.mobile.ui.driver.adapters.DriverBookingAdapter;
 import com.turbo.mobile.ui.driver.viewmodels.MyBookingsViewModel;
 
@@ -45,7 +47,7 @@ public class MyBookingsFragment extends Fragment {
         AppContainer appContainer = ((TurboApp) requireActivity().getApplication()).getContainer();
         viewModel = new MyBookingsViewModel(appContainer.bookingRepository, appContainer.paymentRepository, appContainer.sessionManager);
 
-        adapter = new DriverBookingAdapter();
+        adapter = new DriverBookingAdapter(this);
         binding.recyclerBookings.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerBookings.setAdapter(adapter);
 
@@ -70,6 +72,12 @@ public class MyBookingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void openBooking(BookingListItem booking) {
+        Intent intent = new Intent(requireContext(), BookingDetailActivity.class);
+        intent.putExtra(BookingDetailActivity.EXTRA_BOOKING_ID, booking.getId());
+        startActivity(intent);
     }
 
     private void selectTab(DriverTab selected) {

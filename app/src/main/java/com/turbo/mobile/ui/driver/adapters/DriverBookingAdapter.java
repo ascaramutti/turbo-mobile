@@ -15,13 +15,19 @@ import com.turbo.mobile.data.model.BookingListItem;
 import com.turbo.mobile.data.model.StatusReasons;
 import com.turbo.mobile.databinding.ItemDriverBookingBinding;
 import com.turbo.mobile.ui.DisplayFormat;
+import com.turbo.mobile.ui.driver.fragments.MyBookingsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DriverBookingAdapter extends RecyclerView.Adapter<DriverBookingAdapter.DriverBookingViewHolder> {
 
+    private final MyBookingsFragment fragment;
     private List<BookingListItem> bookings = new ArrayList<>();
+
+    public DriverBookingAdapter(MyBookingsFragment fragment) {
+        this.fragment = fragment;
+    }
 
     public void setItems(List<BookingListItem> bookings) {
         this.bookings = bookings;
@@ -98,6 +104,7 @@ public class DriverBookingAdapter extends RecyclerView.Adapter<DriverBookingAdap
                 }
                 break;
         }
+        binding.getRoot().setOnClickListener(v -> fragment.openBooking(booking));
     }
 
     @Override
