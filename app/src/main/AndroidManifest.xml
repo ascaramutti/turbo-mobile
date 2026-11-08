@@ -28,6 +28,9 @@
             android:name=".ui.owner.OwnerHomeActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.admin.AdminHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.driver.VehicleDetailActivity"
             android:exported="false" />
 
