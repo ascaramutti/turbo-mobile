@@ -234,6 +234,41 @@
     <string name="my_bookings_no_response">No owner response</string>
     <string name="my_bookings_cancelled_before_payment">Cancelled before payment</string>
 
+    <string name="booking_detail_title">Booking #%d</string>
+    <string name="booking_detail_photo">Vehicle photo</string>
+    <string name="booking_detail_step_pending">Pending</string>
+    <string name="booking_detail_step_confirmed">Confirmed</string>
+    <string name="booking_detail_step_in_progress">In progress</string>
+    <string name="booking_detail_step_completed">Completed</string>
+    <string name="booking_detail_owner">Owner: %s</string>
+    <string name="booking_detail_owner_rating">Owner: %1$s · ★ %2$.1f</string>
+    <string name="booking_detail_overdue">Overdue</string>
+    <string name="booking_detail_when_label">When</string>
+    <string name="booking_detail_when">%1$s · %2$s (%3$d h) · %4$s</string>
+    <string name="booking_detail_taxi">Taxi</string>
+    <string name="booking_detail_delivery">Delivery</string>
+    <string name="booking_detail_pickup_label">Pickup address</string>
+    <string name="booking_detail_rental">Rental (%1$d h × %2$s)</string>
+    <string name="booking_detail_waiting_owner">Waiting for the owner to confirm. You pay after the owner confirms.</string>
+    <string name="booking_detail_ready">Paid · Your booking is ready.</string>
+    <string name="booking_detail_pay_before">Pay before %1$s, %2$s or the booking is cancelled</string>
+    <string name="booking_detail_trip_ends">Trip in progress · ends at %s</string>
+    <string name="booking_detail_overdue_note">The trip ended at %s. End it now.</string>
+    <string name="booking_detail_photos">Trip completed · Pickup photos %1$d · Return photos %2$d</string>
+    <string name="booking_detail_rejected">Booking request rejected by the owner.</string>
+    <string name="booking_detail_expired">Booking request expired without a response.</string>
+    <string name="booking_detail_cancelled">Booking cancelled.</string>
+    <string name="booking_detail_cancelled_reason">Cancelled: %s</string>
+    <string name="booking_detail_reviews">Reviews</string>
+    <string name="booking_detail_review_title">%1$s · ★ %2$d</string>
+    <string name="booking_detail_pay">Pay %s</string>
+    <string name="booking_detail_start_trip">Start trip</string>
+    <string name="booking_detail_end_trip">End trip</string>
+    <string name="booking_detail_review">Rate your experience</string>
+    <string name="booking_detail_cancel">Cancel booking</string>
+    <string name="booking_detail_cancel_done">Booking cancelled</string>
+    <string name="booking_detail_error_not_cancellable">This booking cannot be cancelled (no refunds after payment).</string>
+
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>
         <item>Diesel</item>

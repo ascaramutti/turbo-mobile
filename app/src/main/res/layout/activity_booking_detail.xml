@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.BookingDetailActivity">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/booking_title"
+                style="@style/TurboTitle" />
+
+            <TextView
+                android:id="@+id/error_banner"
+                style="@style/TurboBanner.Error" />
+
+            <TextView
+                android:id="@+id/success_banner"
+                style="@style/TurboBanner.Success"
+                android:text="@string/booking_detail_cancel_done" />
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_input"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/step_pending"
+                        style="@style/TurboSegment"
+                        android:text="@string/booking_detail_step_pending"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/step_confirmed"
+                        style="@style/TurboSegment"
+                        android:text="@string/booking_detail_step_confirmed"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/step_in_progress"
+                        style="@style/TurboSegment"
+                        android:text="@string/booking_detail_step_in_progress"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/step_completed"
+                        style="@style/TurboSegment"
+                        android:text="@string/booking_detail_step_completed"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/vehicle_photo"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/bg_turbo_card"
+                        android:backgroundTint="@color/turbo_primary_container"
+                        android:contentDescription="@string/booking_detail_photo"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_photo_placeholder" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/vehicle_title"
+                            style="@style/TurboCardTitle"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/owner_name"
+                            style="@style/TurboCardText" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/chip_overdue"
+                        style="@style/TurboChip"
+                        android:backgroundTint="@color/turbo_error_bg"
+                        android:text="@string/booking_detail_overdue"
+                        android:textColor="@color/turbo_error"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/booking_detail_when_label" />
+
+                <TextView
+                    android:id="@+id/booking_when"
+                    style="@style/TurboInput"
+                    android:textSize="14sp" />
+
+                <TextView
+                    style="@style/TurboLabel"
+                    android:text="@string/booking_detail_pickup_label" />
+
+                <TextView
+                    android:id="@+id/pickup_address"
+                    style="@style/TurboInput"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/rental"
+                            style="@style/TurboCardTitle"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/manrope_regular" />
+
+                        <TextView
+                            android:id="@+id/total"
+                            style="@style/TurboCardTitle" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/booking_note"
+                        style="@style/TurboCardText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/reviews_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/TurboLabel"
+                        android:layout_marginBottom="0dp"
+                        android:text="@string/booking_detail_reviews" />
+
+                    <LinearLayout
+                        android:id="@+id/review_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/main_action"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancel_booking"
+        style="@style/TurboSecondaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/booking_detail_cancel"
+        android:textColor="@color/turbo_error"
+        android:visibility="gone"
+        app:strokeColor="@color/turbo_error" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+</LinearLayout>
