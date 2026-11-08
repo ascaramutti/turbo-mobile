@@ -90,7 +90,7 @@ public class BookingConfirmDialogFragment extends DialogFragment {
 
         Result<Long> result = viewModel.createBooking(arguments.getLong(ARG_VEHICLE_ID), start, end, service);
         if (result instanceof Result.Success) {
-            ((VehicleDetailActivity) requireActivity()).showRequestSent();
+            ((VehicleDetailActivity) requireActivity()).requestSent();
             dismiss();
         } else {
             showError(((Result.Error<Long>) result).code);
