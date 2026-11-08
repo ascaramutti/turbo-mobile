@@ -1,6 +1,7 @@
 package com.turbo.mobile.data.repository.room;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.turbo.mobile.data.db.AppDatabase;
@@ -33,24 +34,30 @@ import com.turbo.mobile.data.model.ServiceType;
 import com.turbo.mobile.data.model.StatusReasons;
 import com.turbo.mobile.data.model.VehicleServiceType;
 import com.turbo.mobile.data.model.WeeklyHours;
+import com.turbo.mobile.data.repository.BookingRepository;
 import com.turbo.mobile.util.DateUtils;
+import com.turbo.mobile.util.ImageStorage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomBookingRepository {
+public class RoomBookingRepository implements BookingRepository {
 
     private static final long MINUTE = 60 * 1000;
     private static final long HOUR = 60 * MINUTE;
 
     private final AppDatabase db;
     private final DriverStateCalculator driverStateCalculator;
+    private final ImageStorage imageStorage;
 
     public RoomBookingRepository(Context context) {
         db = AppDatabase.getInstance(context);
         driverStateCalculator = new DriverStateCalculator(context);
+        imageStorage = new ImageStorage(context);
     }
 
+    @Override
     public Result<Long> createBooking(long driverId, long vehicleId, long start, long end, ServiceType serviceType) {
         try {
             expireBookings();
@@ -151,6 +158,7 @@ public class RoomBookingRepository {
         }
     }
 
+    @Override
     public Result<Void> cancelBooking(long driverId, long bookingId) {
         try {
             expireBookings();
@@ -185,6 +193,7 @@ public class RoomBookingRepository {
         }
     }
 
+    @Override
     public List<BookingListItem> getDriverBookings(long driverId, DriverTab tab) {
         expireBookings();
         List<BookingListItem> items = new ArrayList<>();
@@ -204,6 +213,7 @@ public class RoomBookingRepository {
         return items;
     }
 
+    @Override
     public Result<WeeklyHours> getWeeklyHours(long driverId) {
         try {
             if (db.userDao().findById(driverId) == null) {
@@ -227,6 +237,7 @@ public class RoomBookingRepository {
         }
     }
 
+    @Override
     public Result<BookingDetail> getBookingDetail(long viewerId, long bookingId) {
         try {
             expireBookings();
@@ -284,6 +295,104 @@ public class RoomBookingRepository {
         }
     }
 
+    @Override
+    public Result<Void> canStart(long driverId, long bookingId) {
+        try {
+            expireBookings();
+            BookingEntity booking = db.bookingDao().findById(bookingId);
+            if (booking == null) {
+                return Result.error(BookingError.NOT_FOUND, "Booking " + bookingId + " not found");
+            }
+            if (booking.driverId != driverId) {
+                return Result.error(BookingError.NOT_ALLOWED, "Only the driver can start this trip");
+            }
+            if (booking.status != BookingStatus.CONFIRMED) {
+                return Result.error(BookingError.WRONG_STATUS, "Booking " + bookingId + " is not confirmed");
+            }
+            if (!isPaid(booking)) {
+                return Result.error(BookingError.NOT_PAID, "Booking " + bookingId + " is not paid");
+            }
+            long now = System.currentTimeMillis();
+            if (now < booking.startTime - 15 * MINUTE || now > booking.startTime + HOUR) {
+                return Result.error(BookingError.OUTSIDE_START_WINDOW, "Outside the start window");
+            }
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomBookingRepository", "Unexpected database error", e);
+            return Result.error(BookingError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    @Override
+    public Result<Void> startTrip(long driverId, long bookingId, List<Uri> pickupPhotos) {
+        if (pickupPhotos == null || pickupPhotos.isEmpty() || pickupPhotos.size() > 5) {
+            return Result.error(BookingError.PHOTO_COUNT, "Take 1 to 5 photos");
+        }
+        Result<Void> check = canStart(driverId, bookingId);
+        if (check instanceof Result.Error) {
+            return check;
+        }
+        try {
+            List<String> paths = savePhotos(pickupPhotos);
+            if (paths == null) {
+                return Result.error(BookingError.FILE_ERROR, "Cannot save the photos");
+            }
+            BookingEntity booking = db.bookingDao().findById(bookingId);
+            db.beginTransaction();
+            try {
+                insertPhotos(bookingId, PhotoType.PICKUP, paths);
+                booking.status = BookingStatus.IN_PROGRESS;
+                booking.startedAt = System.currentTimeMillis();
+                db.bookingDao().update(booking);
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomBookingRepository", "Unexpected database error", e);
+            return Result.error(BookingError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    @Override
+    public Result<Void> endTrip(long driverId, long bookingId, List<Uri> returnPhotos) {
+        if (returnPhotos == null || returnPhotos.isEmpty() || returnPhotos.size() > 5) {
+            return Result.error(BookingError.PHOTO_COUNT, "Take 1 to 5 photos");
+        }
+        try {
+            BookingEntity booking = db.bookingDao().findById(bookingId);
+            if (booking == null) {
+                return Result.error(BookingError.NOT_FOUND, "Booking " + bookingId + " not found");
+            }
+            if (booking.driverId != driverId) {
+                return Result.error(BookingError.NOT_ALLOWED, "Only the driver can end this trip");
+            }
+            if (booking.status != BookingStatus.IN_PROGRESS) {
+                return Result.error(BookingError.WRONG_STATUS, "Booking " + bookingId + " is not in progress");
+            }
+            List<String> paths = savePhotos(returnPhotos);
+            if (paths == null) {
+                return Result.error(BookingError.FILE_ERROR, "Cannot save the photos");
+            }
+            db.beginTransaction();
+            try {
+                insertPhotos(bookingId, PhotoType.RETURN, paths);
+                booking.status = BookingStatus.COMPLETED;
+                booking.completedAt = System.currentTimeMillis();
+                db.bookingDao().update(booking);
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+            return Result.success(null);
+        } catch (RuntimeException e) {
+            Log.e("RoomBookingRepository", "Unexpected database error", e);
+            return Result.error(BookingError.UNEXPECTED, e.getMessage());
+        }
+    }
+
+    @Override
     public List<BookingListItem> getPendingByOwner(long ownerId) {
         expireBookings();
         List<BookingListItem> items = new ArrayList<>();
@@ -295,6 +404,7 @@ public class RoomBookingRepository {
         return items;
     }
 
+    @Override
     public List<BookingListItem> getOwnerBookings(long ownerId, OwnerTab tab) {
         expireBookings();
         List<BookingListItem> items = new ArrayList<>();
@@ -310,6 +420,7 @@ public class RoomBookingRepository {
         return items;
     }
 
+    @Override
     public List<BookingListItem> getAllBookings(BookingStatus status) {
         expireBookings();
         List<BookingListItem> items = new ArrayList<>();
@@ -323,6 +434,7 @@ public class RoomBookingRepository {
         return items;
     }
 
+    @Override
     public Result<ConfirmResult> confirm(long ownerId, long bookingId) {
         try {
             expireBookings();
@@ -384,6 +496,7 @@ public class RoomBookingRepository {
         }
     }
 
+    @Override
     public Result<Void> reject(long ownerId, long bookingId, String reason) {
         try {
             expireBookings();
@@ -422,6 +535,7 @@ public class RoomBookingRepository {
         }
     }
 
+    @Override
     public Result<InspectionPhotos> getInspectionPhotos(long viewerId, long bookingId) {
         try {
             if (db.bookingDao().findById(bookingId) == null) {
@@ -557,6 +671,33 @@ public class RoomBookingRepository {
             actions.add(OwnerAction.REVIEW);
         }
         return actions;
+    }
+
+    private List<String> savePhotos(List<Uri> photos) {
+        List<String> paths = new ArrayList<>();
+        for (Uri photo : photos) {
+            try {
+                paths.add(imageStorage.save(photo, ImageStorage.Folder.BOOKINGS));
+            } catch (IOException e) {
+                Log.e("RoomBookingRepository", "Cannot save the trip photo", e);
+                for (String path : paths) {
+                    imageStorage.delete(path);
+                }
+                return null;
+            }
+        }
+        return paths;
+    }
+
+    private void insertPhotos(long bookingId, PhotoType type, List<String> paths) {
+        for (String path : paths) {
+            BookingPhotoEntity photo = new BookingPhotoEntity();
+            photo.bookingId = bookingId;
+            photo.photoType = type;
+            photo.filePath = path;
+            photo.takenAt = System.currentTimeMillis();
+            db.bookingPhotoDao().insert(photo);
+        }
     }
 
     private boolean isAdmin(long userId) {
