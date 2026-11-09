@@ -35,8 +35,7 @@
 
             <TextView
                 android:id="@+id/success_banner"
-                style="@style/TurboBanner.Success"
-                android:text="@string/booking_detail_cancel_done" />
+                style="@style/TurboBanner.Success" />
 
             <LinearLayout
                 android:id="@+id/content"

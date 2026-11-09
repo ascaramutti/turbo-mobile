@@ -287,6 +287,25 @@
     <string name="booking_detail_cancel">Cancel booking</string>
     <string name="booking_detail_cancel_done">Booking cancelled</string>
     <string name="booking_detail_error_not_cancellable">This booking cannot be cancelled (no refunds after payment).</string>
+    <string name="booking_detail_paid">Payment complete</string>
+
+    <string name="payment_title">Payment</string>
+    <string name="payment_amount">Amount: %s</string>
+    <string name="payment_card_label">Card number</string>
+    <string name="payment_card_hint">4242 4242 4242 4242</string>
+    <string name="payment_expiry_label">Expiry</string>
+    <string name="payment_expiry_hint">MM/YY</string>
+    <string name="payment_cvv_label">CVV</string>
+    <string name="payment_cvv_hint">123</string>
+    <string name="payment_simulated">Simulated payment — no real charge.</string>
+    <string name="payment_cancel">Cancel</string>
+    <string name="payment_pay">Pay %s</string>
+    <string name="payment_error_card">Invalid card number</string>
+    <string name="payment_error_expiry">Invalid expiry date. Use MM/YY in the future.</string>
+    <string name="payment_error_cvv">Invalid CVV. Use the 3 digits on the back of the card.</string>
+    <string name="payment_error_not_confirmed">Only confirmed bookings can be paid.</string>
+    <string name="payment_error_already_paid">This booking is already paid.</string>
+    <string name="payment_error_deadline">The payment deadline has passed.</string>
 
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>

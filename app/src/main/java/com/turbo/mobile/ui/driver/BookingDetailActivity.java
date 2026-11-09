@@ -21,6 +21,7 @@ import com.turbo.mobile.databinding.ActivityBookingDetailBinding;
 import com.turbo.mobile.databinding.ItemBookingReviewBinding;
 import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
+import com.turbo.mobile.ui.driver.fragments.PaymentDialogFragment;
 import com.turbo.mobile.ui.driver.viewmodels.BookingDetailViewModel;
 import com.turbo.mobile.util.ImageStorage;
 
@@ -152,8 +153,10 @@ public class BookingDetailActivity extends AppCompatActivity {
     private void showActions(BookingDetail booking) {
         List<DriverAction> actions = booking.getDriverActions();
         binding.mainAction.setVisibility(View.VISIBLE);
+        binding.mainAction.setOnClickListener(null);
         if (actions.contains(DriverAction.PAY)) {
             binding.mainAction.setText(getString(R.string.booking_detail_pay, DisplayFormat.money(booking.getTotalPriceCents())));
+            binding.mainAction.setOnClickListener(v -> openPayment(booking.getTotalPriceCents()));
         } else if (actions.contains(DriverAction.START_TRIP)) {
             binding.mainAction.setText(R.string.booking_detail_start_trip);
         } else if (actions.contains(DriverAction.END_TRIP)) {
@@ -190,6 +193,26 @@ public class BookingDetailActivity extends AppCompatActivity {
             return;
         }
         load();
+        binding.successBanner.setText(R.string.booking_detail_cancel_done);
+        binding.successBanner.setVisibility(View.VISIBLE);
+    }
+
+    private void openPayment(int total) {
+        binding.errorBanner.setVisibility(View.GONE);
+        binding.successBanner.setVisibility(View.GONE);
+
+        Bundle arguments = new Bundle();
+        arguments.putLong(PaymentDialogFragment.ARG_BOOKING_ID, bookingId);
+        arguments.putInt(PaymentDialogFragment.ARG_TOTAL, total);
+
+        PaymentDialogFragment dialog = new PaymentDialogFragment();
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "payment");
+    }
+
+    public void paymentDone() {
+        load();
+        binding.successBanner.setText(R.string.booking_detail_paid);
         binding.successBanner.setVisibility(View.VISIBLE);
     }
 
