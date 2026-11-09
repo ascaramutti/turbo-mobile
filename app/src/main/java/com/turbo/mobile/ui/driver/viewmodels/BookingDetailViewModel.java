@@ -25,6 +25,10 @@ public class BookingDetailViewModel {
         return bookingRepository.getBookingDetail(sessionManager.getUserId(), bookingId);
     }
 
+    public boolean isOwner(BookingDetail booking) {
+        return booking.getOwnerId() == sessionManager.getUserId();
+    }
+
     public Result<Void> cancel(long bookingId) {
         return bookingRepository.cancelBooking(sessionManager.getUserId(), bookingId);
     }
