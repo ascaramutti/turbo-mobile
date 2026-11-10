@@ -369,4 +369,31 @@
         <item>Electric</item>
         <item>Hybrid</item>
     </string-array>
+
+    <!-- Document Review (W-22, W-23, W-24) -->
+    <string name="document_review_title">Document review</string>
+    <string name="document_review_image_description">Document photo</string>
+    <string name="document_review_driver_header">Driver information</string>
+    <string name="document_review_vehicle_header">Vehicle information</string>
+    <string name="document_review_driver_name">Driver: %s</string>
+    <string name="document_review_document_number">Document #: %s</string>
+    <string name="document_review_license_class">License Class: %s</string>
+    <string name="document_review_expiry_date">Expiry: %s</string>
+    <string name="document_review_vehicle_title">Vehicle: %s</string>
+    <string name="document_review_owner_name">Owner: %s</string>
+    <string name="document_review_vin">VIN: %s</string>
+    <string name="document_review_plate">Plate: %s</string>
+    <string name="document_review_other_document">Other document: %s</string>
+    <string name="document_status_not_uploaded">Not uploaded</string>
+    <string name="document_review_approve">Approve</string>
+    <string name="document_review_reject">Reject</string>
+    <string name="document_review_approved_toast">Document approved</string>
+    <string name="document_review_rejected_toast">Document rejected</string>
+    <string name="document_review_reject_title">Reject document?</string>
+    <string name="document_review_reject_body">The user will see the rejection reason.</string>
+    <string name="document_review_reason_label">Reason</string>
+    <string name="document_review_reason_hint">e.g. Expired document, blurry photo</string>
+    <string name="document_review_error_reason">Reason must be at least 5 characters.</string>
+    <string name="document_review_error_not_pending">This document is no longer pending.</string>
+    <string name="document_review_cancel">Cancel</string>
 </resources>

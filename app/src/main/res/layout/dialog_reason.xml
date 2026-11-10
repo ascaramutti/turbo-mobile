@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="24dp">
+
+    <LinearLayout
+        style="@style/TurboCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            style="@style/TurboCardTitle"
+            android:text="@string/document_review_reject_title"
+            android:textSize="20sp" />
+
+        <TextView
+            style="@style/TurboCardText"
+            android:layout_marginTop="8dp"
+            android:text="@string/document_review_reject_body" />
+
+        <TextView
+            style="@style/TurboLabel"
+            android:text="@string/document_review_reason_label" />
+
+        <EditText
+            android:id="@+id/reason"
+            style="@style/TurboInput"
+            android:hint="@string/document_review_reason_hint"
+            android:inputType="textCapSentences"
+            android:maxLength="200"
+            android:textColorHint="@color/turbo_text_secondary" />
+
+        <TextView
+            android:id="@+id/error_banner"
+            style="@style/TurboBanner.Error"
+            android:layout_marginTop="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel"
+                style="@style/TurboSecondaryButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/document_review_cancel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/reject"
+                style="@style/TurboPrimaryButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/document_review_reject" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

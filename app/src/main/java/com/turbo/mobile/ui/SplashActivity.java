@@ -11,6 +11,7 @@ import com.turbo.mobile.data.model.Role;
 import com.turbo.mobile.databinding.ActivitySplashBinding;
 import com.turbo.mobile.ui.auth.AuthViewModel;
 import com.turbo.mobile.ui.admin.AdminHomeActivity;
+import com.turbo.mobile.ui.auth.login;
 import com.turbo.mobile.ui.driver.DriverHomeActivity;
 import com.turbo.mobile.ui.owner.OwnerHomeActivity;
 
@@ -26,6 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         AppContainer container = ((TurboApp) getApplication()).getContainer();
         AuthViewModel viewModel = new AuthViewModel(container.userRepository, container.sessionManager);
         if (!viewModel.isLoggedIn()) {
+            openHome(login.class);
             return;
         }
 
