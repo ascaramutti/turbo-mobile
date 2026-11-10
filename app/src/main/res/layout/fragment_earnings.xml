@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            style="@style/TurboTitle"
+            android:text="@string/earnings_title" />
+
+        <TextView
+            android:id="@+id/error_banner"
+            style="@style/TurboBanner.Error" />
+
+        <TextView
+            style="@style/TurboLabel"
+            android:text="@string/earnings_vehicle" />
+
+        <Spinner
+            android:id="@+id/vehicle_filter"
+            style="@style/TurboInput" />
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/TurboCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    style="@style/TurboStatLabel"
+                    android:text="@string/earnings_total_earned" />
+
+                <TextView
+                    android:id="@+id/total_earned"
+                    style="@style/TurboStatValue" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/TurboStatLabel"
+                        android:text="@string/earnings_completed" />
+
+                    <TextView
+                        android:id="@+id/completed_rentals"
+                        style="@style/TurboStatValue" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/TurboCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/TurboStatLabel"
+                        android:text="@string/earnings_this_month" />
+
+                    <TextView
+                        android:id="@+id/this_month"
+                        style="@style/TurboStatValue" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/TurboLabel"
+                android:text="@string/earnings_history" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_earnings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <LinearLayout
+                android:id="@+id/empty_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="64dp"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/bg_avatar">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_wallet"
+                        app:tint="@color/turbo_primary" />
+                </FrameLayout>
+
+                <TextView
+                    style="@style/TurboEmptyTitle"
+                    android:text="@string/earnings_empty_title" />
+
+                <TextView
+                    style="@style/TurboEmptyBody"
+                    android:text="@string/earnings_empty_body" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
