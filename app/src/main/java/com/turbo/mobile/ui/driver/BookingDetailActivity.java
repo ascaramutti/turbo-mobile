@@ -11,7 +11,9 @@ import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.data.model.BookingDetail;
 import com.turbo.mobile.data.model.BookingError;
 import com.turbo.mobile.data.model.BookingStatus;
+import com.turbo.mobile.data.model.ConfirmResult;
 import com.turbo.mobile.data.model.DriverAction;
+import com.turbo.mobile.data.model.OwnerAction;
 import com.turbo.mobile.data.model.RepoError;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.ReviewItem;
@@ -23,6 +25,8 @@ import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.driver.fragments.PaymentDialogFragment;
 import com.turbo.mobile.ui.driver.viewmodels.BookingDetailViewModel;
+import com.turbo.mobile.ui.owner.fragments.RejectBookingDialogFragment;
+import com.turbo.mobile.ui.owner.viewmodels.OwnerBookingViewModel;
 import com.turbo.mobile.util.ImageStorage;
 
 import java.util.List;
@@ -33,6 +37,7 @@ public class BookingDetailActivity extends AppCompatActivity {
 
     private ActivityBookingDetailBinding binding;
     private BookingDetailViewModel viewModel;
+    private OwnerBookingViewModel ownerViewModel;
     private ImageStorage imageStorage;
     private long bookingId;
 
@@ -45,16 +50,18 @@ public class BookingDetailActivity extends AppCompatActivity {
         ScreenSetup.showInitials(this, binding.topBar.avatar);
 
         binding.topBar.back.setVisibility(View.VISIBLE);
-        binding.topBar.back.setOnClickListener(v -> finish());
+        binding.topBar.back.setOnClickListener(view -> finish());
 
         AppContainer appContainer = ((TurboApp) getApplication()).getContainer();
         viewModel = new BookingDetailViewModel(appContainer.bookingRepository, appContainer.reviewRepository, appContainer.sessionManager);
+        ownerViewModel = new OwnerBookingViewModel(appContainer.bookingRepository, appContainer.sessionManager);
         imageStorage = appContainer.imageStorage;
 
         bookingId = getIntent().getLongExtra(EXTRA_BOOKING_ID, 0);
         binding.bookingTitle.setText(getString(R.string.booking_detail_title, bookingId));
         binding.vehiclePhoto.setClipToOutline(true);
-        binding.cancelBooking.setOnClickListener(v -> cancel());
+        binding.cancelBooking.setOnClickListener(view -> cancel());
+        binding.rejectBooking.setOnClickListener(view -> openRejectDialog());
     }
 
     @Override
@@ -70,12 +77,17 @@ public class BookingDetailActivity extends AppCompatActivity {
             binding.content.setVisibility(View.GONE);
             binding.mainAction.setVisibility(View.GONE);
             binding.cancelBooking.setVisibility(View.GONE);
+            binding.rejectBooking.setVisibility(View.GONE);
             return;
         }
         BookingDetail booking = ((Result.Success<BookingDetail>) result).data;
         showBooking(booking);
-        showNote(booking);
-        showActions(booking);
+        if (viewModel.isOwner(booking)) {
+            showOwnerView(booking);
+        } else {
+            showNote(booking);
+            showActions(booking);
+        }
         showReviews();
     }
 
@@ -93,9 +105,9 @@ public class BookingDetailActivity extends AppCompatActivity {
         }
         binding.vehicleTitle.setText(booking.getVehicleTitle());
         if (booking.getCounterpartRatingAvg() == null) {
-            binding.ownerName.setText(getString(R.string.booking_detail_owner, booking.getOwnerName()));
+            binding.personName.setText(getString(R.string.booking_detail_owner, booking.getOwnerName()));
         } else {
-            binding.ownerName.setText(getString(R.string.booking_detail_owner_rating, booking.getOwnerName(), booking.getCounterpartRatingAvg()));
+            binding.personName.setText(getString(R.string.booking_detail_owner_rating, booking.getOwnerName(), booking.getCounterpartRatingAvg()));
         }
         binding.chipOverdue.setVisibility(booking.isOverdue() ? View.VISIBLE : View.GONE);
 
@@ -156,7 +168,7 @@ public class BookingDetailActivity extends AppCompatActivity {
         binding.mainAction.setOnClickListener(null);
         if (actions.contains(DriverAction.PAY)) {
             binding.mainAction.setText(getString(R.string.booking_detail_pay, DisplayFormat.money(booking.getTotalPriceCents())));
-            binding.mainAction.setOnClickListener(v -> openPayment(booking.getTotalPriceCents()));
+            binding.mainAction.setOnClickListener(view -> openPayment(booking.getTotalPriceCents()));
         } else if (actions.contains(DriverAction.START_TRIP)) {
             binding.mainAction.setText(R.string.booking_detail_start_trip);
         } else if (actions.contains(DriverAction.END_TRIP)) {
@@ -181,6 +193,99 @@ public class BookingDetailActivity extends AppCompatActivity {
             binding.reviewList.addView(item.getRoot());
         }
         binding.reviewsSection.setVisibility(reviews.isEmpty() ? View.GONE : View.VISIBLE);
+    }
+
+    private void showOwnerView(BookingDetail booking) {
+        if (booking.getCounterpartRatingAvg() == null) {
+            binding.personName.setText(getString(R.string.booking_detail_driver, booking.getDriverName()));
+        } else {
+            binding.personName.setText(getString(R.string.booking_detail_driver_rating, booking.getDriverName(), booking.getCounterpartRatingAvg()));
+        }
+        showOwnerNote(booking);
+
+        List<OwnerAction> actions = booking.getOwnerActions();
+        binding.cancelBooking.setVisibility(View.GONE);
+        binding.rejectBooking.setVisibility(actions.contains(OwnerAction.REJECT) ? View.VISIBLE : View.GONE);
+        binding.mainAction.setVisibility(View.VISIBLE);
+        binding.mainAction.setOnClickListener(null);
+        if (actions.contains(OwnerAction.CONFIRM)) {
+            binding.mainAction.setText(R.string.booking_detail_confirm);
+            binding.mainAction.setOnClickListener(view -> confirm());
+        } else if (actions.contains(OwnerAction.REVIEW)) {
+            binding.mainAction.setText(R.string.booking_detail_review_driver);
+        } else {
+            binding.mainAction.setVisibility(View.GONE);
+        }
+    }
+
+    private void showOwnerNote(BookingDetail booking) {
+        switch (booking.getStatus()) {
+            case PENDING:
+                int overlapping = booking.getOverlappingPendingIds().size();
+                if (overlapping == 0) {
+                    binding.bookingNote.setText(R.string.booking_detail_owner_pending);
+                } else {
+                    binding.bookingNote.setText(getResources().getQuantityString(R.plurals.booking_detail_owner_overlapping, overlapping, overlapping));
+                }
+                break;
+            case CONFIRMED:
+                if (booking.isPaid()) {
+                    binding.bookingNote.setText(getString(R.string.booking_detail_owner_paid, DisplayFormat.money(booking.getOwnerPayoutCents())));
+                } else {
+                    long deadline = booking.getPayDeadline();
+                    binding.bookingNote.setText(getString(R.string.booking_detail_owner_unpaid, DisplayFormat.date(deadline), DisplayFormat.time(deadline)));
+                }
+                break;
+            case REJECTED:
+                if (booking.getStatusReason() == null) {
+                    binding.bookingNote.setText(R.string.booking_detail_owner_rejected);
+                } else {
+                    binding.bookingNote.setText(getString(R.string.booking_detail_owner_rejected_reason, booking.getStatusReason()));
+                }
+                break;
+            case IN_PROGRESS:
+                if (booking.isOverdue()) {
+                    binding.bookingNote.setText(getString(R.string.booking_detail_owner_overdue, DisplayFormat.time(booking.getEnd())));
+                } else {
+                    showNote(booking);
+                }
+                break;
+            default:
+                showNote(booking);
+                break;
+        }
+    }
+
+    private void confirm() {
+        binding.errorBanner.setVisibility(View.GONE);
+        binding.successBanner.setVisibility(View.GONE);
+
+        Result<ConfirmResult> result = ownerViewModel.confirm(bookingId);
+        if (result instanceof Result.Error) {
+            binding.errorBanner.setText(ownerViewModel.getErrorMessage(((Result.Error<ConfirmResult>) result).code));
+            binding.errorBanner.setVisibility(View.VISIBLE);
+            return;
+        }
+        load();
+        binding.successBanner.setText(R.string.booking_detail_confirm_done);
+        binding.successBanner.setVisibility(View.VISIBLE);
+    }
+
+    private void openRejectDialog() {
+        binding.errorBanner.setVisibility(View.GONE);
+        binding.successBanner.setVisibility(View.GONE);
+
+        Bundle arguments = new Bundle();
+        arguments.putLong(RejectBookingDialogFragment.ARG_BOOKING_ID, bookingId);
+        RejectBookingDialogFragment dialog = new RejectBookingDialogFragment();
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "reject_booking");
+    }
+
+    public void bookingRejected() {
+        load();
+        binding.successBanner.setText(R.string.booking_detail_reject_done);
+        binding.successBanner.setVisibility(View.VISIBLE);
     }
 
     private void cancel() {

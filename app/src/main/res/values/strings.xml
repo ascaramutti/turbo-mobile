@@ -288,6 +288,23 @@
     <string name="booking_detail_cancel_done">Booking cancelled</string>
     <string name="booking_detail_error_not_cancellable">This booking cannot be cancelled (no refunds after payment).</string>
     <string name="booking_detail_paid">Payment complete</string>
+    <string name="booking_detail_driver">Driver: %s</string>
+    <string name="booking_detail_driver_rating">Driver: %1$s · ★ %2$.1f</string>
+    <string name="booking_detail_owner_pending">New request. Confirm it or reject it.</string>
+    <plurals name="booking_detail_owner_overlapping">
+        <item quantity="one">New request. Confirming it will reject %d overlapping request.</item>
+        <item quantity="other">New request. Confirming it will reject %d overlapping requests.</item>
+    </plurals>
+    <string name="booking_detail_owner_paid">Paid · You receive %s</string>
+    <string name="booking_detail_owner_unpaid">Unpaid · The driver has to pay before %1$s, %2$s</string>
+    <string name="booking_detail_owner_rejected">You rejected this request.</string>
+    <string name="booking_detail_owner_rejected_reason">Rejected: %s</string>
+    <string name="booking_detail_owner_overdue">Overdue · The trip ended at %s</string>
+    <string name="booking_detail_confirm">Confirm request</string>
+    <string name="booking_detail_confirm_done">Booking confirmed</string>
+    <string name="booking_detail_reject">Reject request</string>
+    <string name="booking_detail_reject_done">Request rejected</string>
+    <string name="booking_detail_review_driver">Rate the driver</string>
 
     <string name="payment_title">Payment</string>
     <string name="payment_amount">Amount: %s</string>
@@ -306,6 +323,45 @@
     <string name="payment_error_not_confirmed">Only confirmed bookings can be paid.</string>
     <string name="payment_error_already_paid">This booking is already paid.</string>
     <string name="payment_error_deadline">The payment deadline has passed.</string>
+
+    <string name="booking_requests_title">Bookings</string>
+    <string name="booking_requests_tab_requests">Requests (%d)</string>
+    <string name="booking_requests_tab_upcoming">Upcoming</string>
+    <string name="booking_requests_tab_history">History</string>
+    <string name="booking_requests_empty_title">Nothing here yet</string>
+    <string name="booking_requests_empty_body">Requests from drivers and your bookings will show up here.</string>
+    <string name="booking_requests_driver_rating">%1$s · ★ %2$.1f</string>
+    <string name="booking_requests_time">%1$s · %2$s · %3$s</string>
+    <string name="booking_requests_chip_confirmed">Confirmed</string>
+    <string name="booking_requests_chip_paid">Paid</string>
+    <string name="booking_requests_chip_unpaid">Unpaid</string>
+    <string name="booking_requests_chip_in_progress">In progress</string>
+    <string name="booking_requests_chip_overdue">Overdue</string>
+    <string name="booking_requests_chip_completed">Completed</string>
+    <string name="booking_requests_chip_rejected">Rejected</string>
+    <string name="booking_requests_chip_expired">Expired</string>
+    <string name="booking_requests_chip_cancelled">Cancelled</string>
+    <string name="booking_requests_reject">Reject</string>
+    <string name="booking_requests_confirm">Confirm</string>
+    <string name="booking_requests_confirmed">Booking confirmed</string>
+    <plurals name="booking_requests_confirmed_overlap">
+        <item quantity="one">Booking confirmed. %d overlapping request was rejected.</item>
+        <item quantity="other">Booking confirmed. %d overlapping requests were rejected.</item>
+    </plurals>
+    <string name="booking_requests_rejected">Request rejected</string>
+    <string name="booking_requests_reject_title">Reject this request?</string>
+    <string name="booking_requests_reject_body">The driver will see your reason.</string>
+    <string name="booking_requests_reason_label">Reason</string>
+    <string name="booking_requests_reason_hint">e.g. The car is in the shop that day</string>
+    <string name="booking_requests_reject_cancel">Cancel</string>
+    <string name="booking_requests_error_reason">Please write a reason.</string>
+    <string name="booking_requests_error_not_pending">This request is no longer pending.</string>
+    <string name="booking_requests_error_too_late">It is too late to confirm this request.</string>
+    <string name="booking_requests_error_driver_not_verified">The driver\'s documents are under review.</string>
+    <string name="booking_requests_error_documents_expire">The driver\'s documents expire before this shift ends.</string>
+    <string name="booking_requests_error_driver_inactive">The driver\'s account is not active.</string>
+    <string name="booking_requests_error_vehicle_not_approved">This vehicle is not approved.</string>
+    <string name="booking_requests_error_vehicle_deleted">This vehicle was deleted.</string>
 
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>

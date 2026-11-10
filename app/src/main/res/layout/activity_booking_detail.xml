@@ -107,7 +107,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/owner_name"
+                            android:id="@+id/person_name"
                             style="@style/TurboCardText" />
                     </LinearLayout>
 
@@ -206,6 +206,16 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/booking_detail_cancel"
+        android:textColor="@color/turbo_error"
+        android:visibility="gone"
+        app:strokeColor="@color/turbo_error" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reject_booking"
+        style="@style/TurboSecondaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/booking_detail_reject"
         android:textColor="@color/turbo_error"
         android:visibility="gone"
         app:strokeColor="@color/turbo_error" />
