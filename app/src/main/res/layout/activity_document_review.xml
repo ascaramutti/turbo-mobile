@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.admin.DocumentReviewActivity">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/review_title"
+                style="@style/TurboTitle" />
+
+            <TextView
+                android:id="@+id/error_banner"
+                style="@style/TurboBanner.Error" />
+
+            <ImageView
+                android:id="@+id/document_image"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_turbo_card"
+                android:backgroundTint="@color/turbo_primary_container"
+                android:contentDescription="@string/document_review_image_description"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_photo_placeholder" />
+
+            <!-- Context Card -->
+            <LinearLayout
+                style="@style/TurboCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:id="@+id/card_title"
+                    style="@style/TurboCardTitle" />
+
+                <!-- Driver Context Fields -->
+                <LinearLayout
+                    android:id="@+id/driver_fields"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/driver_name"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/document_number"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/license_class"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/expiry_date"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <!-- Vehicle Context Fields -->
+                <LinearLayout
+                    android:id="@+id/vehicle_fields"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/vehicle_title"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/owner_name"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/vehicle_vin"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/vehicle_plate"
+                        style="@style/TurboCardText"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <!-- Other Document Status -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/turbo_stroke" />
+
+                <TextView
+                    android:id="@+id/other_document_status"
+                    style="@style/TurboCardText" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Actions -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_reject"
+            style="@style/TurboSecondaryButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/document_review_reject"
+            android:textColor="@color/turbo_error"
+            app:strokeColor="@color/turbo_error" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_approve"
+            style="@style/TurboPrimaryButton"
+            android:layout_width="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:text="@string/document_review_approve" />
+    </LinearLayout>
+
+</LinearLayout>

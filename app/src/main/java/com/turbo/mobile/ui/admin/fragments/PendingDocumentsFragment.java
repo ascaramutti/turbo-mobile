@@ -1,5 +1,6 @@
 package com.turbo.mobile.ui.admin.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.data.model.DocumentKind;
 import com.turbo.mobile.data.model.PendingDocumentItem;
 import com.turbo.mobile.databinding.FragmentPendingDocumentsBinding;
+import com.turbo.mobile.ui.admin.DocumentReviewActivity;
 import com.turbo.mobile.ui.admin.adapters.PendingDocumentsAdapter;
 import com.turbo.mobile.ui.admin.viewmodels.AdminViewModel;
 
@@ -38,7 +40,10 @@ public class PendingDocumentsFragment extends Fragment {
 
         binding.recyclerPendingDocuments.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new PendingDocumentsAdapter(item -> {
-            // Clique para abrir o review (W-22/W-24)
+            Intent intent = new Intent(requireContext(), DocumentReviewActivity.class);
+            intent.putExtra(DocumentReviewActivity.EXTRA_KIND, item.getKind().name());
+            intent.putExtra(DocumentReviewActivity.EXTRA_DOCUMENT_ID, item.getDocumentId());
+            startActivity(intent);
         });
         binding.recyclerPendingDocuments.setAdapter(adapter);
 
