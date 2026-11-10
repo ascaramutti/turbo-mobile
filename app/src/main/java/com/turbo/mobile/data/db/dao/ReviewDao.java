@@ -18,7 +18,7 @@ public interface ReviewDao {
     @Query("SELECT * FROM reviews WHERE booking_id = :bookingId AND reviewer_id = :reviewerId")
     ReviewEntity find(long bookingId, long reviewerId);
 
-    @Query("SELECT * FROM reviews WHERE booking_id = :bookingId ORDER BY created_at")
+    @Query("SELECT * FROM reviews WHERE booking_id = :bookingId ORDER BY created_at, id")
     List<ReviewEntity> getAll(long bookingId);
 
     @Query("SELECT AVG(r.rating) AS average, COUNT(r.id) AS count FROM reviews r "
