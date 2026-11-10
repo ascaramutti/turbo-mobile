@@ -363,6 +363,22 @@
     <string name="booking_requests_error_vehicle_not_approved">This vehicle is not approved.</string>
     <string name="booking_requests_error_vehicle_deleted">This vehicle was deleted.</string>
 
+    <string name="trip_photos_pickup_title">Pickup photos</string>
+    <string name="trip_photos_pickup_body">Take 1–5 photos of the vehicle before starting (front, back, sides, interior).</string>
+    <string name="trip_photos_return_title">Return photos</string>
+    <string name="trip_photos_return_body">Take 1–5 photos of the vehicle before ending the trip (front, back, sides, interior).</string>
+    <string name="trip_photos_count">%1$d of %2$d photos</string>
+    <string name="trip_photos_camera">Camera</string>
+    <string name="trip_photos_start">Start trip</string>
+    <string name="trip_photos_end">End trip</string>
+    <string name="trip_photos_error_camera">Could not open the camera.</string>
+    <string name="trip_photos_error_photo_count">Take 1 to 5 photos.</string>
+    <string name="trip_photos_error_not_paid">Pay the booking first.</string>
+    <string name="trip_photos_error_start_window">You can start from 15 minutes before to 60 minutes after the start time.</string>
+    <string name="trip_photos_error_cannot_start">This booking cannot be started.</string>
+    <string name="trip_photos_error_not_in_progress">This trip is not in progress.</string>
+    <string name="trip_photos_error_file">Could not save the photos.</string>
+
     <string-array name="vehicle_fuel_names">
         <item>Gasoline</item>
         <item>Diesel</item>

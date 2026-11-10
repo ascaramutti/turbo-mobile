@@ -34,7 +34,7 @@ public class PaymentDialogFragment extends DialogFragment {
         binding = DialogPaymentBinding.inflate(inflater, container, false);
 
         AppContainer appContainer = ((TurboApp) requireActivity().getApplication()).getContainer();
-        viewModel = new TripViewModel(appContainer.paymentRepository, appContainer.sessionManager);
+        viewModel = new TripViewModel(appContainer.bookingRepository, appContainer.paymentRepository, appContainer.sessionManager);
 
         String total = DisplayFormat.money(requireArguments().getInt(ARG_TOTAL));
         binding.amount.setText(getString(R.string.payment_amount, total));

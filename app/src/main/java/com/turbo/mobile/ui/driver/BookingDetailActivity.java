@@ -1,5 +1,6 @@
 package com.turbo.mobile.ui.driver;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -25,6 +26,7 @@ import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.driver.fragments.PaymentDialogFragment;
 import com.turbo.mobile.ui.driver.viewmodels.BookingDetailViewModel;
+import com.turbo.mobile.ui.driver.viewmodels.TripViewModel;
 import com.turbo.mobile.ui.owner.fragments.RejectBookingDialogFragment;
 import com.turbo.mobile.ui.owner.viewmodels.OwnerBookingViewModel;
 import com.turbo.mobile.util.ImageStorage;
@@ -38,6 +40,7 @@ public class BookingDetailActivity extends AppCompatActivity {
     private ActivityBookingDetailBinding binding;
     private BookingDetailViewModel viewModel;
     private OwnerBookingViewModel ownerViewModel;
+    private TripViewModel tripViewModel;
     private ImageStorage imageStorage;
     private long bookingId;
 
@@ -55,6 +58,7 @@ public class BookingDetailActivity extends AppCompatActivity {
         AppContainer appContainer = ((TurboApp) getApplication()).getContainer();
         viewModel = new BookingDetailViewModel(appContainer.bookingRepository, appContainer.reviewRepository, appContainer.sessionManager);
         ownerViewModel = new OwnerBookingViewModel(appContainer.bookingRepository, appContainer.sessionManager);
+        tripViewModel = new TripViewModel(appContainer.bookingRepository, appContainer.paymentRepository, appContainer.sessionManager);
         imageStorage = appContainer.imageStorage;
 
         bookingId = getIntent().getLongExtra(EXTRA_BOOKING_ID, 0);
@@ -171,8 +175,10 @@ public class BookingDetailActivity extends AppCompatActivity {
             binding.mainAction.setOnClickListener(view -> openPayment(booking.getTotalPriceCents()));
         } else if (actions.contains(DriverAction.START_TRIP)) {
             binding.mainAction.setText(R.string.booking_detail_start_trip);
+            binding.mainAction.setOnClickListener(view -> startTrip());
         } else if (actions.contains(DriverAction.END_TRIP)) {
             binding.mainAction.setText(R.string.booking_detail_end_trip);
+            binding.mainAction.setOnClickListener(view -> openTripPhotos(true));
         } else if (actions.contains(DriverAction.REVIEW)) {
             binding.mainAction.setText(R.string.booking_detail_review);
         } else {
@@ -313,6 +319,29 @@ public class BookingDetailActivity extends AppCompatActivity {
         PaymentDialogFragment dialog = new PaymentDialogFragment();
         dialog.setArguments(arguments);
         dialog.show(getSupportFragmentManager(), "payment");
+    }
+
+    private void startTrip() {
+        binding.errorBanner.setVisibility(View.GONE);
+        binding.successBanner.setVisibility(View.GONE);
+
+        Result<Void> result = tripViewModel.canStart(bookingId);
+        if (result instanceof Result.Error) {
+            binding.errorBanner.setText(tripViewModel.getErrorMessage(((Result.Error<Void>) result).code, false));
+            binding.errorBanner.setVisibility(View.VISIBLE);
+            return;
+        }
+        openTripPhotos(false);
+    }
+
+    private void openTripPhotos(boolean isReturn) {
+        binding.errorBanner.setVisibility(View.GONE);
+        binding.successBanner.setVisibility(View.GONE);
+
+        Intent intent = new Intent(this, TripPhotosActivity.class);
+        intent.putExtra(TripPhotosActivity.EXTRA_BOOKING_ID, bookingId);
+        intent.putExtra(TripPhotosActivity.EXTRA_IS_RETURN, isReturn);
+        startActivity(intent);
     }
 
     public void paymentDone() {
