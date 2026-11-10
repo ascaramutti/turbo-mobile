@@ -17,6 +17,13 @@ import com.turbo.mobile.data.repository.fake.FakePaymentRepository;
 import com.turbo.mobile.data.repository.fake.FakeReviewRepository;
 import com.turbo.mobile.data.repository.fake.FakeUserRepository;
 import com.turbo.mobile.data.repository.fake.FakeVehicleRepository;
+import com.turbo.mobile.data.repository.room.RoomBookingRepository;
+import com.turbo.mobile.data.repository.room.RoomDocumentRepository;
+import com.turbo.mobile.data.repository.room.RoomNotificationRepository;
+import com.turbo.mobile.data.repository.room.RoomPaymentRepository;
+import com.turbo.mobile.data.repository.room.RoomReviewRepository;
+import com.turbo.mobile.data.repository.room.RoomUserRepository;
+import com.turbo.mobile.data.repository.room.RoomVehicleRepository;
 import com.turbo.mobile.util.ImageStorage;
 import com.turbo.mobile.util.SessionManager;
 
@@ -35,16 +42,23 @@ public class AppContainer {
     public AppContainer(Context context) {
         sessionManager = new SessionManager(context);
         imageStorage = new ImageStorage(context);
-        if (!BuildConfig.USE_FAKE) {
-            throw new IllegalStateException("Room repositories are not implemented yet");
+        if (BuildConfig.USE_FAKE) {
+            FakeDataStore store = new FakeDataStore(context);
+            userRepository = new FakeUserRepository(store);
+            notificationRepository = new FakeNotificationRepository(store);
+            documentRepository = new FakeDocumentRepository(store);
+            vehicleRepository = new FakeVehicleRepository(store);
+            bookingRepository = new FakeBookingRepository(store);
+            paymentRepository = new FakePaymentRepository(store);
+            reviewRepository = new FakeReviewRepository(store);
+        } else {
+            userRepository = new RoomUserRepository(context);
+            notificationRepository = new RoomNotificationRepository(context);
+            documentRepository = new RoomDocumentRepository(context);
+            vehicleRepository = new RoomVehicleRepository(context);
+            bookingRepository = new RoomBookingRepository(context);
+            paymentRepository = new RoomPaymentRepository(context);
+            reviewRepository = new RoomReviewRepository(context);
         }
-        FakeDataStore store = new FakeDataStore(context);
-        userRepository = new FakeUserRepository(store);
-        notificationRepository = new FakeNotificationRepository(store);
-        documentRepository = new FakeDocumentRepository(store);
-        vehicleRepository = new FakeVehicleRepository(store);
-        bookingRepository = new FakeBookingRepository(store);
-        paymentRepository = new FakePaymentRepository(store);
-        reviewRepository = new FakeReviewRepository(store);
     }
 }
