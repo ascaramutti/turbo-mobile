@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.TripPhotosActivity">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/photos_title"
+                style="@style/TurboTitle" />
+
+            <TextView
+                android:id="@+id/photos_body"
+                style="@style/TurboSubtitle" />
+
+            <TextView
+                android:id="@+id/error_banner"
+                style="@style/TurboBanner.Error" />
+
+            <TextView
+                android:id="@+id/photo_count"
+                style="@style/TurboLabel" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/photo_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+
+                    <TextView
+                        android:id="@+id/add_photo"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:background="@drawable/bg_input"
+                        android:drawablePadding="8dp"
+                        android:drawableTint="@color/turbo_primary"
+                        android:drawableTop="@drawable/ic_camera"
+                        android:fontFamily="@font/manrope_regular"
+                        android:gravity="center"
+                        android:paddingVertical="20dp"
+                        android:text="@string/trip_photos_camera"
+                        android:textColor="@color/turbo_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turbo_stroke" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/send_photos"
+        style="@style/TurboPrimaryButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp" />
+</LinearLayout>

@@ -40,6 +40,9 @@
             android:name=".ui.driver.BookingDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.driver.TripPhotosActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.owner.VehicleFormActivity"
             android:exported="false" />
 
