@@ -305,6 +305,7 @@
     <string name="booking_detail_reject">Reject request</string>
     <string name="booking_detail_reject_done">Request rejected</string>
     <string name="booking_detail_review_driver">Rate the driver</string>
+    <string name="booking_detail_review_done">Thanks for your review</string>
 
     <string name="payment_title">Payment</string>
     <string name="payment_amount">Amount: %s</string>
@@ -425,4 +426,15 @@
     <string name="earnings_payout">+%1$s</string>
     <string name="earnings_empty_title">No earnings yet</string>
     <string name="earnings_empty_body">Paid shifts will show up here.</string>
+
+    <string name="review_title">Rate your experience</string>
+    <string name="review_question_owner">How was %s as a car owner?</string>
+    <string name="review_question_driver">How was %s as a driver?</string>
+    <string name="review_comment_label">Comment (optional)</string>
+    <string name="review_comment_hint">Clean car, easy pickup…</string>
+    <string name="review_later">Later</string>
+    <string name="review_submit">Submit</string>
+    <string name="review_error_invalid_rating">Choose 1 to 5 stars.</string>
+    <string name="review_error_not_completed">You can review only completed bookings.</string>
+    <string name="review_error_already_reviewed">You already reviewed this booking.</string>
 </resources>

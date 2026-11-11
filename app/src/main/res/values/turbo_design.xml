@@ -211,4 +211,13 @@
         <item name="android:fontFamily">@font/manrope_semibold</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+    <style name="TurboStar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:text">★</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/turbo_star</item>
+    </style>
 </resources>

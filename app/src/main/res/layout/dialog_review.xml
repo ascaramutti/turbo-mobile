@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="24dp">
+
+    <LinearLayout
+        style="@style/TurboCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            style="@style/TurboCardTitle"
+            android:text="@string/review_title"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/question"
+            style="@style/TurboCardText"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/star_1"
+                style="@style/TurboStar" />
+
+            <TextView
+                android:id="@+id/star_2"
+                style="@style/TurboStar" />
+
+            <TextView
+                android:id="@+id/star_3"
+                style="@style/TurboStar" />
+
+            <TextView
+                android:id="@+id/star_4"
+                style="@style/TurboStar" />
+
+            <TextView
+                android:id="@+id/star_5"
+                style="@style/TurboStar" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/TurboLabel"
+            android:text="@string/review_comment_label" />
+
+        <EditText
+            android:id="@+id/comment"
+            style="@style/TurboInput"
+            android:hint="@string/review_comment_hint"
+            android:inputType="textCapSentences"
+            android:maxLength="300"
+            android:textColorHint="@color/turbo_text_secondary" />
+
+        <TextView
+            android:id="@+id/error_banner"
+            style="@style/TurboBanner.Error"
+            android:layout_marginTop="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/later"
+                style="@style/TurboSecondaryButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/review_later" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submit"
+                style="@style/TurboPrimaryButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/review_submit" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
