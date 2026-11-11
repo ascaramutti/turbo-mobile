@@ -18,7 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         //true = data fake (JSON seed) - false = ROOM
-        buildConfigField("boolean", "USE_FAKE", "true")
+        buildConfigField("boolean", "USE_FAKE", "false")
     }
 
     buildTypes {
