@@ -437,4 +437,32 @@
     <string name="review_error_invalid_rating">Choose 1 to 5 stars.</string>
     <string name="review_error_not_completed">You can review only completed bookings.</string>
     <string name="review_error_already_reviewed">You already reviewed this booking.</string>
+
+    <!-- Profile (W-04) -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_edit">Edit profile</string>
+    <string name="profile_documents">My documents</string>
+    <string name="profile_documents_subtitle">License · Study permit</string>
+    <string name="profile_rating_format">★ %1$.1f (%2$d)</string>
+    <string name="profile_no_ratings">No ratings yet</string>
+    <string name="profile_status_verified">Verified</string>
+    <string name="profile_status_pending">Pending review</string>
+    <string name="profile_status_rejected">Action needed</string>
+    <string name="profile_role_driver_class">%1$s · Driver (%2$s)</string>
+    <string name="profile_role_driver">%1$s · Driver</string>
+    <string name="profile_role_owner">%1$s · Car Owner</string>
+    <string name="profile_role_admin">%1$s · Admin</string>
+    <string name="edit_profile_title">Edit profile</string>
+    <string name="edit_profile_first_name_label">First name</string>
+    <string name="edit_profile_last_name_label">Last name</string>
+    <string name="edit_profile_phone_label">Phone</string>
+    <string name="edit_profile_phone_hint">e.g. 604-555-0101</string>
+    <string name="edit_profile_change_photo">Change photo</string>
+    <string name="edit_profile_save">Save changes</string>
+    <string name="edit_profile_success">Profile updated</string>
+    <string name="edit_profile_error_first_name">First name is required</string>
+    <string name="edit_profile_error_last_name">Last name is required</string>
+    <string name="edit_profile_error_phone">Enter a valid 10-digit phone number</string>
+    <string name="edit_profile_error_invalid_input">Please check this field.</string>
+    <string name="edit_profile_error_photo">Could not save the photo.</string>
 </resources>
