@@ -25,6 +25,7 @@ import com.turbo.mobile.databinding.ItemBookingReviewBinding;
 import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.driver.fragments.PaymentDialogFragment;
+import com.turbo.mobile.ui.driver.fragments.ReviewDialogFragment;
 import com.turbo.mobile.ui.driver.viewmodels.BookingDetailViewModel;
 import com.turbo.mobile.ui.driver.viewmodels.TripViewModel;
 import com.turbo.mobile.ui.owner.fragments.RejectBookingDialogFragment;
@@ -181,6 +182,7 @@ public class BookingDetailActivity extends AppCompatActivity {
             binding.mainAction.setOnClickListener(view -> openTripPhotos(true));
         } else if (actions.contains(DriverAction.REVIEW)) {
             binding.mainAction.setText(R.string.booking_detail_review);
+            binding.mainAction.setOnClickListener(view -> openReview(booking.getOwnerName(), false));
         } else {
             binding.mainAction.setVisibility(View.GONE);
         }
@@ -219,6 +221,7 @@ public class BookingDetailActivity extends AppCompatActivity {
             binding.mainAction.setOnClickListener(view -> confirm());
         } else if (actions.contains(OwnerAction.REVIEW)) {
             binding.mainAction.setText(R.string.booking_detail_review_driver);
+            binding.mainAction.setOnClickListener(view -> openReview(booking.getDriverName(), true));
         } else {
             binding.mainAction.setVisibility(View.GONE);
         }
@@ -342,6 +345,26 @@ public class BookingDetailActivity extends AppCompatActivity {
         intent.putExtra(TripPhotosActivity.EXTRA_BOOKING_ID, bookingId);
         intent.putExtra(TripPhotosActivity.EXTRA_IS_RETURN, isReturn);
         startActivity(intent);
+    }
+
+    private void openReview(String personName, boolean reviewingDriver) {
+        binding.errorBanner.setVisibility(View.GONE);
+        binding.successBanner.setVisibility(View.GONE);
+
+        Bundle arguments = new Bundle();
+        arguments.putLong(ReviewDialogFragment.ARG_BOOKING_ID, bookingId);
+        arguments.putString(ReviewDialogFragment.ARG_PERSON_NAME, personName);
+        arguments.putBoolean(ReviewDialogFragment.ARG_REVIEWING_DRIVER, reviewingDriver);
+
+        ReviewDialogFragment dialog = new ReviewDialogFragment();
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "review");
+    }
+
+    public void reviewDone() {
+        load();
+        binding.successBanner.setText(R.string.booking_detail_review_done);
+        binding.successBanner.setVisibility(View.VISIBLE);
     }
 
     public void paymentDone() {
