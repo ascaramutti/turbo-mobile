@@ -10,6 +10,7 @@ import com.turbo.mobile.databinding.ActivityDriverHomeBinding;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.driver.fragments.MyBookingsFragment;
 import com.turbo.mobile.ui.driver.fragments.SearchFragment;
+import com.turbo.mobile.ui.profile.ProfileFragment;
 
 public class DriverHomeActivity extends AppCompatActivity {
 
@@ -23,8 +24,11 @@ public class DriverHomeActivity extends AppCompatActivity {
         ScreenSetup.fitSystemBars(this, binding.getRoot());
         ScreenSetup.showInitials(this, binding.topBar.avatar);
 
+        binding.topBar.avatar.setOnClickListener(v -> showTab(binding.navProfile, new ProfileFragment()));
+
         binding.navSearch.setOnClickListener(v -> showTab(binding.navSearch, new SearchFragment()));
         binding.navBookings.setOnClickListener(v -> showTab(binding.navBookings, new MyBookingsFragment()));
+        binding.navProfile.setOnClickListener(v -> showTab(binding.navProfile, new ProfileFragment()));
 
         showTab(binding.navSearch, new SearchFragment());
     }
@@ -36,6 +40,7 @@ public class DriverHomeActivity extends AppCompatActivity {
                 .commit();
         binding.navSearch.setSelected(tab == binding.navSearch);
         binding.navBookings.setSelected(tab == binding.navBookings);
+        binding.navProfile.setSelected(tab == binding.navProfile);
     }
 
     public void showRequestSent() {
