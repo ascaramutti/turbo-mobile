@@ -465,4 +465,46 @@
     <string name="edit_profile_error_phone">Enter a valid 10-digit phone number</string>
     <string name="edit_profile_error_invalid_input">Please check this field.</string>
     <string name="edit_profile_error_photo">Could not save the photo.</string>
+
+    <string name="my_documents_title">My documents</string>
+    <string name="my_documents_rejected_banner">A document was rejected — re-upload it to book.</string>
+    <string name="my_documents_pending_banner">Pending verification — you can book once both documents are approved.</string>
+    <string name="my_documents_license">Driver\'s license</string>
+    <string name="my_documents_study_permit">Study permit</string>
+    <string name="my_documents_not_uploaded">Not uploaded yet</string>
+    <string name="my_documents_reason">Reason: %s</string>
+    <string name="my_documents_uploaded">Uploaded %s</string>
+    <string name="my_documents_expires_on">Expires %s</string>
+    <string name="my_documents_expires_in">Expires in %d days</string>
+    <string name="my_documents_expired">Expired</string>
+    <string name="my_documents_rejected">Rejected</string>
+    <string name="my_documents_pending">Pending review</string>
+    <string name="my_documents_approved">Approved</string>
+    <string name="my_documents_upload">Upload ›</string>
+    <string name="my_documents_reupload">Re-upload ›</string>
+    <string name="my_documents_replace">Replace ›</string>
+    <string name="my_documents_renew">Renew ›</string>
+    <string name="my_documents_sent">%s uploaded — pending review.</string>
+    <string name="my_documents_upload_license">Upload driver\'s license</string>
+    <string name="my_documents_upload_study_permit">Upload study permit</string>
+    <string name="my_documents_expiry_date">Expiry date</string>
+    <string name="my_documents_take_photo">Take photo</string>
+    <string name="my_documents_choose_from_gallery">Choose from gallery</string>
+    <string name="my_documents_error_approved">This document is approved. You can renew it 30 days before it expires.</string>
+    <string name="my_documents_error_expiry">The expiry date must be in the future.</string>
+    <string name="my_documents_error_file">Could not save the image.</string>
+    <string-array name="my_documents_months">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
 </resources>

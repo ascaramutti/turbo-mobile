@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +22,7 @@ import com.turbo.mobile.data.model.Role;
 import com.turbo.mobile.data.model.UserProfile;
 import com.turbo.mobile.databinding.FragmentProfileBinding;
 import com.turbo.mobile.ui.SplashActivity;
+import com.turbo.mobile.ui.driver.MyDocumentsActivity;
 import com.turbo.mobile.util.ImageStorage;
 
 public class ProfileFragment extends Fragment {
@@ -49,7 +49,8 @@ public class ProfileFragment extends Fragment {
         });
 
         binding.cardMyDocuments.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), R.string.profile_documents, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(requireContext(), MyDocumentsActivity.class);
+            startActivity(intent);
         });
 
         binding.cardLogout.setOnClickListener(v -> confirmLogout());
