@@ -43,6 +43,9 @@
             android:name=".ui.driver.TripPhotosActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.driver.MyDocumentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.owner.VehicleFormActivity"
             android:exported="false" />
         <activity
