@@ -3,6 +3,7 @@ package com.turbo.mobile.ui.driver.viewmodels;
 import com.turbo.mobile.data.model.BookingDetail;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.ReviewItem;
+import com.turbo.mobile.data.model.Role;
 import com.turbo.mobile.data.repository.BookingRepository;
 import com.turbo.mobile.data.repository.ReviewRepository;
 import com.turbo.mobile.util.SessionManager;
@@ -23,6 +24,10 @@ public class BookingDetailViewModel {
 
     public Result<BookingDetail> load(long bookingId) {
         return bookingRepository.getBookingDetail(sessionManager.getUserId(), bookingId);
+    }
+
+    public boolean isAdmin() {
+        return sessionManager.getRole() == Role.ADMIN;
     }
 
     public boolean isOwner(BookingDetail booking) {

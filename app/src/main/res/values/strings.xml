@@ -465,4 +465,25 @@
     <string name="edit_profile_error_phone">Enter a valid 10-digit phone number</string>
     <string name="edit_profile_error_invalid_input">Please check this field.</string>
     <string name="edit_profile_error_photo">Could not save the photo.</string>
+
+    <!-- All Bookings & Inspection Photos (W-25, W-26) -->
+    <string name="all_bookings_title">All bookings</string>
+    <string name="all_bookings_month_label">Month</string>
+    <string name="all_bookings_status_label">Status</string>
+    <string name="all_bookings_status_all">All</string>
+    <string name="all_bookings_platform_fee">Platform (20%)</string>
+    <string name="all_bookings_payments">Payments</string>
+    <string name="all_bookings_completed">Completed</string>
+    <string name="all_bookings_item_title">#%1$d %2$s</string>
+    <string name="all_bookings_parties_date">%1$s → %2$s · %3$s</string>
+    <string name="all_bookings_paid">Paid · %1$s</string>
+    <string name="all_bookings_not_paid_yet">Not paid yet · %1$s</string>
+    <string name="all_bookings_not_paid">Not paid · %1$s</string>
+    <string name="all_bookings_empty_title">No bookings found</string>
+    <string name="all_bookings_empty_body">No bookings match the selected status.</string>
+    <string name="booking_detail_inspection_photos">Inspection photos</string>
+    <string name="inspection_photos_title">Booking #%1$d photos</string>
+    <string name="inspection_photos_pickup">Pickup</string>
+    <string name="inspection_photos_return">Return</string>
+    <string name="inspection_photos_none">No photos</string>
 </resources>

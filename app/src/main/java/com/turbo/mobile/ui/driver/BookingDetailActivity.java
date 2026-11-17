@@ -24,6 +24,7 @@ import com.turbo.mobile.databinding.ActivityBookingDetailBinding;
 import com.turbo.mobile.databinding.ItemBookingReviewBinding;
 import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
+import com.turbo.mobile.ui.admin.InspectionPhotosActivity;
 import com.turbo.mobile.ui.driver.fragments.PaymentDialogFragment;
 import com.turbo.mobile.ui.driver.fragments.ReviewDialogFragment;
 import com.turbo.mobile.ui.driver.viewmodels.BookingDetailViewModel;
@@ -87,7 +88,9 @@ public class BookingDetailActivity extends AppCompatActivity {
         }
         BookingDetail booking = ((Result.Success<BookingDetail>) result).data;
         showBooking(booking);
-        if (viewModel.isOwner(booking)) {
+        if (viewModel.isAdmin()) {
+            showAdminView(booking);
+        } else if (viewModel.isOwner(booking)) {
             showOwnerView(booking);
         } else {
             showNote(booking);
@@ -201,6 +204,24 @@ public class BookingDetailActivity extends AppCompatActivity {
             binding.reviewList.addView(item.getRoot());
         }
         binding.reviewsSection.setVisibility(reviews.isEmpty() ? View.GONE : View.VISIBLE);
+    }
+
+    private void showAdminView(BookingDetail booking) {
+        binding.personName.setText(booking.getDriverName() + " → " + booking.getOwnerName());
+        showNote(booking);
+        binding.cancelBooking.setVisibility(View.GONE);
+        binding.rejectBooking.setVisibility(View.GONE);
+        if (booking.getPickupPhotoCount() > 0 || booking.getReturnPhotoCount() > 0) {
+            binding.mainAction.setVisibility(View.VISIBLE);
+            binding.mainAction.setText(R.string.booking_detail_inspection_photos);
+            binding.mainAction.setOnClickListener(v -> {
+                Intent intent = new Intent(this, InspectionPhotosActivity.class);
+                intent.putExtra(InspectionPhotosActivity.EXTRA_BOOKING_ID, bookingId);
+                startActivity(intent);
+            });
+        } else {
+            binding.mainAction.setVisibility(View.GONE);
+        }
     }
 
     private void showOwnerView(BookingDetail booking) {

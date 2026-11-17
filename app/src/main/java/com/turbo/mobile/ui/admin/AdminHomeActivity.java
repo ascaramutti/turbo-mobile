@@ -14,6 +14,7 @@ import com.turbo.mobile.TurboApp;
 import com.turbo.mobile.databinding.ActivityAdminHomeBinding;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.SplashActivity;
+import com.turbo.mobile.ui.admin.fragments.AllBookingsFragment;
 import com.turbo.mobile.ui.admin.fragments.PendingDocumentsFragment;
 
 public class AdminHomeActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         binding.topBar.avatar.setOnClickListener(v -> confirmLogout());
 
         binding.navDocuments.setOnClickListener(v -> showTab(binding.navDocuments, new PendingDocumentsFragment()));
-        binding.navBookings.setOnClickListener(v -> selectTab(binding.navBookings));
+        binding.navBookings.setOnClickListener(v -> showTab(binding.navBookings, new AllBookingsFragment()));
         binding.navUsers.setOnClickListener(v -> selectTab(binding.navUsers));
 
         showTab(binding.navDocuments, new PendingDocumentsFragment());
