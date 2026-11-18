@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turbo_background"
+    android:orientation="vertical"
+    tools:context=".ui.driver.MyDocumentsActivity">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/view_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                style="@style/TurboTitle"
+                android:text="@string/my_documents_title" />
+
+            <TextView
+                android:id="@+id/rejected_banner"
+                style="@style/TurboBanner.Error"
+                android:text="@string/my_documents_rejected_banner" />
+
+            <TextView
+                android:id="@+id/pending_banner"
+                style="@style/TurboBanner.Warning"
+                android:text="@string/my_documents_pending_banner" />
+
+            <TextView
+                android:id="@+id/error_banner"
+                style="@style/TurboBanner.Error" />
+
+            <TextView
+                android:id="@+id/success_banner"
+                style="@style/TurboBanner.Success" />
+
+            <LinearLayout
+                android:id="@+id/document_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

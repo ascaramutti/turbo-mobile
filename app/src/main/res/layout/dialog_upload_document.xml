@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="24dp">
+
+    <LinearLayout
+        style="@style/TurboCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/upload_title"
+            style="@style/TurboCardTitle"
+            android:textSize="20sp" />
+
+        <TextView
+            style="@style/TurboLabel"
+            android:text="@string/my_documents_expiry_date" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/expiry_day"
+                style="@style/TurboFilterChip"
+                android:layout_width="0dp"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/expiry_month"
+                style="@style/TurboFilterChip"
+                android:layout_width="0dp"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/expiry_year"
+                style="@style/TurboFilterChip"
+                android:layout_width="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/error_banner"
+            style="@style/TurboBanner.Error"
+            android:layout_marginTop="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/take_photo"
+            style="@style/TurboPrimaryButton"
+            android:layout_marginTop="16dp"
+            android:text="@string/my_documents_take_photo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/choose_from_gallery"
+            style="@style/TurboSecondaryButton"
+            android:layout_marginTop="8dp"
+            android:text="@string/my_documents_choose_from_gallery" />
+    </LinearLayout>
+</FrameLayout>
