@@ -546,4 +546,42 @@
     <string name="users_error_admin">Admins cannot be changed.</string>
     <string name="users_empty_title">No users found</string>
     <string name="users_empty_body">No users match your search.</string>
+
+    <!-- Notifications (W-03) -->
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_mark_all_read">Mark all as read</string>
+    <string name="notifications_new">New</string>
+    <string name="notifications_empty_title">No notifications</string>
+    <string name="notifications_empty_body">Your alerts and reminders will show up here.</string>
+
+    <!-- Register (W-02) -->
+    <string name="register_title">Create account</string>
+    <string name="register_role_driver">Driver</string>
+    <string name="register_role_owner">Car Owner</string>
+    <string name="register_first_name">First name</string>
+    <string name="register_last_name">Last name</string>
+    <string name="register_email">Email</string>
+    <string name="register_phone">Phone</string>
+    <string name="register_phone_hint">e.g. 604-555-0123</string>
+    <string name="register_dob">Date of birth</string>
+    <string name="register_select_date">Select date</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm_password">Confirm password</string>
+    <string name="register_driver_header">Driver information</string>
+    <string name="register_license_number">License number</string>
+    <string name="register_license_class">License class</string>
+    <string name="register_license_expiry">License expiry</string>
+    <string name="register_study_permit">Study permit #</string>
+    <string name="register_permit_expiry">Permit expiry</string>
+    <string name="register_terms">I accept the Terms &amp; Conditions</string>
+    <string name="register_button">Create account</string>
+    <string name="register_error_required">Complete all required fields.</string>
+    <string name="register_error_phone">Enter a valid 10-digit phone number.</string>
+    <string name="register_error_password_short">Password must be at least 8 characters.</string>
+    <string name="register_error_password_mismatch">Passwords do not match.</string>
+    <string name="register_error_terms">Please accept the Terms &amp; Conditions.</string>
+    <string name="register_error_email_taken">This email is already registered.</string>
+    <string name="register_error_license_taken">This license number is already registered.</string>
+    <string name="register_error_under_18">You must be 18 or older.</string>
+    <string name="register_error_expiry">Expiry dates must be in the future.</string>
 </resources>
