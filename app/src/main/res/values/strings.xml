@@ -529,6 +529,24 @@
     <string name="inspection_photos_return">Return</string>
     <string name="inspection_photos_none">No photos</string>
 
+    <!-- Users (W-27) -->
+    <string name="users_title">Users</string>
+    <string name="users_search_label">Search</string>
+    <string name="users_search_hint">Name or email</string>
+    <string name="users_role_label">Role</string>
+    <string name="users_role_all">All</string>
+    <string name="users_role_driver">Driver</string>
+    <string name="users_role_owner">Car Owner</string>
+    <string name="users_item_subtitle">%1$s · %2$s</string>
+    <string name="users_deactivate_title">Deactivate %1$s?</string>
+    <string name="users_deactivate_message">They will not be able to log in. All their bookings will be cancelled, including paid ones. Payments are not refunded.</string>
+    <string name="users_deactivate_confirm">Deactivate</string>
+    <string name="users_deactivated_toast">User deactivated</string>
+    <string name="users_activated_toast">User activated</string>
+    <string name="users_error_admin">Admins cannot be changed.</string>
+    <string name="users_empty_title">No users found</string>
+    <string name="users_empty_body">No users match your search.</string>
+
     <!-- Notifications (W-03) -->
     <string name="notifications_title">Notifications</string>
     <string name="notifications_mark_all_read">Mark all as read</string>
