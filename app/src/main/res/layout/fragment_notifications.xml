@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TurboTitle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/notifications_title" />
+
+            <TextView
+                android:id="@+id/btn_mark_all_read"
+                style="@style/TurboCardAction"
+                android:text="@string/notifications_mark_all_read" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/error_banner"
+            style="@style/TurboBanner.Error" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false" />
+
+        <LinearLayout
+            android:id="@+id/empty_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingVertical="32dp"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/TurboEmptyTitle"
+                android:text="@string/notifications_empty_title" />
+
+            <TextView
+                style="@style/TurboEmptyBody"
+                android:text="@string/notifications_empty_body" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -34,7 +34,7 @@ public class login extends AppCompatActivity {
 
         binding.btnLogin.setOnClickListener(v -> logIn());
         binding.txtNoAccount.setOnClickListener(v ->
-                Snackbar.make(binding.getRoot(), "Not implemented", Snackbar.LENGTH_SHORT).show());
+                startActivity(new Intent(this, RegisterActivity.class)));
     }
     private void logIn() {
         String email = binding.tfEmail.getText() != null ? binding.tfEmail.getText().toString().trim() : "";

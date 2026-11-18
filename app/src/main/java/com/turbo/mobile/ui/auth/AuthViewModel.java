@@ -2,6 +2,7 @@ package com.turbo.mobile.ui.auth;
 
 import android.util.Patterns;
 
+import com.turbo.mobile.data.model.RegistrationForm;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.model.Role;
 import com.turbo.mobile.data.model.SessionUser;
@@ -59,6 +60,15 @@ public class AuthViewModel {
     public Result<SessionUser> login(String email, String password) {
         String cleanEmail = email != null ? email.trim() : "";
         Result<SessionUser> result = userRepository.authenticate(cleanEmail, password != null ? password : "");
+        if (result instanceof Result.Success) {
+            SessionUser user = ((Result.Success<SessionUser>) result).data;
+            sessionManager.saveSession(user.getId(), user.getRole());
+        }
+        return result;
+    }
+
+    public Result<SessionUser> register(RegistrationForm form) {
+        Result<SessionUser> result = userRepository.register(form);
         if (result instanceof Result.Success) {
             SessionUser user = ((Result.Success<SessionUser>) result).data;
             sessionManager.saveSession(user.getId(), user.getRole());
