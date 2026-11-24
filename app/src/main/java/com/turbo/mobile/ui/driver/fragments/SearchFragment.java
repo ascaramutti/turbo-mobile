@@ -97,6 +97,7 @@ public class SearchFragment extends Fragment {
         binding.resultsBanner.setText(getResources().getQuantityString(R.plurals.search_results, vehicles.size(), zone, vehicles.size()));
         binding.resultsBanner.setVisibility(vehicles.isEmpty() ? View.GONE : View.VISIBLE);
         binding.emptyState.setVisibility(vehicles.isEmpty() ? View.VISIBLE : View.GONE);
+        binding.recyclerVehicles.setVisibility(vehicles.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     private void setUpZoneFilter() {

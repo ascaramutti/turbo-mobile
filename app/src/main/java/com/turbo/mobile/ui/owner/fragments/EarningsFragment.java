@@ -103,6 +103,7 @@ public class EarningsFragment extends Fragment {
         binding.thisMonth.setText(DisplayFormat.money(earnings.getMonthCents()));
         adapter.setItems(earnings.getHistory());
         binding.emptyState.setVisibility(earnings.getHistory().isEmpty() ? View.VISIBLE : View.GONE);
+        binding.recyclerEarnings.setVisibility(earnings.getHistory().isEmpty() ? View.GONE : View.VISIBLE);
         binding.content.setVisibility(View.VISIBLE);
     }
 }

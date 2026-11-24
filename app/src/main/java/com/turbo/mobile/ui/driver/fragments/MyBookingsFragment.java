@@ -97,6 +97,7 @@ public class MyBookingsFragment extends Fragment {
         List<BookingListItem> bookings = viewModel.getBookings(tab);
         adapter.setItems(bookings);
         binding.emptyState.setVisibility(bookings.isEmpty() ? View.VISIBLE : View.GONE);
+        binding.recyclerBookings.setVisibility(bookings.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     private void showSummary() {
