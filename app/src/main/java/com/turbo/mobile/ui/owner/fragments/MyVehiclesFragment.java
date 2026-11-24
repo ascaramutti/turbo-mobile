@@ -102,6 +102,7 @@ public class MyVehiclesFragment extends Fragment {
         List<OwnerVehicleItem> vehicles = viewModel.getVehicles();
         adapter.setItems(vehicles);
         binding.emptyState.setVisibility(vehicles.isEmpty() ? View.VISIBLE : View.GONE);
+        binding.recyclerVehicles.setVisibility(vehicles.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     private void showError(RepoError code) {

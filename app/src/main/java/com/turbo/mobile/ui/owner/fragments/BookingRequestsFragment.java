@@ -129,6 +129,7 @@ public class BookingRequestsFragment extends Fragment {
         }
         adapter.setItems(bookings);
         binding.emptyState.setVisibility(bookings.isEmpty() ? View.VISIBLE : View.GONE);
+        binding.recyclerBookings.setVisibility(bookings.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     private void hideBanners() {
