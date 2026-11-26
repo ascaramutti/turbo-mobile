@@ -64,6 +64,16 @@ public class VehicleFormActivity extends AppCompatActivity {
                 }
             });
 
+    private final ActivityResultLauncher<Intent> pickLocation =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    form.setLatitude(data.getDoubleExtra(MapPickerActivity.EXTRA_LATITUDE, 0));
+                    form.setLongitude(data.getDoubleExtra(MapPickerActivity.EXTRA_LONGITUDE, 0));
+                    binding.inputAddress.setText(data.getStringExtra(MapPickerActivity.EXTRA_ADDRESS));
+                }
+            });
+
     private final ActivityResultLauncher<String> pickInsurance =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
                 if (uri != null) {
@@ -97,6 +107,7 @@ public class VehicleFormActivity extends AppCompatActivity {
 
         binding.topBar.back.setVisibility(View.VISIBLE);
         binding.topBar.back.setOnClickListener(v -> finish());
+        binding.pickOnMap.setOnClickListener(v -> openMap());
 
         AppContainer appContainer = ((TurboApp) getApplication()).getContainer();
         viewModel = new VehicleFormViewModel(appContainer.vehicleRepository, appContainer.documentRepository, appContainer.sessionManager);
@@ -241,6 +252,15 @@ public class VehicleFormActivity extends AppCompatActivity {
         } else {
             update();
         }
+    }
+
+    private void openMap() {
+        Intent intent = new Intent(this, MapPickerActivity.class);
+        if (form.getLatitude() != null && form.getLongitude() != null) {
+            intent.putExtra(MapPickerActivity.EXTRA_LATITUDE, form.getLatitude());
+            intent.putExtra(MapPickerActivity.EXTRA_LONGITUDE, form.getLongitude());
+        }
+        pickLocation.launch(intent);
     }
 
     private void register() {
