@@ -4,8 +4,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.turbo.mobile.AppContainer;
 import com.turbo.mobile.R;
 import com.turbo.mobile.TurboApp;
@@ -26,7 +33,7 @@ import com.turbo.mobile.util.ImageStorage;
 
 import java.util.List;
 
-public class VehicleDetailActivity extends AppCompatActivity {
+public class VehicleDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String EXTRA_VEHICLE_ID = "vehicle_id";
 
@@ -120,6 +127,19 @@ public class VehicleDetailActivity extends AppCompatActivity {
 
         long until = vehicle.getAvailableUntil();
         binding.availableUntil.setText(getString(R.string.vehicle_detail_available_until, DisplayFormat.dayAndDate(until), DisplayFormat.time(until)));
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.pickup_map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        if (vehicle.getLatitude() == null || vehicle.getLongitude() == null) {
+            binding.pickupMap.setVisibility(View.GONE);
+            return;
+        }
+        LatLng pickup = new LatLng(vehicle.getLatitude(), vehicle.getLongitude());
+        googleMap.addMarker(new MarkerOptions().position(pickup));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pickup, 15));
     }
 
     private void setUpShift(DriverStatus status) {
