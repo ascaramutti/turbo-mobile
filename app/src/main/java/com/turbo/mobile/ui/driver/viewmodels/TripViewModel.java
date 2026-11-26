@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import com.turbo.mobile.R;
 import com.turbo.mobile.data.model.BookingError;
+import com.turbo.mobile.data.model.PaymentError;
 import com.turbo.mobile.data.model.RepoError;
 import com.turbo.mobile.data.model.Result;
 import com.turbo.mobile.data.repository.BookingRepository;
@@ -18,6 +19,8 @@ public class TripViewModel {
     private final BookingRepository bookingRepository;
     private final PaymentRepository paymentRepository;
     private final SessionManager sessionManager;
+
+    private static final String DECLINED_CARD = "4000000000000002";
 
     public TripViewModel(BookingRepository bookingRepository, PaymentRepository paymentRepository, SessionManager sessionManager) {
         this.bookingRepository = bookingRepository;
@@ -62,8 +65,11 @@ public class TripViewModel {
         return cvv.matches("\\d{3}");
     }
 
-    public Result<Void> pay(long bookingId, String cardLast4) {
-        return paymentRepository.registerPayment(sessionManager.getUserId(), bookingId, cardLast4);
+    public Result<Void> pay(long bookingId, String cardNumber) {
+        if (cardNumber.equals(DECLINED_CARD)) {
+            return Result.error(PaymentError.CARD_DECLINED, "Card declined");
+        }
+        return paymentRepository.registerPayment(sessionManager.getUserId(), bookingId, cardNumber.substring(12));
     }
 
     public Result<Void> canStart(long bookingId) {

@@ -1,6 +1,8 @@
 package com.turbo.mobile.ui.driver.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,9 @@ import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.driver.BookingDetailActivity;
 import com.turbo.mobile.ui.driver.viewmodels.TripViewModel;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class PaymentDialogFragment extends DialogFragment {
 
     public static final String ARG_BOOKING_ID = "booking_id";
@@ -25,6 +30,8 @@ public class PaymentDialogFragment extends DialogFragment {
 
     private DialogPaymentBinding binding;
     private TripViewModel viewModel;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public PaymentDialogFragment() {
     }
@@ -59,6 +66,12 @@ public class PaymentDialogFragment extends DialogFragment {
         binding = null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        executor.shutdown();
+    }
+
     private void pay() {
         binding.errorBanner.setVisibility(View.GONE);
 
@@ -79,14 +92,46 @@ public class PaymentDialogFragment extends DialogFragment {
             return;
         }
 
-        String cardLast4 = number.substring(12);
-        Result<Void> result = viewModel.pay(requireArguments().getLong(ARG_BOOKING_ID), cardLast4);
+//        String cardLast4 = number.substring(12);
+//        Result<Void> result = viewModel.pay(requireArguments().getLong(ARG_BOOKING_ID), cardLast4);
+//        if (result instanceof Result.Success) {
+//            ((BookingDetailActivity) requireActivity()).paymentDone();
+//            dismiss();
+//        } else {
+//            showError(((Result.Error<Void>) result).code);
+//        }
+
+        long bookingId = requireArguments().getLong(ARG_BOOKING_ID);
+        showLoading(true);
+        executor.execute(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            Result<Void> result = viewModel.pay(bookingId, number);
+            mainHandler.post(() -> showResult(result));
+        });
+    }
+
+    private void showResult(Result<Void> result) {
+        if (binding == null) {
+            return;
+        }
+        showLoading(false);
         if (result instanceof Result.Success) {
             ((BookingDetailActivity) requireActivity()).paymentDone();
             dismiss();
         } else {
             showError(((Result.Error<Void>) result).code);
         }
+    }
+
+    private void showLoading(boolean isLoading) {
+        binding.progress.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        binding.pay.setEnabled(!isLoading);
+        binding.cancel.setEnabled(!isLoading);
     }
 
     private void showError(RepoError code) {
@@ -103,6 +148,8 @@ public class PaymentDialogFragment extends DialogFragment {
             message = R.string.error_not_found;
         } else if (code == PaymentError.NOT_ALLOWED) {
             message = R.string.error_not_allowed;
+        } else if (code == PaymentError.CARD_DECLINED) {
+            message = R.string.payment_error_declined;
         }
         showMessage(message);
     }

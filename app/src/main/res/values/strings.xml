@@ -324,6 +324,7 @@
     <string name="payment_error_not_confirmed">Only confirmed bookings can be paid.</string>
     <string name="payment_error_already_paid">This booking is already paid.</string>
     <string name="payment_error_deadline">The payment deadline has passed.</string>
+    <string name="payment_error_declined">Your card was declined. Try another card.</string>
 
     <string name="booking_requests_title">Bookings</string>
     <string name="booking_requests_tab_requests">Requests (%d)</string>
