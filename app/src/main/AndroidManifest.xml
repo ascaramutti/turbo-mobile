@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".TurboApp"
         android:allowBackup="true"
@@ -81,6 +83,11 @@
             android:name=".ui.owner.MapPickerActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <service
+            android:name=".service.ShiftReminderService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>

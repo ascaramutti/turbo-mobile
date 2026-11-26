@@ -1,9 +1,14 @@
 package com.turbo.mobile.ui.driver;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.turbo.mobile.AppContainer;
@@ -22,6 +27,7 @@ import com.turbo.mobile.data.model.ServiceType;
 import com.turbo.mobile.data.model.StatusReasons;
 import com.turbo.mobile.databinding.ActivityBookingDetailBinding;
 import com.turbo.mobile.databinding.ItemBookingReviewBinding;
+import com.turbo.mobile.service.ShiftReminderService;
 import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.admin.InspectionPhotosActivity;
@@ -32,6 +38,7 @@ import com.turbo.mobile.ui.driver.viewmodels.TripViewModel;
 import com.turbo.mobile.ui.owner.fragments.RejectBookingDialogFragment;
 import com.turbo.mobile.ui.owner.viewmodels.OwnerBookingViewModel;
 import com.turbo.mobile.util.ImageStorage;
+import com.turbo.mobile.util.NotificationHelper;
 
 import java.util.List;
 
@@ -45,6 +52,8 @@ public class BookingDetailActivity extends AppCompatActivity {
     private TripViewModel tripViewModel;
     private ImageStorage imageStorage;
     private long bookingId;
+    private final ActivityResultLauncher<String> notificationPermission =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> afterPayment());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -392,6 +401,27 @@ public class BookingDetailActivity extends AppCompatActivity {
         load();
         binding.successBanner.setText(R.string.booking_detail_paid);
         binding.successBanner.setVisibility(View.VISIBLE);
+        askNotificationPermission();
+    }
+
+    private void askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS);
+        } else {
+            afterPayment();
+        }
+    }
+
+    private void afterPayment() {
+        NotificationHelper.show(this, (int) bookingId,
+                getString(R.string.notification_paid_title),
+                getString(R.string.notification_paid_message, bookingId));
+        Intent reminder = new Intent(this, ShiftReminderService.class);
+        reminder.putExtra(ShiftReminderService.EXTRA_BOOKING_ID, bookingId);
+        reminder.putExtra(ShiftReminderService.EXTRA_DRIVER_ID,
+                ((TurboApp) getApplication()).getContainer().sessionManager.getUserId());
+        startService(reminder);
     }
 
     private void showError(RepoError code) {

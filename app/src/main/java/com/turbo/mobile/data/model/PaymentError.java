@@ -5,6 +5,7 @@ public enum PaymentError implements RepoError {
     ALREADY_PAID,
     PAYMENT_DEADLINE_PASSED,
     INVALID_CARD,
+    CARD_DECLINED,
     NOT_FOUND,
     NOT_ALLOWED,
     UNEXPECTED
