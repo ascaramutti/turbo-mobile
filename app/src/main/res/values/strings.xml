@@ -584,4 +584,10 @@
     <string name="register_error_license_taken">This license number is already registered.</string>
     <string name="register_error_under_18">You must be 18 or older.</string>
     <string name="register_error_expiry">Expiry dates must be in the future.</string>
+
+
+    <!-- Maps -->
+    <string name="map_picker_hint">Drag the map to place the pin on the pickup spot.</string>
+    <string name="map_picker_confirm">Confirm location</string>
+    <string name="vehicle_form_pick_on_map">Pick on map</string>
 </resources>

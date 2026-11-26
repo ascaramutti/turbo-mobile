@@ -229,6 +229,12 @@
                 android:hint="@string/vehicle_form_required"
                 android:inputType="textPostalAddress" />
 
+            <Button
+                android:id="@+id/pick_on_map"
+                style="@style/TurboSecondaryButton"
+                android:layout_marginTop="8dp"
+                android:text="@string/vehicle_form_pick_on_map" />
+
             <LinearLayout
                 android:id="@+id/documents"
                 android:layout_width="match_parent"
