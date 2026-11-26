@@ -598,4 +598,8 @@
     <!-- Notification -->
     <string name="notification_paid_title">Payment received</string>
     <string name="notification_paid_message">Booking #%1$d is paid. You will get a reminder before your shift.</string>
+
+    <!-- Service -->
+    <string name="notification_reminder_title">Shift reminder</string>
+    <string name="notification_reminder_message">Your %1$s shift starts at %2$s. Pickup: %3$s.</string>
 </resources>

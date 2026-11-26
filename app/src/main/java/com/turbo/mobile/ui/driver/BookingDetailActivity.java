@@ -27,6 +27,7 @@ import com.turbo.mobile.data.model.ServiceType;
 import com.turbo.mobile.data.model.StatusReasons;
 import com.turbo.mobile.databinding.ActivityBookingDetailBinding;
 import com.turbo.mobile.databinding.ItemBookingReviewBinding;
+import com.turbo.mobile.service.ShiftReminderService;
 import com.turbo.mobile.ui.DisplayFormat;
 import com.turbo.mobile.ui.ScreenSetup;
 import com.turbo.mobile.ui.admin.InspectionPhotosActivity;
@@ -416,6 +417,11 @@ public class BookingDetailActivity extends AppCompatActivity {
         NotificationHelper.show(this, (int) bookingId,
                 getString(R.string.notification_paid_title),
                 getString(R.string.notification_paid_message, bookingId));
+        Intent reminder = new Intent(this, ShiftReminderService.class);
+        reminder.putExtra(ShiftReminderService.EXTRA_BOOKING_ID, bookingId);
+        reminder.putExtra(ShiftReminderService.EXTRA_DRIVER_ID,
+                ((TurboApp) getApplication()).getContainer().sessionManager.getUserId());
+        startService(reminder);
     }
 
     private void showError(RepoError code) {
