@@ -226,8 +226,9 @@
             <EditText
                 android:id="@+id/input_address"
                 style="@style/TurboInput"
+                android:focusable="false"
                 android:hint="@string/vehicle_form_required"
-                android:inputType="textPostalAddress" />
+                android:inputType="none" />
 
             <Button
                 android:id="@+id/pick_on_map"

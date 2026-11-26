@@ -590,4 +590,7 @@
     <string name="map_picker_hint">Drag the map to place the pin on the pickup spot.</string>
     <string name="map_picker_confirm">Confirm location</string>
     <string name="vehicle_form_pick_on_map">Pick on map</string>
+    <string name="map_picker_search_hint">Search an address</string>
+    <string name="map_picker_search">Search</string>
+    <string name="map_picker_not_found">Address not found. Try adding the city.</string>
 </resources>

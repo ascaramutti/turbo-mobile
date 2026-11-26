@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.turbo.mobile.R;
 import com.turbo.mobile.databinding.ActivityMapPickerBinding;
 import com.turbo.mobile.ui.ScreenSetup;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class MapPickerActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -42,6 +45,7 @@ public class MapPickerActivity extends AppCompatActivity implements OnMapReadyCa
         binding.topBar.back.setVisibility(View.VISIBLE);
         binding.topBar.back.setOnClickListener(v -> finish());
         binding.confirmLocation.setOnClickListener(v -> confirmLocation());
+        binding.searchButton.setOnClickListener(v -> searchAddress());
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager()
@@ -59,6 +63,27 @@ public class MapPickerActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 15));
+    }
+
+    private void searchAddress() {
+        String text = binding.searchAddress.getText().toString().trim();
+        if (text.isEmpty() || map == null) {
+            return;
+        }
+
+        Geocoder geocoder = new Geocoder(this);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(text, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                LatLng point = new LatLng(address.getLatitude(), address.getLongitude());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 16));
+                return;
+            }
+        } catch (IOException e) {
+            Log.e("MapPickerActivity", "Could not search the address", e);
+        }
+        Toast.makeText(this, R.string.map_picker_not_found, Toast.LENGTH_SHORT).show();
     }
 
     private void confirmLocation() {
@@ -86,6 +111,6 @@ public class MapPickerActivity extends AppCompatActivity implements OnMapReadyCa
         } catch (IOException e) {
             Log.e("MapPickerActivity", "Could not find the address", e);
         }
-        return "";
+        return String.format(Locale.US, "%.5f, %.5f", point.latitude, point.longitude);
     }
 }
