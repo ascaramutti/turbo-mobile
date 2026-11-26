@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -52,4 +53,10 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.8.5")
     implementation("androidx.work:work-runtime:2.12.0")      //Reminders
     implementation("androidx.fragment:fragment:1.8.9")
+    implementation("com.google.android.gms:play-services-maps:19.2.0")
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "local.defaults.properties"
 }
